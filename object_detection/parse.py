@@ -14,7 +14,6 @@ import xml.etree.ElementTree as et
 
 import argparse
 
-
 import dataset
 
 #python parse.py --parent_directory ~/work/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt 
@@ -24,25 +23,23 @@ import dataset
 def get_args_parser():
     parser = argparse.ArgumentParser(
         description='This script adds a subdirectory of xmls to correct possible inconsistent labels')
+    
     parser.add_argument('--parent_directory', type=str, default=None,
                         help='path to parent directory, holding the images + annotation directory.')
     parser.add_argument('--img_directory', type=str, default=None,
                         help='path to image directory, holds images.')
     parser.add_argument('--annotation_directory', type=str, default=None,
                         help='path to annotation directory, holding the xml files.')
+    
     parser.add_argument('--complete_img_ids', type=str, default=None,
                         help='The text file associated with all of the image ids.')
     parser.add_argument('--path_to_predefined_classes', type=str, default=None,
-                        help='The text file containing a list of the predefined classes')    
-    parser.add_argument('--train_val_percent', type=float, default=0.8,
-                        help='The percent of the data seperated into the train/val set')  
-    parser.add_argument('--bbox_remove', type=int, default=20,
-                        help='The pixel wideth/height to remove bboxes')  
+                        help='The text file containing a list of the predefined classes')
     
     parser.add_argument('--train_val_percent', type=float, default=0.8,
                         help='The percent of the data seperated into the train/val set')  
     parser.add_argument('--bbox_remove', type=int, default=20,
-                        help='The pixel wideth/height to remove bboxes')  
+                        help='The pixel wideth/height to remove bboxes')   
     args = parser.parse_args()
     return args
 

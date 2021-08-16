@@ -33,7 +33,8 @@ import detection.model
 
 #python model_train.py --parent_directory ~/work/Test --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --scheduler_name exponentiallr --lr 0.01 --batch_size 16 --device cpu
 #python model_train.py --parent_directory /shared_space/natech/Test --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --scheduler_name exponentiallr --lr 0.01 --batch_size 16 --device cpu
-#python model_train.py --parent_directory ~/work/Test --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --scheduler_name exponentiallr --lr 0.01 --batch_size 16 
+
+#python ~/work/cred/AST_dataset/object_detection/model_train.py --parent_directory ~/work/Test --path_to_predefined_classes ~/work/cred/AST_dataset/object_detection/predefined_classes.txt --scheduler_name exponentiallr --lr 0.01 --batch_size 4 
 
 def get_args_parser():
     parser = argparse.ArgumentParser(
@@ -55,10 +56,8 @@ def get_args_parser():
                         help='learning rate scheduler name')
     parser.add_argument('--optimizer_name', type=str, default='SGD',
                         help='optimizer name')
-    
     parser.add_argument('--lr', type=float, default=1e-3,
                         help='learning rate.')
-    
     parser.add_argument('--momentum', type=float, default=0.9,
                         help='momentum')
     parser.add_argument('--milestones', type=int, default=5,

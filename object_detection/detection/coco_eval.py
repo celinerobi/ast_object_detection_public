@@ -40,6 +40,8 @@ class CocoEvaluator(object):
 
             coco_eval.cocoDt = coco_dt
             coco_eval.params.imgIds = list(img_ids)
+            #test change
+            coco_eval.catIds = [1]
             img_ids, eval_imgs = evaluate(coco_eval)
 
             self.eval_imgs[iou_type].append(eval_imgs)
@@ -56,6 +58,7 @@ class CocoEvaluator(object):
     def summarize(self):
         for iou_type, coco_eval in self.coco_eval.items():
             print("IoU metric: {}".format(iou_type))
+            print(coco_eval.params.imgIds[coco_eval.catIds])
             coco_eval.summarize()
 
     def prepare(self, predictions, iou_type):
