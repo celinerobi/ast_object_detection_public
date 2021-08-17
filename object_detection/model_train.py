@@ -36,6 +36,7 @@ import detection.model
 
 #python ~/work/cred/AST_dataset/object_detection/model_train.py --parent_directory ~/work/Test --path_to_predefined_classes ~/work/cred/AST_dataset/object_detection/predefined_classes.txt --scheduler_name exponentiallr --lr 0.01 --batch_size 4 
 
+#Defaults are defined, where possible by Ren, et al. 2016
 def get_args_parser():
     parser = argparse.ArgumentParser(
         description='This script is used to train the model')
