@@ -20,19 +20,18 @@ def save_checkpoint(epoch, model, optimizer, lr, lr_decay, num_epochs, path):
     torch.save(state, os.path.join(path, model_characteristic + filename))
     
 def get_frcnn_model(num_classes, pretrained):
-    #Anchor Generator              
-    #rpn_anchor_generator = torchvision.models.detection.rpn.AnchorGenerator(sizes=((16, 32, 64, 128, 256, 512),),
-    #                                                                        aspect_ratios=((0.5, 1.0, 2.0),))
-    # load a model pre-trained pre-trained on COCO
-    #model = torchvision.models.detection.fasterrcnn_resnet50_fpn(rpn_anchor_generator=rpn_anchor_generator, pretrained = pretrained)
-
     # load a model pre-trained pre-trained on COCO
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained = pretrained)
+    #Anchor Generator              
+    anchor_sizes = ((8,), (16,),(32,), (64,), (128,))
+    aspect_ratios = ((0.5, 1.0, 2.0),) * len(anchor_sizes)
+    anchor_generator = torchvision.models.detection.rpn.AnchorGenerator(anchor_sizes, aspect_ratios)
+    model.rpn.anchor_generator = anchor_generator
     # get number of input features for the classifier
     in_features = model.roi_heads.box_predictor.cls_score.in_features
     # replace the pre-trained head with a new one
     model.roi_heads.box_predictor = torchvision.models.detection.faster_rcnn.FastRCNNPredictor(in_features, num_classes)
-
+    
     return model
 
 ### Training

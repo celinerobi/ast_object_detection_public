@@ -5,7 +5,7 @@ import random
 import math
 
 import torch
-from torchvision.io import read_image
+#from torchvision.io import read_image
 from torch.utils.data import Dataset
 import torchvision.transforms.functional as FT
 
@@ -16,7 +16,7 @@ import argparse
 
 import dataset
 
-#python parse.py --parent_directory ~/work/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt 
+#python ~/work/cred/AST_dataset/object_detection/parse.py --parent_directory ~/work/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/cred/AST_dataset/object_detection/predefined_classes.txt --bbox_remove 0
 
 #python parse.py --parent_directory /shared_space/natech/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --train_val_percent .4
 
