@@ -16,7 +16,7 @@ import argparse
 
 import dataset
 
-#python ~/work/cred/AST_dataset/object_detection/parse.py --parent_directory ~/work/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/cred/AST_dataset/object_detection/predefined_classes.txt --bbox_remove 0
+#python ~/work/cred/AST_dataset/object_detection/parse.py --parent_directory ~/work/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/cred/AST_dataset/object_detection/predefined_classes.txt --bbox_remove 0 --train_val_percent .8
 
 #python parse.py --parent_directory /shared_space/natech/Test --img_directory chips_positive --annotation_directory chips_positive_xml --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --train_val_percent .4
 
@@ -32,7 +32,7 @@ def get_args_parser():
                         help='path to annotation directory, holding the xml files.')
     
     parser.add_argument('--complete_img_ids', type=str, default=None,
-                        help='The text file associated with all of the image ids.')
+                        help='The text file associated with all of the image ids, only pass if the images have stayed the same.')
     parser.add_argument('--path_to_predefined_classes', type=str, default=None,
                         help='The text file containing a list of the predefined classes')
     

@@ -65,7 +65,7 @@ def get_args_parser():
                         help='milestones.')
     parser.add_argument('--T_max', type=float, default=0.1,
                         help='T_max')
-    parser.add_argument('--lr_gamma', type=float, default=0.1,
+    parser.add_argument('--lr_gamma', type=float, default=0.9,
                         help='Multiplicative factor of learning rate decay')
     parser.add_argument('--weight_decay', type=float, default=5e-4,
                         help='weight_decay')

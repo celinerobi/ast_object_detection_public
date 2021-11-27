@@ -1,3 +1,23 @@
+"""
+# Defining the Dataset
+
+The dataset should inherit from the standard torch.utils.data.Dataset class, and implement __len__ and __getitem__
+
+The only specificity that we require is that the dataset __getitem__ should return:
+
+image: a PIL Image of size (H, W)
+target: a dict containing the following fields
+- boxes (FloatTensor[N, 4]): the coordinates of the N bounding boxes in [x0, y0, x1, y1] format, ranging from 0 to W and 0 to H
+- labels (Int64Tensor[N]): the label for each bounding box. 0 represents always the background class.
+- image_id (Int64Tensor[1]): an image identifier. It should be unique between all the images in the dataset, and is used during evaluation
+- area (Tensor[N]): The area of the bounding box. This is used during evaluation with the COCO metric, to separate the metric scores between small, medium and large boxes.
+- iscrowd (UInt8Tensor[N]): instances with iscrowd=True will be ignored during evaluation.
+- (optionally) masks (UInt8Tensor[N, H, W]): The segmentation masks for each one of the objects
+- (optionally) keypoints (FloatTensor[N, K, 3]): For each one of the N objects, it contains the K keypoints in [x, y, visibility] format, defining the object. visibility=0 means that the keypoint is not visible. Note that for data augmentation, the notion of flipping a keypoint is dependent on the data representation, and you should probably adapt references/detection/transforms.py for your new keypoint representation
+
+If your model returns the above methods, they will make it work for both training and evaluation, and will use the evaluation scripts from pycocotools which can be installed with pip install pycocotools.
+"""
+
 import json
 import os
 
@@ -14,9 +34,7 @@ import xml.etree.ElementTree as et
 
 from transforms import get_transform
 
-"""
-Specify the label/ label color map
-"""       
+
 def get_label_map(parent_dir, path_to_predefined_classes):
     """
     get the label map for the dataset
@@ -28,7 +46,6 @@ def get_label_map(parent_dir, path_to_predefined_classes):
     with open(os.path.join(parent_dir, "label_map.json"), 'w') as j:
         json.dump(label_map, j)  # save label map too
     return label_map
-
 def get_label_color_map(label_map):
     """
     get the label color map for the dataset
@@ -40,12 +57,10 @@ def get_label_color_map(label_map):
                        '#aa6e28', '#fffac8', '#800000', '#aaffc3']
     label_color_map = {k: distinct_colors[i] for i, k in enumerate(label_map.keys())}
     return label_color_map
-
-"""
-get the image id's for all of the dataset and the train/val + test set
-"""
 def make_list_of_image_ids(parent_dir, img_dir = "img", anno_dir = "xml"):
     """
+    get the image id's for all of the dataset and the train/val + test set
+    
     parameters: the parent_directory, and the sub directories containing the images + annotations
     returns: text file of the ids for all of images in the datasets
     """   
@@ -64,8 +79,6 @@ def make_list_of_image_ids(parent_dir, img_dir = "img", anno_dir = "xml"):
     f = open(os.path.join(parent_dir, "img_ids"+'.txt'), 'w')
     f.writelines(img_id)
     f.close() #to change file access modes
-
-    
 def split_train_val_test(parent_directory, complete_img_ids, train_val_percent = 0.8):
     """
     get a text file of the ids for the train/val and test sets
@@ -101,16 +114,6 @@ def split_train_val_test(parent_directory, complete_img_ids, train_val_percent =
         train_val_img_id.writelines(train_val_img_id_list) #write lines
     with open(os.path.join(parent_directory,"test_img_id.txt"), 'w')  as test_img_id:
         test_img_id.writelines(test_img_id_list)
-
-"""
-This parses the data downloaded and saves the following files –
-
-A JSON file for each split with a list of the absolute filepaths of I images, where I is the total number of images in the split.
-
-A JSON file for each split with a list of I dictionaries containing ground truth objects, i.e. bounding boxes in absolute boundary coordinates, their encoded labels, and perceived detection difficulties. The ith dictionary in this list will contain the objects present in the ith image in the previous JSON file.
-
-A JSON file which contains the label_map, the label-to-index dictionary with which the labels are encoded in the previous JSON file. This dictionary is also available in utils.py and directly importable.
-"""
 def parse_annotation(anno_path, img_id, label_map, keep_difficult = True, bbox_remove = 20):
     """
     for each img, parse the annotations in a format readable for pytorch
@@ -147,8 +150,6 @@ def parse_annotation(anno_path, img_id, label_map, keep_difficult = True, bbox_r
             labels.append(label_map[label])
             difficulties.append(difficult)
     return {'boxes': boxes, 'labels': labels, 'difficulties': difficulties}
-
-
 def create_data_lists(parent_dir, img_dir, anno_dir, path_to_predefined_classes, subset_img_ids, subset_name, bbox_remove = 20):
     """
     Create lists of images, the bounding boxes and labels of the objects in these images, and save these to file.
@@ -200,11 +201,7 @@ def create_data_lists(parent_dir, img_dir, anno_dir, path_to_predefined_classes,
             
     return len(subset_images), n_objects, os.path.abspath(parent_dir)
         
-        
-"""
-DataLoader
-"""
-
+# DataLoader
 def split_method(parent_directory, method, val_size = 0.1):
     "Load the training data, and split out validation data"
     if method == "simple_val":
@@ -223,8 +220,6 @@ def split_method(parent_directory, method, val_size = 0.1):
 
         return  train_images, train_objects, val_images, val_objects, test_images, test_objects
    # if Kfold:
-        
-
 class pascal_voc_dataset(torch.utils.data.Dataset):
     """
     A PyTorch Dataset class to be used in a PyTorch DataLoader to create batches.
@@ -248,7 +243,6 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
             self.split = "train"
         else: # Read in test data
             self.split = "test"
-
     def __getitem__(self, idx):
         """
         The __getitem__ function loads and returns a sample from the dataset at the given index idx. 
@@ -293,15 +287,12 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
 
         return image, target
         #return image, boxes, labels, difficulties
-
-
     def __len__(self):
         """
         The __len__ function returns the number of samples in our dataset.
 
         """
         return len(self.images)
-
     def collate_fn(self, batch):
         """
         Since each image may have a different number of objects, we need a collate function (to be passed to the DataLoader).
@@ -310,7 +301,6 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
         :param batch: an iterable of N sets from __getitem__()
         :return: a tensor of images, lists of varying-size tensors of bounding boxes, labels, and difficulties
         """
-
         images = list()
         targets = list()
 
@@ -319,7 +309,6 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
             targets.append(b[1])
 
         images = torch.stack(images, dim=0)
-
         return images, targets  # tensor (N, 3, 300, 300), 3 lists of N tensors each 
         """
         images = list()
@@ -337,8 +326,5 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
 
         return images, boxes, labels, difficulties  # tensor (N, 3, 300, 300), 3 lists of N tensors each
         """
-
-
-
 # Some augmentation functions below have been adapted from
 # From https://github.com/amdegroot/ssd.pytorch/blob/master/utils/augmentations.py

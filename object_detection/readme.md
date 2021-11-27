@@ -1,21 +1,25 @@
-# Implementation
+# Implementation of AST Object Detection Model
+> This model adapts the [PyTorch Torchvision Object Detection Finetuning Tutorial](https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html) to trained a Faster R-CNN model using the for Pedestrian Detection and Segmentation. It contains 170 images with 345 instances of pedestrians, and we will use it to illustrate how to use the new features in torchvision in order to train an instance segmentation model on a custom dataset.
+
+
+## Defining the Dataset
+
 ## Data Description
-
-This data contains images with X different types of objects.
-
+This dataset contains images,`512×512` pixels, with 6 different types of objects that will be utilized. 
 ```python
 {'sedimentation_tank', 'water_tower', 'spherical_tank',
 'closed_roof_tank', 'external_floating_roof_tank',
- 'narrow_closed_roof_tank',' undefined_object'}
+ 'narrow_closed_roof_tank'}
 ```
-### Inputs to model
+
+## Inputs to model
 Each image can contain one or more ground truth objects.
 Each object is represented by –
 - a bounding box in absolute boundary coordinates
 - a label (one of the object types mentioned above)
 - a perceived detection difficulty (either `0`, meaning _not difficult_, or `1`, meaning _difficult_)
 
-### Images
+## Images
 
 Since we're using the Faster-RCNN, the images would need to be sized at `224×224` pixels and in the RGB format.
 
@@ -63,7 +67,13 @@ python parse.py -- complete_img_ids img_ids_txt_file
 Example:
 python parse.py -- complete_img_ids img_ids.txt -- parent_directory C:\chip_allocation_temp
 
-The `make_list_of_image_ids()` function creates a text file of image ids. The `split_train_val_test()` function randomly selects files to be in each split and creates a text file of the image ids for each split.  The `create_data_lists()` function parses the data downloaded and saves the following files:
+The `make_list_of_image_ids()` function creates a text file of image ids. 
+The `split_train_val_test()` function randomly selects files to be in each split and creates a text file of the image ids for each split.  
+The `create_data_lists()` function parses the data downloaded and saves the following files:
+
+"""
+This parses the data downloaded and saves the following files –
+"""
 - A **JSON file for each split with a list of the absolute filepaths of `I` images**, where `I` is the total number of images in the split.
 - A **JSON file for each split with a list of `I` dictionaries containing ground truth objects, i.e. bounding boxes in absolute boundary coordinates, their encoded labels, and perceived detection difficulties**. The `i`th dictionary in this list will contain the objects present in the `i`th image in the previous JSON file.
 - A **JSON file which contains the `label_map`**, the label-to-index dictionary with which the labels are encoded in the previous JSON file. This dictionary is also available in [`utils.py`] and directly importable.
@@ -138,19 +148,6 @@ To **train your model from scratch**, run this file –
 `python train.py`
 
 To **resume training at a checkpoint**, point to the corresponding file with the `checkpoint` parameter at the beginning of the code.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 python parse.py --complete_img_ids img_ids.txt --parent_directory ~/work/Test --path_to_predefined_classes ~/work/AST/object_detection/predefined_classes.txt --img_directory chips_positive --annotation_directory chips_positive_xml --train_val_percent 0.2
 
