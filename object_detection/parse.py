@@ -5,7 +5,7 @@ import random
 import math
 
 import torch
-#from torchvision.io import read_image
+from torchvision.io import read_image
 from torch.utils.data import Dataset
 import torchvision.transforms.functional as FT
 
@@ -33,7 +33,7 @@ def get_args_parser():
     
     parser.add_argument('--complete_img_ids', type=str, default=None,
                         help='The text file associated with all of the image ids, only pass if the images have stayed the same.')
-    parser.add_argument('--path_to_predefined_classes', type=str, default=None,
+    parser.add_argument('--path_to_predefined_classes', type=str, default="predefined_classes.txt",
                         help='The text file containing a list of the predefined classes')
     
     parser.add_argument('--train_val_percent', type=float, default=0.8,

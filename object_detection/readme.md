@@ -67,6 +67,9 @@ python parse.py -- complete_img_ids img_ids_txt_file
 Example:
 python parse.py -- complete_img_ids img_ids.txt -- parent_directory C:\chip_allocation_temp
 
+#for height estimation
+python parse.py --parent_directory \\oit-nas-fe13dc.oit.duke.edu\\data_commons-borsuk\\complete_dataset --img_directory chips_positive --annotation_directory chips_positive_corrected_xml --train_val_percent 1 --bbox_remove 0
+                        
 The `make_list_of_image_ids()` function creates a text file of image ids. 
 The `split_train_val_test()` function randomly selects files to be in each split and creates a text file of the image ids for each split.  
 The `create_data_lists()` function parses the data downloaded and saves the following files:

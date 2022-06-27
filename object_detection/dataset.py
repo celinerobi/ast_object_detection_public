@@ -32,7 +32,7 @@ from sklearn.model_selection import KFold, train_test_split
 from PIL import Image
 import xml.etree.ElementTree as et
 
-from transforms import get_transform
+#from transforms import get_transform
 
 
 def get_label_map(parent_dir, path_to_predefined_classes):
@@ -69,6 +69,8 @@ def make_list_of_image_ids(parent_dir, img_dir = "img", anno_dir = "xml"):
     
     #if not (os.path.isdir(img_path) | os.path.isdir(anno_path)):
     #    print( "directories not found")
+    print(img_path)
+    print(anno_path)
     assert (os.path.isdir(img_path) | os.path.isdir(anno_path)), "directories not found"
 
     img_files = os.listdir(img_path) #pull the files in the img folder
