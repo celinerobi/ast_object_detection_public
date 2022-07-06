@@ -19,6 +19,7 @@ from rasterio.warp import calculate_default_transform, reproject, Resampling
 import pyproj
 from pyproj import CRS
 import rtree
+import argparse
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     parser.add_argument('--lidar_path', type=str, default=None,
