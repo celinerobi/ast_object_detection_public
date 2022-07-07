@@ -72,11 +72,9 @@ def main(args):
 
     #save geodatabase as json
     with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
-        file.write(gdf.to_json()) 
+        file.write(tank_data_w_lpc.to_json()) 
         
-    return(tank_data_w_lpc)
-
 if __name__ == '__main__':
     ### Get the arguments 
     args = get_args_parse()
-    tank_data_w_lpc = main(args)
+    main(args)
