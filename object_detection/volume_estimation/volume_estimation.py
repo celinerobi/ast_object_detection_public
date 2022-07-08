@@ -74,12 +74,18 @@ def main(args):
         file.write(tank_data_w_lpc.to_json()) 
     del tank_data_w_lpc
     
-    lpc_w_tank_data = geopandas.sjoin(lidar, tank_data_in_lidar_extent, predicate='within')
+    lpc_w_tank_data = gpd.sjoin(lidar, tank_data_in_lidar_extent, predicate='within')
     lpc_w_tank_data = lpc_w_tank_data.dropna(subset=['state'])
-
     #save geodatabase as json
     with open(os.path.join(args.output_tile_level_annotation_path, las_name+"lpc_w_tank_data.geojson"), 'w') as file:
         file.write(lpc_w_tank_data.to_json()) 
+    del lpc_w_tank_data
+
+    lpc_intersect_tank_data = gpd.sjoin(lidar, tank_data_in_lidar_extent, how="inner", predicate='intersects')
+    lpc_intersect_tank_data = lpc_intersect_tank_data.dropna(subset=['state'])
+    #save geodatabase as json
+    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"lpc_intersect_tank_data.geojson"), 'w') as file:
+        file.write(lpc_intersect_tank_data.to_json()) 
         
 if __name__ == '__main__':
     ### Get the arguments 
