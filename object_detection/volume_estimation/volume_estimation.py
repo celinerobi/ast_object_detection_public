@@ -69,10 +69,17 @@ def main(args):
     #Get the LP corresponding with the tank dataset
     tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar, how='left', predicate='contains')
     tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
+    #save geodatabase as json
+    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"tank_data_w_lpc.geojson"), 'w') as file:
+        file.write(tank_data_w_lpc.to_json()) 
+    del tank_data_w_lpc
+    
+    lpc_w_tank_data = geopandas.sjoin(lidar, tank_data_in_lidar_extent, predicate='within')
+    lpc_w_tank_data = lpc_w_tank_data.dropna(subset=['state'])
 
     #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
-        file.write(tank_data_w_lpc.to_json()) 
+    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"lpc_w_tank_data.geojson"), 'w') as file:
+        file.write(lpc_w_tank_data.to_json()) 
         
 if __name__ == '__main__':
     ### Get the arguments 
