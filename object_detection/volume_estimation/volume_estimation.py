@@ -45,7 +45,7 @@ def transform_las_points_to_wgs84(las_proj, las_x, las_y):
     Geometry = [Point(xy) for xy in zip(las_x,las_y)] #make x+y coordinates into points
     wgs84 = pyproj.CRS('EPSG:4326')
     #transform las into wgs84 point
-    project = pyproj.Transformer.from_proj(las_crs, wgs84, always_xy=True).transform
+    project = pyproj.Transformer.from_proj(las_proj, wgs84, always_xy=True).transform
     Geometry_wgs84 = [transform(project, las_point) for las_point in Geometry]
     return(Geometry_wgs84)
 def main(args):
@@ -84,7 +84,7 @@ def main(args):
     tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar)
     tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
     #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"tank_data_w_lpc.geojson"), 'w') as file:
+    with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
         file.write(tank_data_w_lpc.to_json()) 
      
         
