@@ -31,7 +31,7 @@ def get_args_parse():
                         help='output tile level tank annotations')
     args = parser.parse_args()
     return args
-def transform_las_points_to_wgs84(las_proj, las_x, las_y):
+def transform_las_points_to_wgs84(las_proj, wgs84_proj, las_x, las_y):
     """ Convert a utm pair into a lat lon pair 
     Args: 
     las_proj(str): the las proj as a proj crs
@@ -43,9 +43,8 @@ def transform_las_points_to_wgs84(las_proj, las_x, las_y):
     #https://gis.stackexchange.com/questions/127427/transforming-shapely-polygon-and-multipolygon-objects
     #get utm projection
     Geometry = [Point(xy) for xy in zip(las_x,las_y)] #make x+y coordinates into points
-    wgs84 = pyproj.CRS('EPSG:4326')
     #transform las into wgs84 point
-    project = pyproj.Transformer.from_proj(las_proj, wgs84, always_xy=True).transform
+    project = pyproj.Transformer.from_proj(las_proj, wgs84_proj, always_xy=True).transform
     Geometry_wgs84 = [transform(project, las_point) for las_point in Geometry]
     return(Geometry_wgs84)
 def main(args):
@@ -60,9 +59,10 @@ def main(args):
     #Transform to pandas DataFrame
     lidar_df = pd.DataFrame(lidar_points, columns = ['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
     # transform into the geographic coordinate system
-    Geometry_wgs84 = transform_las_points_to_wgs84(las_proj, las.x,las.y)
+    wgs84 = pyproj.CRS('EPSG:4326')
+    Geometry_wgs84 = transform_las_points_to_wgs84(las_proj, wgs84, las.x,las.y)
     #Transform to geopandas GeoDataFrame
-    lidar = gpd.GeoDataFrame(lidar_df, crs = EPSG4326, geometry=Geometry_wgs84) #set correct spatial reference
+    lidar = gpd.GeoDataFrame(lidar_df, crs = wgs84, geometry=Geometry_wgs84) #set correct spatial reference
     lidar = lidar.to_crs('EPSG:4326')
     
     #3. Get the extent of the Lidar data 
