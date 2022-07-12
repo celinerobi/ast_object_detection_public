@@ -31,12 +31,28 @@ def get_args_parse():
                         help='output tile level tank annotations')
     args = parser.parse_args()
     return args
-
+def transform_las_points_to_wgs84(las_proj, las_x, las_y):
+    """ Convert a utm pair into a lat lon pair 
+    Args: 
+    las_proj(str): the las proj as a proj crs
+    las_x(list): a list of the x coordinates for points in las proj
+    las_y(list): a list of the y coordinates for points in las proj
+    Returns: 
+    (Geometry_wgs84): a list of shapely points in wgs84 proj
+    """
+    #https://gis.stackexchange.com/questions/127427/transforming-shapely-polygon-and-multipolygon-objects
+    #get utm projection
+    Geometry = [Point(xy) for xy in zip(las_x,las_y)] #make x+y coordinates into points
+    wgs84 = pyproj.CRS('EPSG:4326')
+    #transform las into wgs84 point
+    project = pyproj.Transformer.from_proj(las_crs, wgs84, always_xy=True).transform
+    Geometry_wgs84 = [transform(project, las_point) for las_point in Geometry]
+    return(Geometry_wgs84)
 def main(args):
     #1. Read in lidar data using laspy 
     las_name = os.path.splitext(os.path.basename(args.lidar_path))[0]
     las = laspy.read(args.lidar_path)
-    las_crs = pyproj.CRS.from_user_input(las.header.vlrs.get("WktCoordinateSystemVlr")[0].string) #get crs
+    las_proj = pyproj.CRS.from_user_input(las.header.vlrs.get("WktCoordinateSystemVlr")[0].string) #get crs
     
     #2. CONVERTING LAS TO PANDAS#
     #Import LAS into numpy array (X=raw integer value; x=scaled float value)
@@ -44,16 +60,13 @@ def main(args):
     #Transform to pandas DataFrame
     lidar_df = pd.DataFrame(lidar_points, columns = ['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
     # transform into the geographic coordinate system
-    Geometry = [Point(xy) for xy in zip(las.x,las.y)] #make x+y coordinates into points
-    EPSG4326 = pyproj.CRS('EPSG:4326')
-    project = pyproj.Transformer.from_proj(las_crs, EPSG4326).transform
-    Geometry_gcs = [transform(project, las_point) for las_point in Geometry]
+    Geometry_wgs84 = transform_las_points_to_wgs84(las_proj, las.x,las.y)
     #Transform to geopandas GeoDataFrame
-    lidar = gpd.GeoDataFrame(lidar_df, crs = EPSG4326, geometry=Geometry_gcs) #set correct spatial reference
+    lidar = gpd.GeoDataFrame(lidar_df, crs = EPSG4326, geometry=Geometry_wgs84) #set correct spatial reference
     lidar = lidar.to_crs('EPSG:4326')
     
     #3. Get the extent of the Lidar data 
-    miny, minx, maxy, maxx = lidar["geometry"].total_bounds
+    minx, miny, maxx, maxy = lidar["geometry"].total_bounds
     lidar_extent = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
     
     #4. Subset the tank dataset to the lidar data
@@ -66,26 +79,14 @@ def main(args):
         if lidar_extent.contains(tank_poly): #identify whether the tank bbox is inside of the state polygon
             index.append(tank_index) #add state name for each tank to list 
     tank_data_in_lidar_extent = tank_data.iloc[index]
-    #Get the LP corresponding with the tank dataset
-    tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar, how='left', predicate='contains')
+    
+    #5. Get the LP corresponding with the tank dataset
+    tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar)
     tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
     #save geodatabase as json
     with open(os.path.join(args.output_tile_level_annotation_path, las_name+"tank_data_w_lpc.geojson"), 'w') as file:
         file.write(tank_data_w_lpc.to_json()) 
-    del tank_data_w_lpc
-    
-    lpc_w_tank_data = gpd.sjoin(lidar, tank_data_in_lidar_extent, predicate='within')
-    lpc_w_tank_data = lpc_w_tank_data.dropna(subset=['state'])
-    #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"lpc_w_tank_data.geojson"), 'w') as file:
-        file.write(lpc_w_tank_data.to_json()) 
-    del lpc_w_tank_data
-
-    lpc_intersect_tank_data = gpd.sjoin(lidar, tank_data_in_lidar_extent, how="inner", predicate='intersects')
-    lpc_intersect_tank_data = lpc_intersect_tank_data.dropna(subset=['state'])
-    #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+"lpc_intersect_tank_data.geojson"), 'w') as file:
-        file.write(lpc_intersect_tank_data.to_json()) 
+     
         
 if __name__ == '__main__':
     ### Get the arguments 
