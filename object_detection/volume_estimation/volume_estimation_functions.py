@@ -248,3 +248,13 @@ def average_bare_earth_elevation_for_tanks(gdf, tank_data, dem_paths):
     with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
         file.write(tank_data_w_lpc.to_json()) 
     """
+    
+def remove_thumbs(path_to_folder_containing_images):
+    """ Remove Thumbs.db file from a given folder
+    Args: 
+    path_to_folder_containing_images(str): path to folder containing images
+    Returns:
+    None
+    """
+    if len(glob(path_to_folder_containing_images + "/*.db", recursive = True)) > 0:
+        os.remove(glob(path_to_folder_containing_images + "/*.db", recursive = True)[0])
