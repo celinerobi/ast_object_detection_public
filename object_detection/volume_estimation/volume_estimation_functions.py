@@ -87,13 +87,22 @@ def getFeatures(gdf):
     """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
     return [json.loads(gdf.to_json())['features'][0]['geometry']]
 
+#Get DEM (tif) for each tank
 #get utm crs
-def get_utm_crs_from_epsg_poly(poly):
+def get_poly_crs_from_epsg_to_utm(poly):
+    """
+    Take polygon with coordinates in EPSG get in UTM(meters)
+    Args: 
+    poly: a shapely olygon objects
+    utm_crs: source raster 
+    out_img: raster mask
+    out_transform: corresponding out transform for the raster mask 
+    """
     utm_crs_list = pyproj.database.query_utm_crs_info(datum_name="WGS 84",
-        area_of_interest=pyproj.aoi.AreaOfInterest(west_lon_degree=poly.bounds[0],
-                                        south_lat_degree=poly.bounds[1],
-                                        east_lon_degree=poly.bounds[2],
-                                        north_lat_degree=poly.bounds[3],),)
+                                                      area_of_interest = pyproj.aoi.AreaOfInterest(west_lon_degree=poly.bounds[0],
+                                                                                                   south_lat_degree=poly.bounds[1],
+                                                                                                   east_lon_degree=poly.bounds[2],
+                                                                                                   north_lat_degree=poly.bounds[3],),)
     utm_crs = pyproj.CRS.from_epsg(utm_crs_list[0].code)
     return(utm_crs)
 
@@ -111,7 +120,7 @@ def reproject_raster_mask_to_utm(poly, src, clipped_img, clipped_transform, tile
     if tile_path == None:
         tile_path = os.path.join(temp_dirpath, "temp_.tif")
         
-    dst_crs = get_utm_crs_from_epsg_poly(poly) #utm_crs
+    dst_crs = get_poly_crs_from_epsg_to_utm(poly) #utm_crs
     dst_transform, width, height = rasterio.warp.calculate_default_transform(src.crs, dst_crs,
                                                                              src.width, src.height, *src.bounds)
     out_meta = src.meta
@@ -132,9 +141,7 @@ def reproject_raster_mask_to_utm(poly, src, clipped_img, clipped_transform, tile
     #delete temp file
     if os.path.exists(temp_dirpath):
         shutil.rmtree(temp_dirpath)
-"""
-Add average base elevation to dataframe
-"""
+
 def get_bounds_for_dems(dem_paths):
     #identify inundation bounds                               
     geometry = []
@@ -148,36 +155,6 @@ def get_bounds_for_dems(dem_paths):
     #make dataframe of inundation map bounds
     dem_bounds = gpd.GeoDataFrame({'name': dem_names,'dem_paths': dem_paths,'geometry': geometry})
     return(dem_bounds)
-"""
-def average_bare_earth_elevation_for_tanks(gdf, dem_paths):    
-    #  Calculate the diameter of a given bounding bbox for imagery of a given resolution
-    Arg:
-    bbox(list): a list of the (xmin, ymin, xmax, ymax) coordinates for box 
-    resolution(float): the (gsd) resolution of the imagery
-    Returns:
-    (diameter): the diameter of the bbox of interest
-    #
-
-    #create dictionary for average bare earth elevation values for each tank
-    average_bare_earth_elevation = np.array([-99999] *len(gdf))
-    
-    #get average bare earth elevation values values
-    for tank_index, tank_poly in enumerate(gdf["geometry"]): #iterate over the tank polygons
-        for dem_index, dem_poly in enumerate(dem_bounds["geometry"]): #iterate over the dem polygons
-            if dem_poly.contains(tank_poly): #identify whether the bbox is inside of the dem map
-                #make a geodataframe for each tank polygon that is contained within the dem
-                geo = gpd.GeoDataFrame({'geometry': tank_poly}, index=[0], crs=gdf.crs)
-                coords = getFeatures(geo) 
-                dem = rasterio.open(dem_paths[dem_index])
-                out_img, out_transform = rasterio.mask.mask(dataset=dem, shapes=coords, crop = True)
-                #average_bare_earth_elevation[tank_index] = np.average(out_img)
-                #average to reprojected raster
-                out_img_utm = reproject_raster_mask_to_utm(tank_poly, dem, out_img, out_transform)
-                average_bare_earth_elevation[tank_index] = np.average(out_img_utm)
-    #add inundation values to tank database 
-    gdf["average_bare_earth_elevation"] = average_bare_earth_elevation
-    return(gdf)
-"""
 
 def dem_by_tank(dem_paths, tank_data, output_path):
     #get bounds for dems
@@ -203,7 +180,9 @@ def dem_by_tank(dem_paths, tank_data, output_path):
             clipped_img, clipped_transform = rasterio.mask.mask(dataset=dem, shapes=coords, crop=True)
             #reproject
             reproject_raster_mask_to_utm(tank_poly, dem, clipped_img, clipped_transform, output_filename)
-            
+"""
+Add average base elevation to dataframe
+"""     
 def average_bare_earth_elevation_for_tanks(gdf, tank_data, dem_paths):    
     """ Calculate the diameter of a given bounding bbox for imagery of a given resolution
     Arg:
