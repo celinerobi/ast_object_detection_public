@@ -47,20 +47,20 @@ def main(args):
     lidar_df = pd.DataFrame(lidar_points, columns = ['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
     # transform into the geographic coordinate system
     wgs84 = pyproj.CRS('EPSG:4326')
-    Geometry_wgs84 = vol_est.transform_las_points_to_wgs84(las_proj, wgs84, las.x,las.y)
+    Geometry_wgs84 = vol_est.transform_las_points_to_wgs84(las_proj, wgs84, las.x, las.y) #transform geometry
+    lidar_df["X coordinate"] = [geom.bounds[0] for geom in Geometry_wgs84] #change x coordinate to EPSG:4326
+    lidar_df["Y coordinate"] = [geom.bounds[1] for geom in Geometry_wgs84] #change y coordinate to EPSG:4326
     #Transform to geopandas GeoDataFrame
     lidar = gpd.GeoDataFrame(lidar_df, crs = wgs84, geometry=Geometry_wgs84) #set correct spatial reference
     lidar = lidar.to_crs('EPSG:4326')
-    
     #3. Get the extent of the Lidar data 
     minx, miny, maxx, maxy = lidar["geometry"].total_bounds
     lidar_extent = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
-    
     #4. Subset the tank dataset to the lidar data
     tank_data = gpd.read_file(args.tile_level_annotation_path)
     tank_data = tank_data.to_crs('EPSG:4326')
     tank_data.crs = "EPSG:4326" #assign projection
-
+    
     index = []
     for tank_index, tank_poly in tqdm.tqdm(enumerate(tank_data["geometry"])): #iterate over the tank polygons
         if lidar_extent.contains(tank_poly): #identify whether the tank bbox is inside of the state polygon
