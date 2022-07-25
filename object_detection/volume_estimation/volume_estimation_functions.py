@@ -180,6 +180,52 @@ def dem_by_tank(dem_paths, tank_data, output_path):
             clipped_img, clipped_transform = rasterio.mask.mask(dataset=dem, shapes=coords, crop=True)
             #reproject
             reproject_raster_mask_to_utm(tank_poly, dem, clipped_img, clipped_transform, output_filename)
+            
+def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
+    regex = re.compile(r'\d+')
+    #the tank ids with corresponding lidar data 
+    tank_ids_lidar = []
+    lidar_by_tank_geojson_name = os.listdir(lidar_by_tank_output_path)
+    for lidar_by_tank in lidar_by_tank_geojson_name:
+        tank_ids_lidar.append([int(x) for x in regex.findall(lidar_by_tank)][0])
+
+    #the tank ids with corresponding DEM data 
+    #vol_est.remove_thumbs(DEM_by_tank_output_path) #remove thumbs 
+    tank_ids_dem = []
+    DEM_by_tank_tif_name = os.listdir(DEM_by_tank_output_path)
+    for DEM_by_tank in DEM_by_tank_tif_name:
+        tank_ids_dem.append([int(x) for x in regex.findall(DEM_by_tank)][0])
+
+    #the tank ids with both lidar and DEMs
+    tank_ids = list(set(tank_ids_dem).intersection(tank_ids_lidar))
+    tank_ids = [str(i) for i in tank_ids]
+
+    #paths to the DEM and lidar data 
+    DEM_path_for_height = []
+    lidar_path_for_height = []
+
+    for tank_id in tank_ids:
+        lidar_path_by_tank_for_height.append(os.path.join(lidar_by_tank_output_path, [string for string in lidar_by_tank_geojson_name if tank_id in string][0]))
+        DEM_path_by_tank_for_height.append(os.path.join(DEM_by_tank_output_path, [string for string in DEM_by_tank_tif_name if tank_id in string][0]))
+    return(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
+
+def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height):
+    for i, (lidar_path, DEM_path) in enumerate(zip(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)):
+        # Read in each lidar dataset
+        lidar = gpd.read_file(lidar_path)
+        lidar_coords = [(x,y) for x, y in zip(lidar["X coordinate"], lidar["Y coordinate"])] #'EPSG:4326' coords
+
+        # Open the DEM raster data and store metadata
+        dem_src = rasterio.open(DEM_path)
+
+        # Sample the raster at every point location and store values in DataFrame
+        #pts['Raster Value'] = [x for x in src.sample(coords)]
+        #pts['Raster Value'] = probes.apply(lambda x: x['Raster Value'][0], axis=1)
+        lidar['bare_earth_elevation'] = [z[0] for z in dem_src.sample(coords)]
+
+        with open(lidar_path, "w") as file:
+            file.write(lidar.to_json()) 
+
 """
 Add average base elevation to dataframe
 """     
