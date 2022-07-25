@@ -5,10 +5,8 @@ import re
 import tqdm
 import numpy as np
 import pandas as pd
-
 import geopandas as gpd #important
 import rasterio
-
 import volume_estimation_functions as vol_est
 import argparse
 print("dem by tank")
@@ -29,7 +27,10 @@ def main(args):
     print("reproject dem")
     vol_est.reproject_dems(args.dem_path, args.dem_EPSG4326_path) #reproject DEM
     projected_dem_paths = glob(args.dem_EPSG4326_path + "/*.tif") #get path of dems
+    print(projected_dem_paths)
     #specify output path
     vol_est.dem_by_tank(projected_dem_paths, tank_data, args.DEM_by_tank_output_path)
     lidar_path_by_tank_for_height, DEM_path_by_tank_for_height = vol_est.identify_tank_ids(args.lidar_by_tank_output_path, args.DEM_by_tank_output_path)
+    print(lidar_path_by_tank_for_height)
+    print(DEM_path_by_tank_for_height)
     vol_est.add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
