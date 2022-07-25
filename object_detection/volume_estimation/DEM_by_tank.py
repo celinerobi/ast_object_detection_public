@@ -1,3 +1,4 @@
+print("load modules")
 import os
 from glob import glob
 import re
@@ -10,7 +11,7 @@ import rasterio
 
 import volume_estimation_functions as vol_est
 import argparse
-
+print("dem by tank")
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     parser.add_argument('--dem_path', type=str, default=None,
@@ -21,11 +22,11 @@ def get_args_parse():
                         help='path to folder where lidar by tank can be stored')
     parser.add_argument('--DEM_by_tank_output_path', type=str, default=None, 
                         help='path to folder where DEM by tank can be stored')
-
     args = parser.parse_args()
     return args
 
 def main(args):
+    print("reproject dem")
     vol_est.reproject_dems(args.dem_path, args.dem_EPSG4326_path) #reproject DEM
     projected_dem_paths = glob(args.dem_EPSG4326_path + "/*.tif") #get path of dems
     #specify output path
