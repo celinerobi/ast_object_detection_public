@@ -202,8 +202,8 @@ def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
     tank_ids = [str(i) for i in tank_ids]
 
     #paths to the DEM and lidar data 
-    DEM_path_for_height = []
-    lidar_path_for_height = []
+    lidar_path_by_tank_for_height = []
+    DEM_path_by_tank_for_height = []
 
     for tank_id in tank_ids:
         lidar_path_by_tank_for_height.append(os.path.join(lidar_by_tank_output_path, [string for string in lidar_by_tank_geojson_name if tank_id in string][0]))
