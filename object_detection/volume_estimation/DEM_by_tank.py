@@ -1,4 +1,4 @@
-help('modules')
+#help('modules')
 
 import os
 from glob import glob

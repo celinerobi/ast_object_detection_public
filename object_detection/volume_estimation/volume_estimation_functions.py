@@ -220,9 +220,7 @@ def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_p
         dem_src = rasterio.open(DEM_path)
 
         # Sample the raster at every point location and store values in DataFrame
-        #pts['Raster Value'] = [x for x in src.sample(coords)]
-        #pts['Raster Value'] = probes.apply(lambda x: x['Raster Value'][0], axis=1)
-        lidar['bare_earth_elevation'] = [z[0] for z in dem_src.sample(coords)]
+        lidar['bare_earth_elevation'] = [z[0] for z in dem_src.sample(lidar_coords)]
 
         with open(lidar_path, "w") as file:
             file.write(lidar.to_json()) 
