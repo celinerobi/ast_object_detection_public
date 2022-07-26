@@ -1,4 +1,5 @@
-print("load modules")
+help('modules')
+
 import os
 from glob import glob
 import re
@@ -10,7 +11,6 @@ import rasterio
 import volume_estimation_functions as vol_est
 import argparse
 
-print("dem by tank")
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     parser.add_argument('--tile_level_annotation_path', type=str, default=None, 
