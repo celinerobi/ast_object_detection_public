@@ -27,17 +27,19 @@ def get_args_parse():
     return args
 
 def main(args):
+    #read in tile level annotations
+    tile_level_annotation_path = gpd.read_file(args.tile_level_annotation_path)
+
+    #read and reproject DEM
     os.makedirs(args.dem_EPSG4326_path, exist_ok = True)
     os.makedirs(args.DEM_by_tank_output_path, exist_ok = True)
-    print("reproject dem")
     vol_est.reproject_dems(args.dem_path, args.dem_EPSG4326_path) #reproject DEM
     projected_dem_paths = glob(args.dem_EPSG4326_path + "/*.tif") #get path of dems
-    print(projected_dem_paths)
-    #specify output path
-    vol_est.dem_by_tank(projected_dem_paths, args.tile_level_annotation_path, args.DEM_by_tank_output_path)
+    
+    #clip dem to tank
+    vol_est.dem_by_tank(projected_dem_paths, tile_level_annotation_path, args.DEM_by_tank_output_path)
+    #identify tanks that have lidar and tank data 
     lidar_path_by_tank_for_height, DEM_path_by_tank_for_height = vol_est.identify_tank_ids(args.lidar_by_tank_output_path, args.DEM_by_tank_output_path)
-    print(lidar_path_by_tank_for_height)
-    print(DEM_path_by_tank_for_height)
     vol_est.add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
     
 if __name__ == '__main__':
