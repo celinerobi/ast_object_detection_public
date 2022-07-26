@@ -28,8 +28,9 @@ import rasterio
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 import pyproj
 import rtree
+import re
 #$ pip install pygeos
-#import pygeos
+import pygeos
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
