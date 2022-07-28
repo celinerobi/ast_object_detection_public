@@ -37,22 +37,22 @@ import matplotlib.pyplot as plt
 """
 lidar functions 
 """
-def transform_las_points_to_wgs84(las_proj, wgs84_proj, las_x, las_y):
+def project_list_of_points(initial_proj, final_proj, x_points, y_points):
     """ Convert a utm pair into a lat lon pair 
     Args: 
-    las_proj(str): the las proj as a proj crs
-    las_x(list): a list of the x coordinates for points in las proj
-    las_y(list): a list of the y coordinates for points in las proj
+    initial_proj(str): the initial as a (proj crs)
+    x_points(list): a list of the x coordinates for points to project
+    y_points(list): a list of the y coordinates for points in las proj
     Returns: 
     (Geometry_wgs84): a list of shapely points in wgs84 proj
     """
     #https://gis.stackexchange.com/questions/127427/transforming-shapely-polygon-and-multipolygon-objects
     #get utm projection
-    Geometry = [Point(xy) for xy in zip(las_x,las_y)] #make x+y coordinates into points
+    Geometry = [Point(xy) for xy in zip(x_points,y_points)] #make x+y coordinates into points
     #transform las into wgs84 point
-    project = pyproj.Transformer.from_proj(las_proj, wgs84_proj, always_xy=True).transform
-    Geometry_wgs84 = [transform(project, las_point) for las_point in Geometry]
-    return(Geometry_wgs84)
+    project = pyproj.Transformer.from_proj(initial_proj, final_proj, always_xy=True).transform
+    Geometry_projected = [transform(project, point) for point in Geometry]
+    return(Geometry_projected)
 """
 DEM Processing
 """
@@ -95,9 +95,8 @@ def get_poly_crs_from_epsg_to_utm(poly):
     Take polygon with coordinates in EPSG get in UTM(meters)
     Args: 
     poly: a shapely olygon objects
+    Returns:
     utm_crs: source raster 
-    out_img: raster mask
-    out_transform: corresponding out transform for the raster mask 
     """
     utm_crs_list = pyproj.database.query_utm_crs_info(datum_name="WGS 84",
                                                       area_of_interest = pyproj.aoi.AreaOfInterest(west_lon_degree=poly.bounds[0],

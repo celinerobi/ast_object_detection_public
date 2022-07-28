@@ -47,7 +47,7 @@ def main(args):
     lidar_df = pd.DataFrame(lidar_points, columns = ['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
     # transform into the geographic coordinate system
     wgs84 = pyproj.CRS('EPSG:4326')
-    Geometry_wgs84 = vol_est.transform_las_points_to_wgs84(las_proj, wgs84, las.x, las.y) #transform geometry
+    Geometry_wgs84 = vol_est.project_list_of_points(las_proj, wgs84, las.x, las.y) #transform geometry
     lidar_df["X coordinate"] = [geom.bounds[0] for geom in Geometry_wgs84] #change x coordinate to EPSG:4326
     lidar_df["Y coordinate"] = [geom.bounds[1] for geom in Geometry_wgs84] #change y coordinate to EPSG:4326
     #Transform to geopandas GeoDataFrame
