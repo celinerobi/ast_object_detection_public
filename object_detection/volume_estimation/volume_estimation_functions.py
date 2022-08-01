@@ -5,20 +5,21 @@ Module containing functions to estimation tank volumes
 """
 Load Packages
 """
-
 import os
+import sys
 import json
 import tempfile
 import shutil
+import re
+from glob import glob
 
 import tqdm
-from glob import glob
+import rtree
 
 import numpy as np
 import pandas as pd
 import geopandas as gpd #important
 
-import cv2
 import laspy #las open #https://laspy.readthedocs.io/en/latest/
 from shapely.ops import transform
 from shapely.geometry import Point, Polygon #convert las to gpd
@@ -26,17 +27,48 @@ import rioxarray
 import rasterio
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 import pyproj
-import rtree
-import re
-#$ pip install pygeos
 import pygeos
 
+import cv2
+#import torch
+#import fastai
+from skimage import data, filters, exposure, measure, segmentation, morphology, color
+
 import matplotlib as mpl
+mpl.rc('image', cmap='gray')
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
 colors = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 import matplotlib.gridspec as gridspec # GRIDSPEC !
 from matplotlib.colorbar import Colorbar # For dealing with Colorbars the proper way - TBD in a separate PyCoffee ?
+
+def remove_thumbs(path_to_folder_containing_images):
+    """ Remove Thumbs.db file from a given folder
+    Args: 
+    path_to_folder_containing_images(str): path to folder containing images
+    Returns:
+    None
+    """
+    if len(glob(path_to_folder_containing_images + "/*.db", recursive = True)) > 0:
+        os.remove(glob(path_to_folder_containing_images + "/*.db", recursive = True)[0])
+        
+## Write files
+def write_list(list_, file_path):
+    print("Started writing list data into a json file")
+    with open(file_path, "w") as fp:
+        json.dump(list_, fp)
+        print("Done writing JSON data into .json file")
+
+# Read list to memory
+def read_list(file_path):
+    # for reading also binary mode is important
+    with open(file_path, 'rb') as fp:
+        list_ = json.load(fp)
+        return list_
+
+def getFeatures(gdf):
+    """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
+    return [json.loads(gdf.to_json())['features'][0]['geometry']]
 
 """
 lidar functions 
@@ -87,10 +119,6 @@ def reproject_dems(initial_dem_dir, final_dem_dir):
                                 dst_transform=transform,
                                 dst_crs=dst_crs,
                                 resampling=Resampling.nearest)
-                    
-def getFeatures(gdf):
-    """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
-    return [json.loads(gdf.to_json())['features'][0]['geometry']]
 
 #Get DEM (tif) for each tank
 #get utm crs
@@ -214,6 +242,9 @@ def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
     return(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
 
 def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height):
+    """
+    Add average base elevation to dataframe
+    """    
     for i, (lidar_path, DEM_path) in enumerate(zip(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)):
         # Read in each lidar dataset
         lidar = gpd.read_file(lidar_path)
@@ -227,65 +258,7 @@ def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_p
 
         with open(lidar_path, "w") as file:
             file.write(lidar.to_json()) 
-
-"""
-Add average base elevation to dataframe
-"""     
-def average_bare_earth_elevation_for_tanks(gdf, tank_data, dem_paths):    
-    """ Calculate the diameter of a given bounding bbox for imagery of a given resolution
-    Arg:
-    bbox(list): a list of the (xmin, ymin, xmax, ymax) coordinates for box 
-    resolution(float): the (gsd) resolution of the imagery
-    Returns:
-    (diameter): the diameter of the bbox of interest
-    """
-
-    tank_data_w_lpc = gpd.sjoin(dem_bounds, tank_data, how = "left")
-
-    for tank_index, tank_poly in tqdm.tqdm(enumerate(tank_data["geometry"])): #iterate over the tank polygons
-        if dem_bounds.contains(tank_poly): #identify whether the tank bbox is inside of the state polygon
-            index.append(tank_index) #add state name for each tank to list 
-    tank_data_in_lidar_extent = tank_data.iloc[index]
-    """
-    #get average bare earth elevation values values
-    for dem_index, dem_poly in enumerate(dem_bounds["geometry"]): #iterate over the dem polygons
-        if dem_poly.contains(tank_poly): #identify whether the bbox is inside of the dem map
-            #make a geodataframe for each tank polygon that is contained within the dem
-            geo = gpd.GeoDataFrame({'geometry': tank_poly}, index=[0], crs=gdf.crs)
-            coords = getFeatures(geo) 
-            dem = rasterio.open(dem_paths[dem_index])
-            out_img, out_transform = rasterio.mask.mask(dataset=dem, shapes=coords, crop = True)
-            #average_bare_earth_elevation[tank_index] = np.average(out_img)
-            #average to reprojected raster
-            out_img_utm = reproject_raster_mask_to_utm(tank_poly, dem, out_img, out_transform)
-            average_bare_earth_elevation[tank_index] = np.average(out_img_utm)
-    #add inundation values to tank database 
-    return(gdf)
-
-    #3. Get the extent of the Lidar data 
-    minx, miny, maxx, maxy = lidar["geometry"].total_bounds
-    lidar_extent = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
-    
-
-    
-    #5. Get the LP corresponding with the tank dataset
-    tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar)
-    tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
-    #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
-        file.write(tank_data_w_lpc.to_json()) 
-    """
-    
-def remove_thumbs(path_to_folder_containing_images):
-    """ Remove Thumbs.db file from a given folder
-    Args: 
-    path_to_folder_containing_images(str): path to folder containing images
-    Returns:
-    None
-    """
-    if len(glob(path_to_folder_containing_images + "/*.db", recursive = True)) > 0:
-        os.remove(glob(path_to_folder_containing_images + "/*.db", recursive = True)[0])
-
+        
 def add_titlebox(ax, text):
     ax.text(.55, .8, text,
     horizontalalignment='center',
@@ -293,6 +266,7 @@ def add_titlebox(ax, text):
     bbox=dict(facecolor='white', alpha=0.6),
     fontsize=12.5)
     return ax
+
 def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, plot_path, tiles_dir):
     for i, (tank_id, lidar_path, DEM_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)):
         tank_id = str(tank_id)
@@ -461,16 +435,76 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         os.makedirs(path, exist_ok = True)
         fig.savefig(path, tank_id+".jpg")
         
-def write_list(list_, file_path):
-    print("Started writing list data into a json file")
-    with open(file_path, "w") as fp:
-        json.dump(list_, fp)
-        print("Done writing JSON data into .json file")
 
-# Read list to memory
-def read_list(file_path):
-    # for reading also binary mode is important
-    with open(file_path, 'rb') as fp:
-        list_ = json.load(fp)
-        return list_
+        
+##Shadow Detection height estimation     
+def tile_annotation_to_dictionary(tile_name, tile_annotation, label_map):
+    "create a dictionary of the bbox and labels for the tile level annotations geopandas dataframe"
+    bboxes = []
+    labels = []
+    for i in tile_annotation.index:
+        x_min = tile_annotation['minx_polygon_pixels'][i]
+        y_min = tile_annotation['miny_polygon_pixels'][i]
+        x_max = tile_annotation['maxx_polygon_pixels'][i]
+        y_max = tile_annotation['maxy_polygon_pixels'][i]
+        bboxes.append([x_min,y_min,x_max,y_max])
+        labels.append(label_map[tile_annotation["object_class"][i]])
+    return {'bboxes': bboxes, 'labels': labels}
 
+def convert(o):
+    """Issue raised when dumping numpy.int64 into json string in Python 3.
+    There is a workaround provided by Serhiy Storchaka
+    Reference links:
+    https://stackoverflow.com/questions/11942364/typeerror-integer-is-not-json-serializable-when-serializing-json-in-python
+    https://bugs.python.org/issue24313
+    """
+    if isinstance(o, np.generic): return o.item()  
+    raise TypeError
+
+def tile_level_annotations_gpds_to_json(path, label_map):
+    tile_paths = []
+    tile_annotations = []
+    #read in tile level annotation pandas 
+    tile_level_annotations = gpd.read_file(os.path.join(path,'tile_level_annotations/tile_level_annotations.geojson'))
+    tile_level_annotations = tile_level_annotations[['tile_name',"object_class",'minx_polygon_pixels','miny_polygon_pixels', 'maxx_polygon_pixels','maxy_polygon_pixels']]
+    tile_names = np.unique(tile_level_annotations['tile_name']) #get unique tile names
+    #get path and annotations by tile 
+    for tile_name in tile_names:
+        tile_annotation = tile_level_annotations[tile_level_annotations["tile_name"] == tile_name]
+        tile_annotations.append(tile_annotation_to_dictionary(tile_name, tile_level_annotations, label_map))
+        tile_paths.append(os.path.join(path, "tiles", tile_name + ".tif"))
+    #write annotations and paths to json
+    with open(os.path.join(path, 'tile_annotation.json'), 'w') as outfile:
+        json.dump(tile_annotations, outfile, default=convert)
+    with open(os.path.join(path, 'tile_images.json'), 'w') as outfile:
+        json.dump(tile_paths, outfile, default=convert)
+        
+def check_bb(bbox, h, w, c):
+    """
+    The algorithm is designed to work with tanks that are fully in frame. Bounding boxes that reach the edge of an image (indicating the tank extends beyond the image) are excluded from processing.
+    Check the distance between the bounding box and the edge of image. If the bounding box is within two pixels, return False, otherwise return True.
+    Args:
+    bbox(list): a boxx in [x_min,y_min,x_max,y_max] format
+    h, w, c(int): the height, width, and depth of the image containing the bounding boxes of interest
+    """
+    x_min,y_min,x_max,y_max = bbox
+    for d in bbox:
+        if x_min <= 2 or x_max >= w-2:
+            return False
+        elif y_min <=2 or y_max >= h-2:
+            return False
+    return True
+def intersection(bb1, bb2):
+    """
+    intersection` calculates the pixel area intersection between two bounding boxes
+    """
+    x_min1, y_min1, x_max1, y_max1  = bb1
+    x_min2, y_min2, x_max2, y_max2 = bb2
+    
+    x_left = max(x_min1, x_min2)
+    x_right = min(x_max1, x_max2)
+    y_top = max(y_min1, y_min2)
+    y_bottom = min(y_max1, y_max2)
+
+    intersection = max(0, x_right - x_left + 1) * max(0, y_bottom - y_top+1)
+    return intersection
