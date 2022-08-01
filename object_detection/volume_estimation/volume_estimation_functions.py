@@ -473,3 +473,4 @@ def read_list(file_path):
     with open(file_path, 'rb') as fp:
         list_ = json.load(fp)
         return list_
+

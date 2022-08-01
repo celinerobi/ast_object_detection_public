@@ -40,7 +40,7 @@ def main(args):
     vol_est.dem_by_tank(projected_dem_paths, tile_level_annotation_path, args.DEM_by_tank_output_path)
     #identify tanks that have lidar and tank data 
     tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height = vol_est.identify_tank_ids(args.lidar_by_tank_output_path, args.DEM_by_tank_output_path)
-    vol_est.add_bare_earth_data_to_lpc_by_tank_data(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
+    vol_est.add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)
     
     #rite variables needed 
     vol_est.write_list(tank_ids, "tank_ids.json")

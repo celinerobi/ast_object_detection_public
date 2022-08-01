@@ -25,9 +25,9 @@ import argparse
 
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
-    parser.add_argument('--tiles_dir', type=str, default="//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk/complete_dataset/tiles", 
+    parser.add_argument('--tiles_dir', type=str, default = "//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk/complete_dataset/tiles", 
                         help='tile level tank annotations')
-    parser.add_argument('--plot_dir', type=str, default="//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk/complete_dataset/tiles", 
+    parser.add_argument('--plot_dir', type=str, default = None, 
                         help='folder to hold plots')
     args = parser.parse_args()
     return args
@@ -38,7 +38,7 @@ def main(args):
     tank_ids = vol_est.read_list("tank_ids.json")
     lidar_path_by_tank_for_height = vol_est.read_list("lidar_path_by_tank_for_height.json")
     DEM_path_by_tank_for_height = vol_est.read_list("DEM_path_by_tank_for_height.json")
-    vol_est.height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height,args.plot_dir, args.tiles_dir):
+    vol_est.height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, args.plot_dir, args.tiles_dir):
     
 if __name__ == '__main__':
     ### Get the arguments 
