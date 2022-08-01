@@ -222,7 +222,7 @@ def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
         tank_ids_lidar.append([int(x) for x in regex.findall(lidar_by_tank)][0])
 
     #the tank ids with corresponding DEM data 
-    #vol_est.remove_thumbs(DEM_by_tank_output_path) #remove thumbs 
+    #remove_thumbs(DEM_by_tank_output_path) #remove thumbs 
     tank_ids_dem = []
     DEM_by_tank_tif_name = os.listdir(DEM_by_tank_output_path)
     for DEM_by_tank in DEM_by_tank_tif_name:
@@ -280,7 +280,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         ##reproject for plotting
         wgs84 = pyproj.CRS('EPSG:4326')
         utm = pyproj.CRS(lidar["utm_projection"].iloc[0])
-        Geometry = vol_est.project_list_of_points(wgs84, utm, lidar["X coordinate"], lidar["Y coordinate"])
+        Geometry = project_list_of_points(wgs84, utm, lidar["X coordinate"], lidar["Y coordinate"])
         x_y_utm = gpd.GeoDataFrame({'geometry': Geometry})
         X = gpd.GeoDataFrame(x_y_utm).bounds["minx"]
         Y = gpd.GeoDataFrame(x_y_utm).bounds["miny"]
