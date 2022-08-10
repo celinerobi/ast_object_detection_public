@@ -55,19 +55,19 @@ def main(args):
     
     #read in list of lidar datasets
     if type(args.lidar_path_by_tank_for_height) == type(None):
-        lidar_path_by_tank_for_height = glob(args.lidar_by_tank_dir)
+        lidar_path_by_tank_for_height = glob(args.lidar_by_tank_dir + "/*.geojson")
     else:
         lidar_path_by_tank_for_height = vol_est.read_list(args.lidar_path_by_tank_for_height)
     
     #read in list of DEM datasets
     if type(args.DEM_path_by_tank_for_height) == type(None):
-        DEM_path_by_tank_for_height = glob(args.DEM_by_tank_dir)
+        DEM_path_by_tank_for_height = glob(args.DEM_by_tank_dir + "/*.tif")
     else:
         DEM_path_by_tank_for_height = vol_est.read_list(args.DEM_path_by_tank_for_height)
     
     #read in list of image datasets
     if type(args.aerial_image_path_by_tank_for_height) == type(None):
-        aerial_image_path_by_tank_for_height = glob(args.image_by_tank_dir)
+        aerial_image_path_by_tank_for_height = glob(args.image_by_tank_dir + "/*.tif")
     else:
         aerial_image_path_by_tank_for_height = vol_est.read_list(args.aerial_image_path_by_tank_for_height)
         
