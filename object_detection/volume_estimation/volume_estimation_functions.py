@@ -257,8 +257,33 @@ def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_p
         lidar['bare_earth_elevation'] = [z[0] for z in dem_src.sample(lidar_coords)]
 
         with open(lidar_path, "w") as file:
-            file.write(lidar.to_json()) 
-        
+            file.write(lidar.to_json())
+            
+            
+def image_by_tank(tank_data, tiles_dir, output_path):
+    image_path_list = []
+    tank_data_grouped_by_tile = tank_data.groupby(tank_data.tile_name) #group gpds by dem
+
+    for tile_name, tank_data_by_tile in tqdm.tqdm(tank_data_grouped_by_tile): 
+        tile_path = os.path.join(tiles_dir, tile_name + ".tif")
+        tile = cv2.imread(tile_path, cv2.IMREAD_UNCHANGED)
+
+        for i, (tank_id, x_max, y_max, x_min, y_min) in enumerate(zip(tank_data_by_tile['id'], tank_data_by_tile['maxx_polygon_pixels'],
+                                                                      tank_data_by_tile['maxy_polygon_pixels'], tank_data_by_tile['minx_polygon_pixels'],
+                                                                      tank_data_by_tile['miny_polygon_pixels'])):
+            # edit merge_tile_annotations function to ensure that annotation arrays are 2D
+            if y_min == y_max:
+                y_min -= 1
+            if x_min == x_max:
+                x_min -= 1
+            
+            tank_image = tile[y_min:y_max, x_min:x_max]                      
+            tank_img_path = os.path.join(output_path, 'tank_image_tank_id_' + tank_id + '.tif') 
+            image_path_list.append(tank_img_path)
+            if not os.path.exists(tank_img_path):
+                cv2.imwrite(tank_img_path, tank_image) #save images  
+    return(image_path_list)
+
 def add_titlebox(ax, text):
     ax.text(.55, .8, text,
     horizontalalignment='center',
@@ -267,8 +292,9 @@ def add_titlebox(ax, text):
     fontsize=12.5)
     return ax
 
-def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, plot_path, tiles_dir):
-    for i, (tank_id, lidar_path, DEM_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height)):
+def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_by_tank_for_height, plot_path, tiles_dir):
+    for i, (tank_id, lidar_path, DEM_path, aerial_image_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height,
+                                                                               aerial_image_by_tank_for_height)):
         tank_id = str(tank_id)
         #Read in data 
         ##read in lidar
@@ -284,19 +310,14 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         x_y_utm = gpd.GeoDataFrame({'geometry': Geometry})
         X = gpd.GeoDataFrame(x_y_utm).bounds["minx"]
         Y = gpd.GeoDataFrame(x_y_utm).bounds["miny"]
-        ##Read in imagery for tank
-        tile_path = os.path.join(tiles_dir, lidar["tile_name"].iloc[0]+".tif")
-        tile = cv2.imread(tile_path, cv2.IMREAD_UNCHANGED)
-        x_max = int(lidar['maxx_polygon_pixels'].iloc[0])
-        y_max = int(lidar['maxy_polygon_pixels'].iloc[0])
-        x_min = int(lidar['minx_polygon_pixels'].iloc[0])
-        y_min = int(lidar['miny_polygon_pixels'].iloc[0])
-        tank = tile[y_min:y_max, x_min:x_max]
         ##read in dem
         dem_test = rasterio.open(DEM_path) 
         dem = dem_test.read(1)
         dem[dem==-999999] = np.nan
         dem_test.close()
+        ##Read in aerial imagery
+        img = cv2.imread(aerial_image_path)
+
         #Make figure
         fig = plt.figure(figsize=(12, 8))
         fig.suptitle('Height Estimation for tank id #' +tank_id+"in class "+tank_class, fontsize=16)
@@ -437,7 +458,23 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         
 
         
-##Shadow Detection height estimation     
+############################################################################################
+####################    Shadow Detection height estimation   ###############################
+############################################################################################
+def calculate_diameter(bbox, resolution = 0.6):
+    """ Calculate the diameter of a given bounding bbox for imagery of a given resolution
+    Arg:
+    bbox(list): a list of the (xmin, ymin, xmax, ymax) coordinates for box 
+    resolution(float): the (gsd) resolution of the imagery
+    Returns:
+    (diameter): the diameter of the bbox of interest
+    """
+    obj_xmin, obj_ymin, obj_xmax, obj_ymax = bbox
+    obj_width = obj_xmax - obj_xmin
+    obj_height = obj_ymax - obj_ymin
+    diameter = min(obj_width, obj_height) * resolution #meter
+    return(diameter)
+
 def tile_annotation_to_dictionary(tile_name, tile_annotation, label_map):
     "create a dictionary of the bbox and labels for the tile level annotations geopandas dataframe"
     bboxes = []
