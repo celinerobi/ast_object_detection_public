@@ -336,7 +336,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         #plot raw data
         ## Image
         ax_img = plt.subplot(gs[:2, 1:3])
-        ax_img.imshow(tank, cmap=current_cmap, norm=norm, aspect="auto")
+        ax_img.imshow(img, cmap=current_cmap, norm=norm, aspect="auto")
         ax_img.set_xticks([])
         ax_img.set_yticks([])
         ax_img.set_title('NAIP Imagery') 
