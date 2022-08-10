@@ -71,7 +71,7 @@ def main(args):
     else:
         aerial_image_path_by_tank_for_height = vol_est.read_list(args.aerial_image_path_by_tank_for_height)
         
-    vol_est.height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_by_tank_for_height,
+    vol_est.height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_path_by_tank_for_height,
                                    args.plot_dir, args.tiles_dir)
     
 if __name__ == '__main__':
