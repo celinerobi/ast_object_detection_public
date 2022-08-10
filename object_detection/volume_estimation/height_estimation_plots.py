@@ -76,11 +76,11 @@ def main(args):
         
         
     #paths to the DEM and lidar data 
-    lidar_paths = []
-    DEM_paths = []
-    image_paths = []
+    print(tank_ids)
+    print(lidar_path_by_tank_for_height)
+    print(DEM_path_by_tank_for_height)
+    print(aerial_image_path_by_tank_for_height)
 
-    
     lidar_paths = []
     DEM_paths = []
     image_paths = []
