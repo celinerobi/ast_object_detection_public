@@ -320,7 +320,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
 
         #Make figure
         fig = plt.figure(figsize=(12, 8))
-        fig.suptitle('Height Estimation for tank id #' +tank_id+"in class "+tank_class, fontsize=16)
+        fig.suptitle('Estimating Height Using Elevation Data for Object #'+tank_id+" of class "+tank_class, fontsize=20)
         #Define ranges and colors for colorbar, and for the image
         ##min and max values
         vmin=lidar[["Z coordinate","bare_earth_elevation","lpc_bee_difference"]].min().min()
@@ -339,22 +339,21 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         ax_img.imshow(img, cmap=current_cmap, norm=norm, aspect="auto")
         ax_img.set_xticks([])
         ax_img.set_yticks([])
-        ax_img.set_title('NAIP Imagery') 
-        print(ax_img.get_xlim(),ax_img.get_ylim())
+        ax_img.set_title('NAIP Imagery', fontsize=10)
         #ax_img.set_aspect('auto', adjustable='box')  # NEW
         ##DEM
         ax_dem = plt.subplot(gs[:2, 3:5])
         ax_dem.imshow(dem, cmap=current_cmap, norm=norm, aspect="auto")
         ax_dem.set_xticks([])
         ax_dem.set_yticks([])
-        ax_dem.set_title('Digital Elevation Model')
+        ax_dem.set_title('Digital Elevation Model', fontsize=10)
         #ax_dem.set_aspect(asp)
         #BEE
         ax_bee = plt.subplot(gs[2:4, 1:3])
         ax_bee.scatter(X,Y, c=lidar["bare_earth_elevation"], cmap=current_cmap, norm=norm)
         ax_bee.set_xticks([])
         ax_bee.set_yticks([])
-        ax_bee.set_title('Bare Earth Elevation')
+        ax_bee.set_title('Bare Earth Elevation', fontsize=10)
         asp = np.diff(ax_bee.get_xlim())[0] / np.diff(ax_bee.get_ylim())[0]
         #ax_bee.set_aspect(asp)
         ##LPC
@@ -362,87 +361,102 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         ax_lpc.scatter(X,Y, c=lidar["Z coordinate"], cmap=current_cmap, norm=norm)
         ax_lpc.set_xticks([])
         ax_lpc.set_yticks([])
-        ax_lpc.set_title('Lidar Point Cloud')
+        ax_lpc.set_title('Lidar Point Cloud', fontsize=10)
+        ax_lpc.set_xlim(ax_bee.get_xlim())
+        ax_lpc.set_ylim(ax_bee.get_ylim())
+
         #ax_lpc.set_aspect(asp)
         #Difference between DSM and DEM over all values bounding box
         H = round(lidar["lpc_bee_difference"].mean(),2)
-        axbboxdist = plt.subplot(gs[4:6, :2])
-        axbboxdist.set_title('LPC - DEM')
-        add_titlebox(axbboxdist, '(H ='+str(H)+'m)')
-        axbboxdist.scatter(X,Y, c=lidar["lpc_bee_difference"], cmap=current_cmap, norm=norm)
-        axbboxdist.set_xticks([])
-        axbboxdist.set_yticks([])
+        ax_bboxdist = plt.subplot(gs[4:6, :2])
+        ax_bboxdist.set_title('LPC - DEM', fontsize=10)
+        add_titlebox(ax_bboxdist, '(H ='+str(H)+'m)')
+        ax_bboxdist.scatter(X,Y, c=lidar["lpc_bee_difference"], cmap=current_cmap, norm=norm)
+        ax_bboxdist.set_xticks([])
+        ax_bboxdist.set_yticks([])
         #axbboxdist.set_aspect(asp)
-        axbboxdist.set_aspect('auto', adjustable='box')
+        #ax_bboxdist.set_aspect('auto', adjustable='box')
+        ax_bboxdist.set_xlim(ax_bee.get_xlim())
+        ax_bboxdist.set_ylim(ax_bee.get_ylim())
         #Difference between DSM and DEM for all DSM values greater than the 25th quantile 
         Q25 = lidar["Z coordinate"].quantile(.25) 
         idxs = np.where(lidar["Z coordinate"] > Q25)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        axQ25 = plt.subplot(gs[4:6, 2:4])
-        axQ25.set_title('LPC (over Q25['+str(Q25)+']) - DEM')
-        add_titlebox(axQ25, '(H ='+str(H)+'m)')
-        axQ25.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
-        axQ25.set_xticks([])
-        axQ25.set_yticks([])
+        ax_Q25 = plt.subplot(gs[4:6, 2:4])
+        ax_Q25.set_title('LPC (over Q25['+str(round(Q25,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_Q25, '(H ='+str(H)+'m)')
+        ax_Q25.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_Q25.set_xticks([])
+        ax_Q25.set_yticks([])
+        ax_Q25.set_xlim(ax_bee.get_xlim())
+        ax_Q25.set_ylim(ax_bee.get_ylim())
         #axQ25.set_aspect(asp)
         #Difference between DSM and DEM for all DSM values greater than the mean
         mean = lidar["Z coordinate"].mean()
         idxs = np.where(lidar["Z coordinate"] > mean)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        axmean = plt.subplot(gs[4:6, 4:6])
-        axmean.set_title('LPC - (over mean ['+str(round(mean,2))+']) DEM')
-        add_titlebox(axmean, '(H ='+str(H)+'m)')
-        axmean.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
-        axmean.set_xticks([])
-        axmean.set_yticks([])
+        ax_mean = plt.subplot(gs[4:6, 4:6])
+        ax_mean.set_title('LPC (over mean ['+str(round(mean,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_mean, '(H ='+str(H)+'m)')
+        ax_mean.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_mean.set_xticks([])
+        ax_mean.set_yticks([])
+        ax_mean.set_xlim(ax_bee.get_xlim())
+        ax_mean.set_ylim(ax_bee.get_ylim())
         #axmean.set_aspect(asp)             
         #Difference between DSM and DEM for all DSM values greater than the median
         median = lidar["Z coordinate"].median()
         idxs = np.where(lidar["Z coordinate"] > median)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        axmedian = plt.subplot(gs[6:8, :2])
-        axmedian.set_title('LPC - (over Q50 ['+str(median)+']) DEM')
-        add_titlebox(axmedian, '(H ='+str(H)+'m)')
-        axmedian.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
-        axmedian.set_xticks([])
-        axmedian.set_yticks([])
+        ax_median = plt.subplot(gs[6:8, :2])
+        ax_median.set_title('LPC (over median ['+str(round(median,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_median, '(H ='+str(H)+'m)')
+        ax_median.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_median.set_xticks([])
+        ax_median.set_yticks([])
+        ax_median.set_xlim(ax_bee.get_xlim())
+        ax_median.set_ylim(ax_bee.get_ylim())
         #axmedian.set_aspect(asp)
         #Difference between DSM and DEM for all DSM values greater than the 75th quantile 
         Q75 = lidar["Z coordinate"].quantile(.75) 
         idxs = np.where(lidar["Z coordinate"] > Q75)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        axQ75 = plt.subplot(gs[6:8, 2:4])
-        axQ75.set_title('LPC - (over Q75 ['+str(Q75)+') DEM')
-        add_titlebox(axQ75, '(H ='+str(H)+'m)')
-        axQ75.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
-        axQ75.set_xticks([])
-        axQ75.set_yticks([])
+        ax_Q75 = plt.subplot(gs[6:8, 2:4])
+        ax_Q75.set_title('LPC (over Q75 ['+str(round(Q75,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_Q75, '(H ='+str(H)+'m)')
+        ax_Q75.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_Q75.set_xticks([])
+        ax_Q75.set_yticks([])
+        ax_Q75.set_xlim(ax_bee.get_xlim())
+        ax_Q75.set_ylim(ax_bee.get_ylim())
         #axQ75.set_aspect(asp)
         #Difference between DSM and DEM for all DSM values greater than the 75th quantile 
         Q90 = lidar["Z coordinate"].quantile(.90) 
         idxs = np.where(lidar["Z coordinate"] > Q90)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        axQ90 = plt.subplot(gs[6:8, 4:6])
-        axQ90.set_title('LPC - (over Q75 ['+str(Q90)+') DEM')
-        add_titlebox(axQ90, '(H ='+str(H)+'m)')
-        axQ90.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
-        axQ90.set_xticks([])
-        axQ90.set_yticks([])
-        axQ90.set_aspect(asp)
+        ax_Q90 = plt.subplot(gs[6:8, 4:6])
+        ax_Q90.set_title('LPC (over Q90 ['+str(round(Q90,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_Q90, '(H ='+str(H)+'m)')
+        ax_Q90.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_Q90.set_xticks([])
+        ax_Q90.set_yticks([])
+        #ax_Q90.set_aspect(asp)
+        ax_Q90.set_xlim(ax_bee.get_xlim())
+        ax_Q90.set_ylim(ax_bee.get_ylim())
         #Distribution of LPC
-        axhist = plt.subplot(gs[1:7, 6])
-        axhist.set_aspect('equal', adjustable='box')  # NEW
-        axhist.set_title('LPC Distribution')
-        axhist.axvline(x = lidar["Z coordinate"].quantile(1/4), color = 'orange', label = '25% Q')
-        axhist.axvline(x = median, color = 'red', label = 'median')
-        axhist.axvline(x = mean, color = 'black', label = 'mean')
-        axhist.axvline(x = lidar["Z coordinate"].mode()[0], color = 'purple', label = 'mode')
-        axhist.axvline(x = Q75, color = 'orange', label = '75% Q')
-        axhist.hist(lidar["Z coordinate"], bins = int(len(lidar["Z coordinate"])/100),
+        ax_hist = plt.subplot(gs[1:7, 6])
+        #axhist.set_aspect('equal', adjustable='box')  # NEW
+        ax_hist.set_title('LPC Distribution', fontsize=10)
+        ax_hist.axvline(x = lidar["Z coordinate"].quantile(1/4), color = 'orange', label = '25% Q')
+        ax_hist.axvline(x = median, color = 'red', label = 'median')
+        ax_hist.axvline(x = mean, color = 'black', label = 'mean')
+        ax_hist.axvline(x = lidar["Z coordinate"].mode()[0], color = 'purple', label = 'mode')
+        ax_hist.axvline(x = Q75, color = 'orange', label = '75% Q')
+        ax_hist.hist(lidar["Z coordinate"], bins = int(len(lidar["Z coordinate"])/100),
                     color = 'blue', edgecolor = 'blue')
-        axhist.set_yticks([])
-        axhist.set_aspect('auto', adjustable='box')  # NEW
-        axhist.legend(loc="upper left")
+        ax_hist.set_yticks([])
+        #axhist.set_aspect('auto', adjustable='box')  # NEW
+        ax_hist.legend(loc="upper left")
         #Add in color bar
         cbax = plt.subplot(gs[8, 0:6])
         cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=current_cmap),
@@ -451,11 +465,11 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         cb.set_label('Elevation (m)',fontsize=12) #label colorbar
         plt.tight_layout()
         #plot
-        plt.close(fig)
         path = os.path.join(plot_path,tank_class)
         os.makedirs(path, exist_ok = True)
-        fig.savefig(path, tank_id+".jpg")
-        
+        fig.savefig(os.path.join(path, tank_id+".jpg"))
+        plt.close(fig)
+
 
         
 ############################################################################################

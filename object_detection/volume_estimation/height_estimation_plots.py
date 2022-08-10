@@ -52,7 +52,10 @@ def main(args):
     #read in tile level annotations
     #rite variables needed 
     tank_ids = vol_est.read_list(args.tank_ids)
-    
+        #paths to the DEM and lidar data 
+    lidar_path_by_tank_for_height = []
+    DEM_path_by_tank_for_height = []
+
     #read in list of lidar datasets
     if type(args.lidar_path_by_tank_for_height) == type(None):
         lidar_path_by_tank_for_height = glob(args.lidar_by_tank_dir + "/*.geojson")
@@ -71,7 +74,23 @@ def main(args):
     else:
         aerial_image_path_by_tank_for_height = vol_est.read_list(args.aerial_image_path_by_tank_for_height)
         
-    vol_est.height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_path_by_tank_for_height,
+        
+    #paths to the DEM and lidar data 
+    lidar_paths = []
+    DEM_paths = []
+    image_paths = []
+
+    
+    lidar_paths = []
+    DEM_paths = []
+    image_paths = []
+    for tank_id in tank_ids:
+        lidar_paths.append([string for string in lidar_path_by_tank_for_height if tank_id in string][0])
+        DEM_paths.append([string for string in DEM_path_by_tank_for_height if tank_id in string][0])
+        image_paths.append([string for string in aerial_image_path_by_tank_for_height if tank_id in string][0])
+
+
+    vol_est.height_estimation_figs(tank_ids, lidar_paths, DEM_paths, image_paths,
                                    args.plot_dir, args.tiles_dir)
     
 if __name__ == '__main__':
