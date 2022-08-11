@@ -21,7 +21,7 @@ import argparse
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     
-    parser.add_argument('--tank_ids', type=str, default = "//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk/complete_dataset/tiles", 
+    parser.add_argument('--tank_ids', type=str, default = None, 
                         help='tank ids list')
     
     parser.add_argument('--lidar_path_by_tank_for_height', type=str, default = None, 
@@ -45,13 +45,9 @@ def get_args_parse():
     return args
 
 def main(args):
-    #read in tile level annotations
-    #rite variables needed 
+    #read in list of tank ids
     tank_ids = vol_est.read_list(args.tank_ids)
-        #paths to the DEM and lidar data 
-    lidar_path_by_tank_for_height = []
-    DEM_path_by_tank_for_height = []
-
+    
     #read in list of lidar datasets
     if type(args.lidar_path_by_tank_for_height) == type(None):
         lidar_path_by_tank_for_height = glob(args.lidar_by_tank_dir + "/*.geojson")
@@ -72,7 +68,6 @@ def main(args):
         
         
     #paths to the DEM and lidar data 
-
     lidar_paths = []
     DEM_paths = []
     image_paths = []
