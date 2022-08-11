@@ -292,7 +292,7 @@ def add_titlebox(ax, text):
     fontsize=12.5)
     return ax
 
-def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_by_tank_for_height, plot_path, tiles_dir):
+def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_by_tank_for_height, plot_path):
     for i, (tank_id, lidar_path, DEM_path, aerial_image_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height,
                                                                                aerial_image_by_tank_for_height)):
         tank_id = str(tank_id)
@@ -465,7 +465,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         cb.set_label('Elevation (m)',fontsize=12) #label colorbar
         plt.tight_layout()
         #plot
-        path = os.path.join(plot_path,tank_class)
+        path = os.path.join(plot_path, tank_class)
         os.makedirs(path, exist_ok = True)
         fig.savefig(os.path.join(path, tank_id+".jpg"))
         plt.close(fig)

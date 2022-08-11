@@ -18,7 +18,6 @@ from matplotlib.colorbar import Colorbar # For dealing with Colorbars the proper
 
 import volume_estimation_functions as vol_est
 import argparse
-
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     
@@ -39,9 +38,6 @@ def get_args_parse():
                         help='file path to list of files of type jpg to aerial image data for each tank')
     parser.add_argument('--image_by_tank_dir', type=str, default = None, 
                         help='directory to image by tanks')  
-
-    parser.add_argument('--tiles_dir', type=str, default = "//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk/complete_dataset/tiles", 
-                        help='tile level tank annotations')
     
     parser.add_argument('--plot_dir', type=str, default = None, 
                         help='folder to hold plots')
@@ -76,10 +72,6 @@ def main(args):
         
         
     #paths to the DEM and lidar data 
-    print(tank_ids)
-    print(lidar_path_by_tank_for_height)
-    print(DEM_path_by_tank_for_height)
-    print(aerial_image_path_by_tank_for_height)
 
     lidar_paths = []
     DEM_paths = []
@@ -89,9 +81,8 @@ def main(args):
         DEM_paths.append([string for string in DEM_path_by_tank_for_height if tank_id in string][0])
         image_paths.append([string for string in aerial_image_path_by_tank_for_height if tank_id in string][0])
 
-
     vol_est.height_estimation_figs(tank_ids, lidar_paths, DEM_paths, image_paths,
-                                   args.plot_dir, args.tiles_dir)
+                                   args.plot_dir)
     
 if __name__ == '__main__':
     ### Get the arguments 
