@@ -330,7 +330,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         current_cmap = mpl.cm.get_cmap('terrain').copy()
         current_cmap.set_bad(color='red')
         #make grided plot
-        widths = [.5, .5, .5, .5, .5, .5, 2]
+        widths = [.5, .5, .5, .5, .5, .5, .5, .5, 2]
         heights = [.5, .5, .5, .5, .5, .5, .5, .5, 0.1]
         gs = gridspec.GridSpec(9, 7, width_ratios=widths,height_ratios=heights)
         #plot raw data
@@ -408,7 +408,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         median = lidar["Z coordinate"].median()
         idxs = np.where(lidar["Z coordinate"] > median)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        ax_median = plt.subplot(gs[6:8, :2])
+        ax_median = plt.subplot(gs[4:6, 6:8])
         ax_median.set_title('LPC (over median ['+str(round(median,2))+']) - DEM', fontsize=10)
         add_titlebox(ax_median, '(H ='+str(H)+'m)')
         ax_median.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
@@ -421,7 +421,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         Q75 = lidar["Z coordinate"].quantile(.75) 
         idxs = np.where(lidar["Z coordinate"] > Q75)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        ax_Q75 = plt.subplot(gs[6:8, 2:4])
+        ax_Q75 = plt.subplot(gs[6:8, :2])
         ax_Q75.set_title('LPC (over Q75 ['+str(round(Q75,2))+']) - DEM', fontsize=10)
         add_titlebox(ax_Q75, '(H ='+str(H)+'m)')
         ax_Q75.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
@@ -430,11 +430,11 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         ax_Q75.set_xlim(ax_bee.get_xlim())
         ax_Q75.set_ylim(ax_bee.get_ylim())
         #axQ75.set_aspect(asp)
-        #Difference between DSM and DEM for all DSM values greater than the 75th quantile 
+        #Difference between DSM and DEM for all DSM values greater than the 90th quantile 
         Q90 = lidar["Z coordinate"].quantile(.90) 
         idxs = np.where(lidar["Z coordinate"] > Q90)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
-        ax_Q90 = plt.subplot(gs[6:8, 4:6])
+        ax_Q90 = plt.subplot(gs[6:8, 2:4])
         ax_Q90.set_title('LPC (over Q90 ['+str(round(Q90,2))+']) - DEM', fontsize=10)
         add_titlebox(ax_Q90, '(H ='+str(H)+'m)')
         ax_Q90.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
@@ -443,8 +443,32 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         #ax_Q90.set_aspect(asp)
         ax_Q90.set_xlim(ax_bee.get_xlim())
         ax_Q90.set_ylim(ax_bee.get_ylim())
+        #Difference between DSM and DEM for all DSM values greater than the 95th quantile 
+        Q95 = lidar["Z coordinate"].quantile(.95) 
+        idxs = np.where(lidar["Z coordinate"] > Q95)[0]
+        H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
+        ax_Q95 = plt.subplot(gs[6:8, 4:6])
+        ax_Q95.set_title('LPC (over Q95 ['+str(round(Q95,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_Q95, '(H ='+str(H)+'m)')
+        ax_Q95.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_Q95.set_xticks([])
+        ax_Q95.set_yticks([])
+        ax_Q95.set_xlim(ax_bee.get_xlim())
+        ax_Q95.set_ylim(ax_bee.get_ylim())
+        #Difference between DSM and DEM for all DSM values greater than the 99th quantile 
+        Q99 = lidar["Z coordinate"].quantile(.99) 
+        idxs = np.where(lidar["Z coordinate"] > Q99)[0]
+        H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
+        ax_Q99 = plt.subplot(gs[6:8, 6:8])
+        ax_Q99.set_title('LPC (over Q99 ['+str(round(ax_Q99,2))+']) - DEM', fontsize=10)
+        add_titlebox(ax_Q99, '(H ='+str(H)+'m)')
+        ax_Q99.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
+        ax_Q99.set_xticks([])
+        ax_Q99.set_yticks([])
+        ax_Q99.set_xlim(ax_bee.get_xlim())
+        ax_Q99.set_ylim(ax_bee.get_ylim())
         #Distribution of LPC
-        ax_hist = plt.subplot(gs[1:7, 6])
+        ax_hist = plt.subplot(gs[1:7, 8])
         #axhist.set_aspect('equal', adjustable='box')  # NEW
         ax_hist.set_title('LPC Distribution', fontsize=10)
         ax_hist.axvline(x = lidar["Z coordinate"].quantile(1/4), color = 'orange', label = '25% Q')
@@ -458,7 +482,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         #axhist.set_aspect('auto', adjustable='box')  # NEW
         ax_hist.legend(loc="upper left")
         #Add in color bar
-        cbax = plt.subplot(gs[8, 0:6])
+        cbax = plt.subplot(gs[8, 0:8])
         cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=current_cmap),
                           cax=cbax, orientation='horizontal' )#use the defined variables cmap and norm
         cb.ax.tick_params(labelsize=10) #set ticks
