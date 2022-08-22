@@ -332,7 +332,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         #make grided plot
         widths = [.5, .5, .5, .5, .5, .5, .5, .5, 2]
         heights = [.5, .5, .5, .5, .5, .5, .5, .5, 0.1]
-        gs = gridspec.GridSpec(9, 7, width_ratios=widths,height_ratios=heights)
+        gs = gridspec.GridSpec(nrows=len(heights), ncols=len(heights), width_ratios=widths,height_ratios=heights)
         #plot raw data
         ## Image
         ax_img = plt.subplot(gs[:2, 1:3])
@@ -460,7 +460,7 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         idxs = np.where(lidar["Z coordinate"] > Q99)[0]
         H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
         ax_Q99 = plt.subplot(gs[6:8, 6:8])
-        ax_Q99.set_title('LPC (over Q99 ['+str(round(ax_Q99,2))+']) - DEM', fontsize=10)
+        ax_Q99.set_title('LPC (over Q99 ['+str(round(Q99,2))+']) - DEM', fontsize=10)
         add_titlebox(ax_Q99, '(H ='+str(H)+'m)')
         ax_Q99.scatter(X.iloc[idxs], Y.iloc[idxs], c=lidar["lpc_bee_difference"].iloc[idxs], cmap=current_cmap, norm=norm)
         ax_Q99.set_xticks([])
@@ -495,7 +495,53 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         plt.close(fig)
 
 
-        
+
+def add_height_estimate_by_tank_data(tank_ids, lidar_path_by_tank_for_height, tank_data):
+    """
+    Add average base elevation to dataframe
+    """    
+    heights = [-999999] * len(tank_data)
+    for i, (tank_id, lidar_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height)):
+        tank_id = int(tank_id)
+        #Read in data 
+        ##read in lidar data for object
+        lidar = gpd.read_file(lidar_path)
+        #get tank class
+        tank_class = lidar["object_class"].iloc[0]
+        #calculate difference between LPC and DEM(Bare earth elevation)
+        lidar["lpc_bee_difference"] = lidar["Z coordinate"] - lidar["bare_earth_elevation"]
+        #remove no data values
+        lidar.drop(lidar[(lidar['bare_earth_elevation'] ==-999999)].index, inplace=True) #remove no data values
+        if tank_class == "closed_roof_tank":
+            Q75 = lidar["Z coordinate"].quantile(.75) 
+            idxs = np.where(lidar["Z coordinate"] > Q75)[0]
+            H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
+            heights[tank_id] = H
+        if tank_class == "external_floating_roof":
+            Q95 = lidar["Z coordinate"].quantile(.95) 
+            idxs = np.where(lidar["Z coordinate"] > Q95)[0]
+            H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
+            heights[tank_id] = H
+    tank_data["heights"] = heights
+    return(tank_data)
+
+def write_gdf(gdf, output_filepath, output_filename = 'tile_level_annotations'):
+    """
+    write tank data 
+    """
+    gdf.crs = "EPSG:4326" #assign projection
+
+    #save geodatabase as json
+    with open(os.path.join(output_filepath, output_filename+".json"), 'w') as file:
+        file.write(gdf.to_json()) 
+
+    ##save geodatabase as geojson 
+    with open(os.path.join(output_filepath, output_filename+".geojson"), "w") as file:
+        file.write(gdf.to_json()) 
+
+    ##save geodatabase as shapefile
+    gdf_shapefile = gdf.drop(columns=["chip_name","polygon_vertices_pixels","polygon_vertices_lon_lat"])
+    gdf_shapefile.to_file(os.path.join(output_filepath,output_filename+".shp"))
 ############################################################################################
 ####################    Shadow Detection height estimation   ###############################
 ############################################################################################

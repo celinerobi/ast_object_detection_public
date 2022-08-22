@@ -8,7 +8,6 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd #important
 import rasterio
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
@@ -20,31 +19,31 @@ import volume_estimation_functions as vol_est
 import argparse
 def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
-    
+    parser.add_argument('--tile_level_annotation_output_filepath', type=str, default=None, 
+                        help='tile level tank annotations output filepath')
     parser.add_argument('--tank_ids', type=str, default = None, 
                         help='tank ids list')
-    
     parser.add_argument('--lidar_path_by_tank_for_height', type=str, default = None, 
                         help='file path to list of files of type geojson to lidar data for each tank')
     parser.add_argument('--lidar_by_tank_dir', type=str, default = None, 
                         help='directory to lidar by tanks')
-    
     parser.add_argument('--DEM_path_by_tank_for_height', type=str, default = None, 
                         help='file path to list of files of type tif to DEM data for each tank')
     parser.add_argument('--DEM_by_tank_dir', type=str, default = None, 
                         help='directory to DEM by tanks')   
-    
     parser.add_argument('--aerial_image_path_by_tank_for_height', type=str, default = None, 
                         help='file path to list of files of type jpg to aerial image data for each tank')
     parser.add_argument('--image_by_tank_dir', type=str, default = None, 
                         help='directory to image by tanks')  
-    
     parser.add_argument('--plot_dir', type=str, default = None, 
                         help='folder to hold plots')
     args = parser.parse_args()
     return args
 
 def main(args):
+    #read in tile level annotations
+    tank_data = gpd.read_file(os.path.join(args.tile_level_annotation_output_filepath, "tile_level_annotations.geojson"))
+    
     #read in list of tank ids
     tank_ids = vol_est.read_list(args.tank_ids)
     
@@ -76,8 +75,10 @@ def main(args):
         DEM_paths.append([string for string in DEM_path_by_tank_for_height if tank_id in string][0])
         image_paths.append([string for string in aerial_image_path_by_tank_for_height if tank_id in string][0])
 
-    vol_est.height_estimation_figs(tank_ids, lidar_paths, DEM_paths, image_paths,
-                                   args.plot_dir)
+    vol_est.height_estimation_figs(tank_ids, lidar_paths, DEM_paths, image_paths, args.plot_dir)
+    tank_data = vol_est.add_height_estimate_by_tank_data(tank_ids, lidar_paths, tank_data)
+    vol_est.write_gdf(tank_data, args.tile_level_annotation_output_filepath)
+    
     
 if __name__ == '__main__':
     ### Get the arguments 
