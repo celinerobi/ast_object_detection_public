@@ -1,20 +1,23 @@
 """
 Module containing functions to estimation tank volumes
 """
-
-"""
-Load Packages
-"""
+##########################################################################################################################
+############################################          Load Packages         ##############################################
+##########################################################################################################################
 import os
 import sys
 import json
 import tempfile
 import shutil
 import re
+import copy
 from glob import glob
 
 import tqdm
 import rtree
+
+import urllib3
+import requests
 
 import numpy as np
 import pandas as pd
@@ -42,6 +45,95 @@ colors = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 import matplotlib.gridspec as gridspec # GRIDSPEC !
 from matplotlib.colorbar import Colorbar # For dealing with Colorbars the proper way - TBD in a separate PyCoffee ?
 
+##########################################################################################################################
+################################################  USGS TNM API Functions #################################################
+##########################################################################################################################
+def submit_http_api_request(bbox_str, dataset, url):
+    payload = {'bbox': bbox_str, "datasets": dataset}
+    response = requests.get(url, payload)
+    #print(response.url)
+    # We can check whether the request is sucessful, (200 -> OK) or nother errors (i.e, 404 -> Not Found)
+    if response.status_code  == 200:
+        response.encoding = 'utf-8' # Optional: requests infers this internally
+        contents_json = response.json()
+        return(True, contents_json)
+    else:         
+        #print("An error occurred", response.status_code)
+        return(False, _)
+
+def verify_entries_exist(contents_json, entries_idx):
+    if int(contents_json[entries_idx]) == 0:
+        return(False)
+    else:
+        return(True)
+
+def json_to_dict(json, json_idx, nested_idx):
+    dict_ = {}
+    for item in json[json_idx]:
+        col_idx = item.keys()
+        title = item[nested_idx]
+        dict_[title] = item
+    df = pd.DataFrame(dict_,index=col_idx)
+    df = df.T
+    return(df)
+
+def get_dataset_of_interest(contents_df, name_list, url_list, geometry_list):
+    newest = contents_df.loc[contents_df["dateCreated"] == contents_df["dateCreated"].max()]
+    url = newest['downloadLazURL'][0]
+    bbox = newest['boundingBox'][0]
+    polygon = Polygon([(bbox["minX"],bbox["minY"]), (bbox["minX"],bbox["maxY"]), 
+                         (bbox["maxX"],bbox["maxY"]), (bbox["maxX"],bbox["minY"])])
+    #add to list
+    name_list.append(newest.index[0])
+    url_list.append(url)
+    geometry_list.append(polygon)
+    return(name_list, url_list, geometry_list)
+
+def usgs_api(tile_level_annotations, dataset_name, request_total_idx, request_content_idx, request_content_names_idx):
+    #create lists to store data 
+    tnm_names = []
+    urls = []
+    geometries = []
+    tank_idxs = []
+
+    #iterate over tanks
+    for tank_idx, row in tqdm.tqdm(tile_level_annotations.iterrows(), total=tile_level_annotations.shape[0]):
+        minx = row['nw_corner_polygon_lon']
+        miny = row['se_corner_polygon_lat']
+        maxx = row['se_corner_polygon_lon']
+        maxy = row['nw_corner_polygon_lat']
+        tank_polygon = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
+        tank_bbox = [minx, miny, maxx, maxy]
+        tank_bbox_str = ",".join(map(str, tank_bbox)) #https://stackoverflow.com/questions/32313623/passing-comma-separated-values-in-request-get-python
+
+        tnm_names_itr = copy.copy(tnm_names)
+        urls_itr = copy.copy(urls)
+        geometries_itr = copy.copy(geometries)
+
+        #check if tank polygon is inside of a previously identified dataset
+        ## https://stackoverflow.com/questions/4406389/if-else-in-a-list-comprehension
+        matching_poly= [(tnm_name, url, tnm_poly) for tnm_name, url, tnm_poly in zip(tnm_names_itr, urls_itr, geometries_itr) if tnm_poly.contains(tank_polygon)]
+        if len(matching_poly) > 0: #if it is inside of another dataset, add to the lists tracking names, urls, geoms, idx
+            tnm_name, url, tnm_poly = matching_poly[0]
+            tnm_names.append(tnm_name)
+            urls.append(url)
+            geometries.append(tnm_poly)
+            tank_idxs.append(tank_idx)
+        else:
+            bool_request, contents_json = submit_http_api_request(tank_bbox_str, dataset_name, tnm_url)
+            if bool_request: #if the request was successful
+                bool_entries = verify_entries_exist(contents_json, request_total_idx)
+                if bool_entries: #if the request provided enteries
+                    contents_df = json_to_dict(contents_json, request_content_idx, request_content_names_idx) 
+                    tnm_names, urls, geometries = get_dataset_of_interest(contents_df, tnm_names, urls, geometries)
+                    tank_idxs.append(tank_idx)
+    
+    complete_df = pd.DataFrame(list(zip(tank_idxs, tnm_names, urls, geometries)), 
+                               index = tank_idxs, columns =['tank_idxs','usgs_tnm_names', 'urls', 'geometry'])
+    return(complete_df)
+##########################################################################################################################
+################################################   General Functions     #################################################
+##########################################################################################################################
 def remove_thumbs(path_to_folder_containing_images):
     """ Remove Thumbs.db file from a given folder
     Args: 
@@ -69,10 +161,9 @@ def read_list(file_path):
 def getFeatures(gdf):
     """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
     return [json.loads(gdf.to_json())['features'][0]['geometry']]
-
-"""
-lidar functions 
-"""
+##########################################################################################################################
+############################################   Lidar Processing Functions   ##############################################
+##########################################################################################################################
 def project_list_of_points(initial_proj, final_proj, x_points, y_points):
     """ Convert a utm pair into a lat lon pair 
     Args: 
@@ -89,9 +180,10 @@ def project_list_of_points(initial_proj, final_proj, x_points, y_points):
     project = pyproj.Transformer.from_proj(initial_proj, final_proj, always_xy=True).transform
     Geometry_projected = [transform(project, point) for point in Geometry]
     return(Geometry_projected)
-"""
-DEM Processing
-"""
+
+##########################################################################################################################
+############################################    DEM Processing Functions    ##############################################
+##########################################################################################################################
 def reproject_dems(initial_dem_dir, final_dem_dir):
     """ Reproject DEMS
     Args: 
@@ -258,8 +350,7 @@ def add_bare_earth_data_to_lpc_by_tank_data(lidar_path_by_tank_for_height, DEM_p
 
         with open(lidar_path, "w") as file:
             file.write(lidar.to_json())
-            
-            
+                   
 def image_by_tank(tank_data, tiles_dir, output_path):
     image_path_list = []
     tank_data_grouped_by_tile = tank_data.groupby(tank_data.tile_name) #group gpds by dem
@@ -283,7 +374,9 @@ def image_by_tank(tank_data, tiles_dir, output_path):
             if not os.path.exists(tank_img_path):
                 cv2.imwrite(tank_img_path, tank_image) #save images  
     return(image_path_list)
-
+##########################################################################################################################
+############################################   Height Estimation Figures    ##############################################
+##########################################################################################################################
 def add_titlebox(ax, text):
     ax.text(.55, .8, text,
     horizontalalignment='center',
@@ -493,8 +586,6 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         os.makedirs(path, exist_ok = True)
         fig.savefig(os.path.join(path, tank_id+".jpg"))
         plt.close(fig)
-
-
 
 def add_height_estimate_by_tank_data(tank_ids, lidar_path_by_tank_for_height, tank_data):
     """
