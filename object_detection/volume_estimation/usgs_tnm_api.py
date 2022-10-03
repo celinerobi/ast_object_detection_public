@@ -30,7 +30,7 @@ def get_args_parse():
 
 def main(args):
     tile_level_annotations = gpd.read_file(args.tile_level_annotations_path)
-    lpc_complete_df = vol_est.usgs_api(tile_level_annotations, args.dataset_name, args.request_total_idx, 
+    lpc_complete_df = vol_est.usgs_api(tile_level_annotations, args.tnm_url, args.dataset_name, args.request_total_idx, 
                                        args.request_content_idx, args.request_content_names_idx)
 
 if __name__ == '__main__':

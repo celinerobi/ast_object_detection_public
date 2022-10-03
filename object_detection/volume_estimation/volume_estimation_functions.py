@@ -14,7 +14,7 @@ import copy
 from glob import glob
 
 import tqdm
-import rtree
+#import rtree
 
 import urllib3
 import requests
@@ -59,7 +59,7 @@ def submit_http_api_request(bbox_str, dataset, url):
         return(True, contents_json)
     else:         
         #print("An error occurred", response.status_code)
-        return(False, _)
+        return(False, False)
 
 def verify_entries_exist(contents_json, entries_idx):
     if int(contents_json[entries_idx]) == 0:
@@ -89,7 +89,7 @@ def get_dataset_of_interest(contents_df, name_list, url_list, geometry_list):
     geometry_list.append(polygon)
     return(name_list, url_list, geometry_list)
 
-def usgs_api(tile_level_annotations, dataset_name, request_total_idx, request_content_idx, request_content_names_idx):
+def usgs_api(tile_level_annotations, tnm_url, dataset_name, request_total_idx, request_content_idx, request_content_names_idx):
     #create lists to store data 
     tnm_names = []
     urls = []
