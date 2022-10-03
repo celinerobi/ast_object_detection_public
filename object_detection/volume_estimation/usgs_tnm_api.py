@@ -19,6 +19,8 @@ def get_args_parse():
                         help='path to hold, lidar by tank geojson data')
     parser.add_argument('--dataset_name', type=str, default=None,
                         help='name of dataset type to pull from api, sgDataset format')
+    parser.add_argument('--stored_data_path', type=str, default=None,
+                        help='path to save requested tnm data, sgDataset format')
     parser.add_argument('--request_total_idx', type=str, default=None, 
                         help="idx for request enteries")
     parser.add_argument('--request_content_idx', type=str, default=None,
@@ -30,8 +32,11 @@ def get_args_parse():
 
 def main(args):
     tile_level_annotations = gpd.read_file(args.tile_level_annotations_path)
-    lpc_complete_df = vol_est.usgs_api(tile_level_annotations, args.tnm_url, args.dataset_name, args.request_total_idx, 
+    complete_df = vol_est.usgs_api(tile_level_annotations, args.tnm_url, args.dataset_name, args.request_total_idx, 
                                        args.request_content_idx, args.request_content_names_idx)
+    
+    complete_df.to_file(os.path.join(args.stored_data_path, args.dataset_name + "subset.geojson"), driver="GeoJSON")
+
 
 if __name__ == '__main__':
     ### Get the arguments 
