@@ -44,12 +44,49 @@ from matplotlib import colors as mcolors
 colors = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 import matplotlib.gridspec as gridspec # GRIDSPEC !
 from matplotlib.colorbar import Colorbar # For dealing with Colorbars the proper way - TBD in a separate PyCoffee ?
+##########################################################################################################################
+############# General Functions: Remove when package is pushed (in form_calcs)     #################################################
+##########################################################################################################################
+def remove_thumbs(path_to_folder_containing_images):
+    """ Remove Thumbs.db file from a given folder
+    Args: 
+    path_to_folder_containing_images(str): path to folder containing images
+    Returns:
+    None
+    """
+    if len(glob(path_to_folder_containing_images + "/*.db", recursive = True)) > 0:
+        os.remove(glob(path_to_folder_containing_images + "/*.db", recursive = True)[0])
+        
+## Write files
+def write_list(list_, file_path):
+    print("Started writing list data into a json file")
+    with open(file_path, "w") as fp:
+        json.dump(list_, fp)
+        print("Done writing JSON data into .json file")
+
+# Read list to memory
+def read_list(file_path):
+    # for reading also binary mode is important
+    with open(file_path, 'rb') as fp:
+        list_ = json.load(fp)
+        return list_
+
+def getFeatures(gdf):
+    """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
+    return [json.loads(gdf.to_json())['features'][0]['geometry']]
 
 ##########################################################################################################################
 ################################################  USGS TNM API Functions #################################################
 ##########################################################################################################################
-def submit_http_api_request(bbox_str, dataset, url):
-    payload = {'bbox': bbox_str, "datasets": dataset}
+def submit_http_api_request(payload, url):
+    """ Use get http request to pull information from api
+    Args:
+        payload dict): specify components to use to pull from
+        url(str): the url corresponding to the api 
+    Returns:
+        (bool,contents_json): returns a True/False (True if the request was sucessful, False otherwise); 
+        If true a json of the file of interest is returned, otherwise False is returned.
+    """
     response = requests.get(url, payload)
     #print(response.url)
     # We can check whether the request is sucessful, (200 -> OK) or nother errors (i.e, 404 -> Not Found)
@@ -62,12 +99,28 @@ def submit_http_api_request(bbox_str, dataset, url):
         return(False, False)
 
 def verify_entries_exist(contents_json, entries_idx):
+    """ Determine whether of not the pull request returned any entries
+    Args: 
+        contents_json(json): the response from the get request 
+        entries_idx(str): key indiciating the enteries of interest
+    Returns:
+        bool: True if there are enteries, False if there are not enteries 
+    """
     if int(contents_json[entries_idx]) == 0:
         return(False)
     else:
         return(True)
 
 def json_to_dict(json, json_idx, nested_idx):
+    """Convert json file storing nested dictionaries to a dicitionary using a given index. Save dictionary as pandas df. 
+    Args:
+        json(json):
+        json_idx(str):
+        nested_idx(str): nested idx in json used as key value for new dictionary
+
+    return:
+        df: dataframe of restructured json file
+    """
     dict_ = {}
     for item in json[json_idx]:
         col_idx = item.keys()
@@ -120,7 +173,8 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name, request_total_idx, r
             geometries.append(tnm_poly)
             tank_idxs.append(tank_idx)
         else:
-            bool_request, contents_json = submit_http_api_request(tank_bbox_str, dataset_name, tnm_url)
+            payload = {'bbox': tank_bbox_str, "datasets": dataset_name}
+            bool_request, contents_json = submit_http_api_request(payload, tnm_url)
             if bool_request: #if the request was successful
                 bool_entries = verify_entries_exist(contents_json, request_total_idx)
                 if bool_entries: #if the request provided enteries
@@ -131,36 +185,6 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name, request_total_idx, r
     complete_df = pd.DataFrame(list(zip(tank_idxs, tnm_names, urls, geometries)), 
                                index = tank_idxs, columns =['tank_idxs','usgs_tnm_names', 'urls', 'geometry'])
     return(complete_df)
-##########################################################################################################################
-################################################   General Functions     #################################################
-##########################################################################################################################
-def remove_thumbs(path_to_folder_containing_images):
-    """ Remove Thumbs.db file from a given folder
-    Args: 
-    path_to_folder_containing_images(str): path to folder containing images
-    Returns:
-    None
-    """
-    if len(glob(path_to_folder_containing_images + "/*.db", recursive = True)) > 0:
-        os.remove(glob(path_to_folder_containing_images + "/*.db", recursive = True)[0])
-        
-## Write files
-def write_list(list_, file_path):
-    print("Started writing list data into a json file")
-    with open(file_path, "w") as fp:
-        json.dump(list_, fp)
-        print("Done writing JSON data into .json file")
-
-# Read list to memory
-def read_list(file_path):
-    # for reading also binary mode is important
-    with open(file_path, 'rb') as fp:
-        list_ = json.load(fp)
-        return list_
-
-def getFeatures(gdf):
-    """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
-    return [json.loads(gdf.to_json())['features'][0]['geometry']]
 ##########################################################################################################################
 ############################################   Lidar Processing Functions   ##############################################
 ##########################################################################################################################
