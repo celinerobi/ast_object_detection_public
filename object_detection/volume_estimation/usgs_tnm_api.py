@@ -15,7 +15,8 @@ def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     parser.add_argument('--tnm_url', type=str, default='https://tnmaccess.nationalmap.gov/api/v1/products',
                         help='tnm api url')
-    parser.add_argument('--tile_level_annotations_path', type=str, default="//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk//complete_dataset_/tile_level_annotations/tile_level_annotations.geojson", 
+    parser.add_argument('--tile_level_annotations_path', type=str,
+                        default="//oit-nas-fe13dc.oit.duke.edu//data_commons-borsuk//complete_dataset_/tile_level_annotations/tile_level_annotations.geojson",
                         help='path to hold, lidar by tank geojson data')
     parser.add_argument('--dataset_name', type=str, default=None,
                         help='name of dataset type to pull from api, sgDataset format')

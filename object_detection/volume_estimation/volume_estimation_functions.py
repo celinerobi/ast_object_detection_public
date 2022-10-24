@@ -5,7 +5,6 @@ Module containing functions to estimation tank volumes
 ############################################          Load Packages         ##############################################
 ##########################################################################################################################
 import os
-import sys
 import json
 import tempfile
 import shutil
@@ -14,9 +13,6 @@ import copy
 from glob import glob
 
 import tqdm
-#import rtree
-
-import urllib3
 import requests
 
 import numpy as np
