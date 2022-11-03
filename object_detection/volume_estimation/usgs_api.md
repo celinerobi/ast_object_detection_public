@@ -16,3 +16,12 @@ matches file type "LAS,LAZ"
 
 "Digital Elevation Model (DEM) 1 meter"
 "National Elevation Dataset (NED) 1/9 arc-second"
+
+usgs_tnm_api.py --tnm_url 
+--tile_level_annotations_path
+--dataset_name ''
+--stored_data_path 
+--request_total_idx total
+--request_content_idx', type=str, default=None,
+                    help='idx that holds contents in request')
+--request_content_names_idx 

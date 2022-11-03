@@ -138,7 +138,8 @@ def get_dataset_of_interest(contents_df, name_list, url_list, geometry_list):
     geometry_list.append(polygon)
     return(name_list, url_list, geometry_list)
 
-def usgs_api(tile_level_annotations, tnm_url, dataset_name, request_total_idx, request_content_idx, request_content_names_idx):
+def usgs_api(tile_level_annotations, tnm_url, dataset_name,
+             request_total_idx, request_content_idx, request_content_names_idx):
     #create lists to store data 
     tnm_names = []
     urls = []
@@ -153,7 +154,7 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name, request_total_idx, r
         maxy = row['nw_corner_polygon_lat']
         tank_polygon = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
         tank_bbox = [minx, miny, maxx, maxy]
-        tank_bbox_str = ",".join(map(str, tank_bbox)) #https://stackoverflow.com/questions/32313623/passing-comma-separated-values-in-request-get-python
+        tank_bbox_str = ",".join(map(str, tank_bbox)) # https://stackoverflow.com/questions/32313623/passing-comma-separated-values-in-request-get-python
 
         tnm_names_itr = copy.copy(tnm_names)
         urls_itr = copy.copy(urls)
