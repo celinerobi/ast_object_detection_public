@@ -20,8 +20,9 @@ def get_args_parse():
                         help='path to hold, lidar by tank geojson data')
     parser.add_argument('--dataset_name', type=str, default=None,
                         help='name of dataset type to pull from api, sgDataset format')
-    parser.add_argument('--stored_data_path', type='/hpc/group/borsuklab/csr33/volume_estimation/usgs_tnm_api',
-                        default=None, help='path to save requested tnm data, sgDataset format')
+    parser.add_argument('--stored_data_path', type=str,
+                        default='/hpc/group/borsuklab/csr33/volume_estimation/usgs_tnm_api',
+                        help='path to save requested tnm data, sgDataset format')
     parser.add_argument('--request_total_idx', type='total', default=None,
                         help="idx for the number of requested enteries")
     parser.add_argument('--request_content_idx', type='items', default=None,

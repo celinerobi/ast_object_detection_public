@@ -14,14 +14,9 @@ matches file type "LAS,LAZ"
 select the file with the largest bounding box/that is newest
 matches file type "LAS,LAZ"
 
-"Digital Elevation Model (DEM) 1 meter"
-"National Elevation Dataset (NED) 1/9 arc-second"
 
-usgs_tnm_api.py --tnm_url 
---tile_level_annotations_path
---dataset_name ''
---stored_data_path 
---request_total_idx total
---request_content_idx', type=str, default=None,
-                    help='idx that holds contents in request')
---request_content_names_idx 
+
+
+python usgs_tnm_api.py --dataset_name "Digital Elevation Model (DEM) 1 meter"
+python usgs_tnm_api.py --dataset_name "National Elevation Dataset (NED) 1/9 arc-second"
+python usgs_tnm_api.py --dataset_name 'Lidar Point Cloud (LPC)' 
