@@ -302,9 +302,17 @@ def get_bounds_for_dems(dem_paths):
     return(dem_bounds)
 
 def dem_by_tank(dem_paths, tank_data, output_path):
+    """
+    Chip all available DEMS to tank data
+    Args:
+        dem_paths: path to dem tifs (only the highest resolution available)
+        tank_data: path to geojson of ast dataset
+        output_path: path to dir to hold chipped dem data
+    """
     #get bounds for dems
     dem_bounds = get_bounds_for_dems(dem_paths)
     dem_bounds.crs = "EPSG:4326"
+
     #get the dem paths for each tank
     dem_bounds_by_tank = gpd.sjoin(dem_bounds, tank_data, how="right")
     dem_bounds_by_tank = dem_bounds_by_tank.dropna(subset=['dem_paths'])
@@ -327,6 +335,15 @@ def dem_by_tank(dem_paths, tank_data, output_path):
             reproject_raster_mask_to_utm(tank_poly, dem, clipped_img, clipped_transform, output_filename)
             
 def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
+    """
+    Identify tank ids with common dem and lidar datasets
+    Args:
+        lidar_by_tank_output_path:
+        DEM_by_tank_output_path:
+
+    Returns:
+
+    """
     regex = re.compile(r'\d+')
     #the tank ids with corresponding lidar data 
     tank_ids_lidar = []
@@ -345,7 +362,7 @@ def identify_tank_ids(lidar_by_tank_output_path, DEM_by_tank_output_path):
     tank_ids = list(set(tank_ids_dem).intersection(tank_ids_lidar))
     tank_ids = [str(i) for i in tank_ids]
 
-    #paths to the DEM and lidar data 
+    #paths to the lidar and DEM data
     lidar_path_by_tank_for_height = []
     DEM_path_by_tank_for_height = []
 
@@ -406,9 +423,11 @@ def add_titlebox(ax, text):
     fontsize=12.5)
     return ax
 
-def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height, aerial_image_by_tank_for_height, plot_path):
-    for i, (tank_id, lidar_path, DEM_path, aerial_image_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_tank_for_height,
-                                                                               aerial_image_by_tank_for_height)):
+def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height,
+                           DEM_path_by_tank_for_height, aerial_image_by_tank_for_height, plot_path):
+    for i, (tank_id, lidar_path, DEM_path, aerial_image_path) in \
+            enumerate(zip(tank_ids,  lidar_path_by_tank_for_height, DEM_path_by_tank_for_height,
+                          aerial_image_by_tank_for_height)):
         tank_id = str(tank_id)
         #Read in data 
         ##read in lidar
@@ -585,13 +604,13 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         ax_hist = plt.subplot(gs[1:7, 8])
         #axhist.set_aspect('equal', adjustable='box')  # NEW
         ax_hist.set_title('LPC Distribution', fontsize=10)
-        ax_hist.axvline(x = lidar["Z coordinate"].quantile(1/4), color = 'orange', label = '25% Q')
-        ax_hist.axvline(x = median, color = 'red', label = 'median')
-        ax_hist.axvline(x = mean, color = 'black', label = 'mean')
-        ax_hist.axvline(x = lidar["Z coordinate"].mode()[0], color = 'purple', label = 'mode')
-        ax_hist.axvline(x = Q75, color = 'orange', label = '75% Q')
+        ax_hist.axvline(x=lidar["Z coordinate"].quantile(1/4), color='orange', label='25% Q')
+        ax_hist.axvline(x=median, color='red', label='median')
+        ax_hist.axvline(x=mean, color='black', label='mean')
+        ax_hist.axvline(x=lidar["Z coordinate"].mode()[0], color='purple', label='mode')
+        ax_hist.axvline(x=Q75, color='orange', label='75% Q')
         ax_hist.hist(lidar["Z coordinate"], bins = int(len(lidar["Z coordinate"])/100),
-                    color = 'blue', edgecolor = 'blue')
+                     color='blue', edgecolor='blue')
         ax_hist.set_yticks([])
         #axhist.set_aspect('auto', adjustable='box')  # NEW
         ax_hist.legend(loc="upper left")
@@ -608,10 +627,15 @@ def height_estimation_figs(tank_ids, lidar_path_by_tank_for_height, DEM_path_by_
         fig.savefig(os.path.join(path, tank_id+".jpg"))
         plt.close(fig)
 
-def add_height_estimate_by_tank_data(tank_ids, lidar_path_by_tank_for_height, tank_data):
+def add_height_estimation_to_tank_data(tank_ids, lidar_path_by_tank_for_height, tank_data):
     """
     Add average base elevation to dataframe
-    """    
+
+    Args:
+        tank_ids: A json of tanks ids that have both lidar and dem data
+        lidar_path_by_tank_for_height:
+        tank_data:
+    """
     heights = [-999999] * len(tank_data)
     for i, (tank_id, lidar_path) in enumerate(zip(tank_ids, lidar_path_by_tank_for_height)):
         tank_id = int(tank_id)
@@ -624,17 +648,17 @@ def add_height_estimate_by_tank_data(tank_ids, lidar_path_by_tank_for_height, ta
         lidar["lpc_bee_difference"] = lidar["Z coordinate"] - lidar["bare_earth_elevation"]
         #remove no data values
         lidar.drop(lidar[(lidar['bare_earth_elevation'] ==-999999)].index, inplace=True) #remove no data values
-        if tank_class == "closed_roof_tank":
+        if tank_class == "closed_roof_tank": #average of values greater than G75
             Q75 = lidar["Z coordinate"].quantile(.75) 
             idxs = np.where(lidar["Z coordinate"] > Q75)[0]
             H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
             heights[tank_id] = H
-        if tank_class == "external_floating_roof":
+        if tank_class == "external_floating_roof":#average of values greater than Q95
             Q95 = lidar["Z coordinate"].quantile(.95) 
             idxs = np.where(lidar["Z coordinate"] > Q95)[0]
             H = round(lidar["lpc_bee_difference"].iloc[idxs].mean(),2)
             heights[tank_id] = H
-    tank_data["heights"] = heights
+    tank_data["height"] = heights
     return(tank_data)
 
 def write_gdf(gdf, output_filepath, output_filename = 'tile_level_annotations'):

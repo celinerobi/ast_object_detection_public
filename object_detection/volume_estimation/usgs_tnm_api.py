@@ -23,11 +23,11 @@ def get_args_parse():
     parser.add_argument('--stored_data_path', type=str,
                         default='/hpc/group/borsuklab/csr33/volume_estimation/usgs_tnm_api',
                         help='path to save requested tnm data, sgDataset format')
-    parser.add_argument('--request_total_idx', type='total', default=None,
+    parser.add_argument('--request_total_idx', type=str, default='total',
                         help="idx for the number of requested enteries")
-    parser.add_argument('--request_content_idx', type='items', default=None,
+    parser.add_argument('--request_content_idx', type=str, default='items',
                         help='idx that holds contents in request')
-    parser.add_argument('--request_content_names_idx', type='title', default=None,
+    parser.add_argument('--request_content_names_idx', type=str, default='title',
                         help="idx that holds the dataset name")
     args = parser.parse_args()
     return args

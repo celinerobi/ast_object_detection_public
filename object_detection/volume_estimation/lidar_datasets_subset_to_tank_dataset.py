@@ -44,7 +44,7 @@ def main(args):
     #Import LAS into numpy array (X=raw integer value; x=scaled float value)
     lidar_points = np.array((las.x, las.y, las.z,las.intensity)).transpose()
     #Transform to pandas DataFrame
-    lidar_df = pd.DataFrame(lidar_points, columns = ['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
+    lidar_df = pd.DataFrame(lidar_points, columns=['X coordinate', 'Y coordinate', 'Z coordinate', 'Intensity'])
     # transform into the geographic coordinate system
     wgs84 = pyproj.CRS('EPSG:4326')
     Geometry_wgs84 = vol_est.project_list_of_points(las_proj, wgs84, las.x, las.y) #transform geometry
@@ -56,19 +56,19 @@ def main(args):
     #3. Get the extent of the Lidar data 
     minx, miny, maxx, maxy = lidar["geometry"].total_bounds
     lidar_extent = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
-    #4. Subset the tank dataset to the lidar data
+    #4. Subset the tank dataset to the lidar data (get tanks within lidar dataset)
     tank_data = gpd.read_file(args.tile_level_annotation_path)
     tank_data = tank_data.to_crs('EPSG:4326')
     tank_data.crs = "EPSG:4326" #assign projection
     
     index = []
     for tank_index, tank_poly in tqdm.tqdm(enumerate(tank_data["geometry"])): #iterate over the tank polygons
-        if lidar_extent.contains(tank_poly): #identify whether the tank bbox is inside of the state polygon
+        if lidar_extent.contains(tank_poly): #identify whether the tank bbox is inside of the lidar extent polygon
             index.append(tank_index) #add state name for each tank to list 
     tank_data_in_lidar_extent = tank_data.iloc[index]
     
     #5. Get the LP corresponding with the tank dataset
-    tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent,lidar)
+    tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent, lidar)
     tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
     #save geodatabase as json
     with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:

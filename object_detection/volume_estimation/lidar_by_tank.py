@@ -12,7 +12,7 @@ def get_args_parse():
     parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
     parser.add_argument('--tank_and_lidar_data_dir', type=str, default=None,
                         help='path to folder containing tank_and_lidar_dir')
-    parser.add_argument('--lidar_by_tank_output_path', type=str, default=None, 
+    parser.add_argument('--lidar_by_tank_dir', type=str, default=None,
                         help='path to hold, lidar by tank geojson data')
 
     args = parser.parse_args()
@@ -34,7 +34,7 @@ def main(args):
         tank_and_lidar_data_grouped = tank_and_lidar_data.groupby(tank_and_lidar_data.id)
         for id_, lidar_by_tank in tank_and_lidar_data_grouped:
             #get output filename
-            output_filename = os.path.join(args.lidar_by_tank_output_path, "lidar_tank_id_" + id_ + ".geojson")
+            output_filename = os.path.join(args.lidar_by_tank_dir, "lidar_tank_id_" + id_ + ".geojson")
             ###Note: merge multiple lidar datasets ###
             if os.path.exists(output_filename):
                 existing_lidar_by_tank = gpd.read_file(output_filename)

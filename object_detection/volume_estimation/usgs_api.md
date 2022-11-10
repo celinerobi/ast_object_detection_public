@@ -14,9 +14,16 @@ matches file type "LAS,LAZ"
 select the file with the largest bounding box/that is newest
 matches file type "LAS,LAZ"
 
+- Pull Lidar and Elevation data from USGS
+#sbatch usgs_tnm_api.sh #'Lidar Point Cloud (LPC)'
 
+- Subset AST dataset where both LPC and DEM data is available
+- Download highest resolution LPC and DEM Data available 
+- Estimate Heights
 
+sbatch lidar_subset_by_tank.sh
+DEM_by_tank.py
 
-python usgs_tnm_api.py --dataset_name "Digital Elevation Model (DEM) 1 meter"
-python usgs_tnm_api.py --dataset_name "National Elevation Dataset (NED) 1/9 arc-second"
-python usgs_tnm_api.py --dataset_name 'Lidar Point Cloud (LPC)' 
+- height estimation and  Plots
+image_by_tank.py #
+height_estimation_and_plot.sh
