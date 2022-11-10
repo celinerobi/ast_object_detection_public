@@ -25,7 +25,7 @@ def get_args_parse():
                         help='tank ids list')
     parser.add_argument('--lidar_path_by_tank_for_height', type=str, default = None, 
                         help='file path to list of files of type geojson to lidar data for each tank')
-    parser.add_argument('--lidar_by_tank_dir', type=str, default = None, 
+    parser.add_argument('--lidar_by_tank_dir', type=str, default=None,
                         help='directory to lidar by tanks')
     parser.add_argument('--DEM_path_by_tank_for_height', type=str, default = None, 
                         help='file path to list of files of type tif to DEM data for each tank')

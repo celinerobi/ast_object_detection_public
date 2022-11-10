@@ -22,8 +22,6 @@ matches file type "LAS,LAZ"
 - Estimate Heights
 
 sbatch lidar_subset_by_tank.sh
-DEM_by_tank.py
-
+sbatch dem_by_tank.py
 - height estimation and  Plots
-image_by_tank.py #
 height_estimation_and_plot.sh

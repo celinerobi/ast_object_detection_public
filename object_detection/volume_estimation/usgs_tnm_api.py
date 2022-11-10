@@ -20,6 +20,8 @@ def get_args_parse():
                         help='path to hold, lidar by tank geojson data')
     parser.add_argument('--dataset_name', type=str, default=None,
                         help='name of dataset type to pull from api, sgDataset format')
+    parser.add_argument('--dataset_abbrv', type=str, default=None,
+                        help='name of dataset type to pull from api, abbrv format')
     parser.add_argument('--stored_data_path', type=str,
                         default='/hpc/group/borsuklab/csr33/volume_estimation/usgs_tnm_api',
                         help='path to save requested tnm data, sgDataset format')
@@ -37,7 +39,7 @@ def main(args):
     complete_df = vol_est.usgs_api(tile_level_annotations, args.tnm_url, args.dataset_name, args.request_total_idx, 
                                        args.request_content_idx, args.request_content_names_idx)
 
-    complete_df.to_file(os.path.join(args.stored_data_path, args.dataset_name + "_subset.geojson"), driver="GeoJSON")
+    complete_df.to_file(os.path.join(args.stored_data_path, args.dataset_abbrv + "_subset.geojson"), driver="GeoJSON")
 
 if __name__ == '__main__':
     ### Get the arguments 

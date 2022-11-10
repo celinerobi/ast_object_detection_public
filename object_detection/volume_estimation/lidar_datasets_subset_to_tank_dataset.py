@@ -24,12 +24,12 @@ import volume_estimation_functions as vol_est
 import argparse
 
 def get_args_parse():
-    parser = argparse.ArgumentParser(description='This script adds LPC data to tile level tank data')
+    parser = argparse.ArgumentParser(description='This script matches LPC datasets to tile level tank data')
     parser.add_argument('--lidar_path', type=str, default=None,
                         help='path to lidar tile (laz file)')
-    parser.add_argument('--tile_level_annotation_path', type=str, default=None, 
+    parser.add_argument('--tank_data_path', type=str, default=None,
                         help='tile level tank annotations')
-    parser.add_argument('--output_tile_level_annotation_path', type=str, default=None, 
+    parser.add_argument('--tank_and_lidar_data_dir', type=str, default=None,
                         help='output tile level tank annotations')
     args = parser.parse_args()
     return args
@@ -57,7 +57,7 @@ def main(args):
     minx, miny, maxx, maxy = lidar["geometry"].total_bounds
     lidar_extent = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
     #4. Subset the tank dataset to the lidar data (get tanks within lidar dataset)
-    tank_data = gpd.read_file(args.tile_level_annotation_path)
+    tank_data = gpd.read_file(args.tank_data_path)
     tank_data = tank_data.to_crs('EPSG:4326')
     tank_data.crs = "EPSG:4326" #assign projection
     
@@ -71,7 +71,7 @@ def main(args):
     tank_data_w_lpc = gpd.sjoin(tank_data_in_lidar_extent, lidar)
     tank_data_w_lpc = tank_data_w_lpc.dropna(subset=['Z coordinate'])
     #save geodatabase as json
-    with open(os.path.join(args.output_tile_level_annotation_path, las_name+".geojson"), 'w') as file:
+    with open(os.path.join(args.tank_and_lidar_data_dir, las_name+".geojson"), 'w') as file:
         file.write(tank_data_w_lpc.to_json()) 
      
         

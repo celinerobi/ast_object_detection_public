@@ -49,7 +49,6 @@ def main(args):
     vol_est.write_list(dem_path_by_tank_for_height, "DEM_path_by_tank_for_height.json")
     
 if __name__ == '__main__':
-    ### Get the arguments 
     args = get_args_parse()
     main(args)
 
