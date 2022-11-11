@@ -29,6 +29,8 @@ def get_args_parse():
                         help="idx for the number of requested enteries")
     parser.add_argument('--request_content_idx', type=str, default='items',
                         help='idx that holds contents in request')
+    parser.add_argument('--request_content_names_idx', type=str, default='title',
+                        help="idx that holds the dataset name")
     parser.add_argument('--timeout', type=int, default=120,
                         help="The number of seconds the client will wait for the server to send a response")
     args = parser.parse_args()
