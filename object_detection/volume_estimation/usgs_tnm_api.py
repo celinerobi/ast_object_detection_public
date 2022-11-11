@@ -29,19 +29,20 @@ def get_args_parse():
                         help="idx for the number of requested enteries")
     parser.add_argument('--request_content_idx', type=str, default='items',
                         help='idx that holds contents in request')
-    parser.add_argument('--request_content_names_idx', type=str, default='title',
-                        help="idx that holds the dataset name")
+    parser.add_argument('--timeout', type=int, default=120,
+                        help="The number of seconds the client will wait for the server to send a response")
     args = parser.parse_args()
     return args
+
 
 def main(args):
     tank_data = gpd.read_file(args.tank_data_path)
     complete_df = vol_est.usgs_api(tank_data, args.tnm_url, args.dataset_name, args.request_total_idx,
-                                       args.request_content_idx, args.request_content_names_idx)
+                                       args.request_content_idx, args.request_content_names_idx, args.timeout)
 
     complete_df.to_file(os.path.join(args.stored_data_path, args.dataset_abbrv + "_subset.geojson"), driver="GeoJSON")
 
+
 if __name__ == '__main__':
-    ### Get the arguments 
     args = get_args_parse()
     main(args)

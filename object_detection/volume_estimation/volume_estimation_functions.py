@@ -74,7 +74,7 @@ def getFeatures(gdf):
 ##########################################################################################################################
 ################################################  USGS TNM API Functions #################################################
 ##########################################################################################################################
-def submit_http_api_request(payload, url):
+def submit_http_api_request(payload, url,timeout):
     """ Use get http request to pull information from api
     Args:
         payload dict): specify components to use to pull from
@@ -83,7 +83,7 @@ def submit_http_api_request(payload, url):
         (bool,contents_json): returns a True/False (True if the request was sucessful, False otherwise); 
         If true a json of the file of interest is returned, otherwise False is returned.
     """
-    response = requests.get(url, payload)
+    response = requests.get(url, payload,timeout=timeout)
     #print(response.url)
     # We can check whether the request is sucessful, (200 -> OK) or nother errors (i.e, 404 -> Not Found)
     if response.status_code  == 200:
@@ -139,7 +139,7 @@ def get_dataset_of_interest(contents_df, name_list, url_list, geometry_list):
     return(name_list, url_list, geometry_list)
 
 def usgs_api(tile_level_annotations, tnm_url, dataset_name,
-             request_total_idx, request_content_idx, request_content_names_idx):
+             request_total_idx, request_content_idx, request_content_names_idx, timeout):
     #create lists to store data 
     tnm_names = []
     urls = []
@@ -152,7 +152,7 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name,
         miny = row['se_corner_polygon_lat']
         maxx = row['se_corner_polygon_lon']
         maxy = row['nw_corner_polygon_lat']
-        tank_polygon = Polygon([(minx,miny), (minx,maxy), (maxx,maxy), (maxx,miny)])
+        tank_polygon = Polygon([(minx, miny), (minx, maxy), (maxx, maxy), (maxx, miny)])
         tank_bbox = [minx, miny, maxx, maxy]
         tank_bbox_str = ",".join(map(str, tank_bbox)) # https://stackoverflow.com/questions/32313623/passing-comma-separated-values-in-request-get-python
 
@@ -162,7 +162,7 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name,
 
         #check if tank polygon is inside of a previously identified dataset
         ## https://stackoverflow.com/questions/4406389/if-else-in-a-list-comprehension
-        matching_poly= [(tnm_name, url, tnm_poly) for tnm_name, url, tnm_poly in zip(tnm_names_itr, urls_itr, geometries_itr) if tnm_poly.contains(tank_polygon)]
+        matching_poly=[(tnm_name, url, tnm_poly) for tnm_name, url, tnm_poly in zip(tnm_names_itr, urls_itr, geometries_itr) if tnm_poly.contains(tank_polygon)]
         if len(matching_poly) > 0: #if it is inside of another dataset, add to the lists tracking names, urls, geoms, idx
             tnm_name, url, tnm_poly = matching_poly[0]
             tnm_names.append(tnm_name)
@@ -171,7 +171,7 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name,
             tank_idxs.append(tank_idx)
         else:
             payload = {'bbox': tank_bbox_str, "datasets": dataset_name}
-            bool_request, contents_json = submit_http_api_request(payload, tnm_url)
+            bool_request, contents_json = submit_http_api_request(payload, tnm_url,timeout)
             if bool_request: #if the request was successful
                 bool_entries = verify_entries_exist(contents_json, request_total_idx)
                 if bool_entries: #if the request provided enteries
@@ -180,11 +180,12 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name,
                     tank_idxs.append(tank_idx)
     
     complete_df = pd.DataFrame(list(zip(tank_idxs, tnm_names, urls, geometries)), 
-                               index = tank_idxs, columns =['tank_idxs','usgs_tnm_names', 'urls', 'geometry'])
+                               index=tank_idxs, columns=['tank_idxs', 'usgs_tnm_names', 'urls', 'geometry'])
     return(complete_df)
 ##########################################################################################################################
 ############################################   Lidar Processing Functions   ##############################################
 ##########################################################################################################################
+
 def project_list_of_points(initial_proj, final_proj, x_points, y_points):
     """ Convert a utm pair into a lat lon pair 
     Args: 
