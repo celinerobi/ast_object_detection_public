@@ -94,7 +94,7 @@ def submit_http_api_request(payload, url,timeout):
         #print("An error occurred", response.status_code)
         return(False, False)
 
-def verify_entries_exist(contents_json, entries_idx):
+def verify_entries_exist(contents_json, request_content_idx):
     """ Determine whether of not the pull request returned any entries
     Args: 
         contents_json(json): the response from the get request 
@@ -102,7 +102,7 @@ def verify_entries_exist(contents_json, entries_idx):
     Returns:
         bool: True if there are enteries, False if there are not enteries 
     """
-    if int(contents_json[entries_idx]) == 0:
+    if len(contents_json[request_content_idx]) == 0:
         return(False)
     else:
         return(True)
@@ -122,7 +122,7 @@ def json_to_dict(json, json_idx, nested_idx):
         col_idx = item.keys()
         title = item[nested_idx]
         dict_[title] = item
-    df = pd.DataFrame(dict_,index=col_idx)
+    df = pd.DataFrame(dict_, index=col_idx)
     df = df.T
     return(df)
 
@@ -173,7 +173,7 @@ def usgs_api(tile_level_annotations, tnm_url, dataset_name,
             payload = {'bbox': tank_bbox_str, "datasets": dataset_name}
             bool_request, contents_json = submit_http_api_request(payload, tnm_url,timeout)
             if bool_request: #if the request was successful
-                bool_entries = verify_entries_exist(contents_json, request_total_idx)
+                bool_entries = verify_entries_exist(contents_json, request_content_idx)
                 if bool_entries: #if the request provided enteries
                     contents_df = json_to_dict(contents_json, request_content_idx, request_content_names_idx) 
                     tnm_names, urls, geometries = get_dataset_of_interest(contents_df, tnm_names, urls, geometries)
