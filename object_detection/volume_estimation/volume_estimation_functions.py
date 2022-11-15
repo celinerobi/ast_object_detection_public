@@ -74,7 +74,7 @@ def getFeatures(gdf):
 ##########################################################################################################################
 ################################################  USGS TNM API Functions #################################################
 ##########################################################################################################################
-def submit_http_api_request(payload, url,timeout):
+def submit_http_api_request(payload, url, timeout):
     """ Use get http request to pull information from api
     Args:
         payload dict): specify components to use to pull from
@@ -83,8 +83,8 @@ def submit_http_api_request(payload, url,timeout):
         (bool,contents_json): returns a True/False (True if the request was sucessful, False otherwise); 
         If true a json of the file of interest is returned, otherwise False is returned.
     """
-    response = requests.get(url, payload,timeout=timeout)
-    #print(response.url)
+    response = requests.get(url, payload, timeout=timeout)
+    # print(response.url)
     # We can check whether the request is sucessful, (200 -> OK) or nother errors (i.e, 404 -> Not Found)
     if response.status_code  == 200:
         response.encoding = 'utf-8' # Optional: requests infers this internally
