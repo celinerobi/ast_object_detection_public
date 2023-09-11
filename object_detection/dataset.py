@@ -56,15 +56,15 @@ def get_label_color_map(label_map):
                        '#aa6e28', '#fffac8', '#800000', '#aaffc3']
     label_color_map = {k: distinct_colors[i] for i, k in enumerate(label_map.keys())}
     return label_color_map
-def make_list_of_image_ids(parent_dir, img_dir = "img", anno_dir = "xml"):
+def make_list_of_image_ids(data_dir, parent_dir, img_dir = "img", anno_dir = "xml", img_ids_file_name = 'img_ids.txt'):
     """
     get the image id's for all of the dataset and the train/val + test set
     
-    parameters: the parent_directory, and the sub directories containing the images + annotations
+    parameters: the data_directory, and the sub directories containing the images + annotations
     returns: text file of the ids for all of images in the datasets
     """   
-    img_path = os.path.join(parent_dir, img_dir)
-    anno_path = os.path.join(parent_dir, anno_dir)
+    img_path = os.path.join(data_dir, img_dir)
+    anno_path = os.path.join(data_dir, anno_dir)
     
     #if not (os.path.isdir(img_path) | os.path.isdir(anno_path)):
     #    print( "directories not found")
@@ -77,17 +77,18 @@ def make_list_of_image_ids(parent_dir, img_dir = "img", anno_dir = "xml"):
     for img_file in img_files:
         img_id.append(''.join(map(str,[img_file.split(".",1)[0],"\n"])))
         
-    f = open(os.path.join(parent_dir, "img_ids"+'.txt'), 'w')
+    f = open(os.path.join(parent_dir, img_ids_file_name), 'w')
     f.writelines(img_id)
     f.close() #to change file access modes
     
-def split_train_val_test(parent_directory, complete_img_ids, train_val_percent = 0.8):
+
+def split_train_val_test(parent_dir, complete_img_ids, train_val_percent = 0.9):
     """
     get a text file of the ids for the train/val and test sets
     Percentage of trainval:test and train: validation 
     """
     #get list of all of the img_ids
-    with open(os.path.join(parent_directory, complete_img_ids)) as f:
+    with open(os.path.join(parent_dir, complete_img_ids)) as f:
         img_ids_list = f.read().splitlines()
 
     #Calculate numbers of images that should be in the train/val and test sets
@@ -112,9 +113,9 @@ def split_train_val_test(parent_directory, complete_img_ids, train_val_percent =
             test_img_id_list.append(''.join(map(str,[value,"\n"])))
 
     #Write .txt files.
-    with open(os.path.join(parent_directory,"train_val_img_id.txt"), 'w') as train_val_img_id:
+    with open(os.path.join(parent_dir, "train_val_img_id.txt"), 'w') as train_val_img_id:
         train_val_img_id.writelines(train_val_img_id_list) #write lines
-    with open(os.path.join(parent_directory,"test_img_id.txt"), 'w')  as test_img_id:
+    with open(os.path.join(parent_dir, "test_img_id.txt"), 'w')  as test_img_id:
         test_img_id.writelines(test_img_id_list)
         
 def parse_annotation(anno_path, img_id, label_map, keep_difficult = True, bbox_remove = 20):
@@ -154,14 +155,14 @@ def parse_annotation(anno_path, img_id, label_map, keep_difficult = True, bbox_r
             difficulties.append(difficult)
     return {'boxes': boxes, 'labels': labels, 'difficulties': difficulties}
 
-def create_data_lists(parent_dir, img_dir, anno_dir, path_to_predefined_classes, subset_img_ids, subset_name, bbox_remove = 20):
+def create_data_lists(data_dir, parent_dir, img_dir, anno_dir, path_to_predefined_classes, subset_img_ids, subset_name, bbox_remove = 20):
     """
     Create lists of images, the bounding boxes and labels of the objects in these images, and save these to file.
     parent_directory, subset_img_ids, subset_name
     """
 
-    img_path = os.path.join(parent_dir, img_dir)
-    anno_path = os.path.join(parent_dir, anno_dir)
+    img_path = os.path.join(data_dir, img_dir)
+    anno_path = os.path.join(data_dir, anno_dir)
 
     """#specify subdirectory
     for folder in os.listdir(parent_directory): #identifies the subfolders
@@ -179,17 +180,17 @@ def create_data_lists(parent_dir, img_dir, anno_dir, path_to_predefined_classes,
     with open(os.path.join(parent_dir, subset_img_ids)) as f:
         ids = f.read().splitlines()
         
-    for id in ids:
+    for idx in ids:
         # Parse annotation's XML file
-        objects = parse_annotation(anno_path, id, get_label_map(parent_dir, path_to_predefined_classes),
+        objects = parse_annotation(anno_path, idx, get_label_map(parent_dir, path_to_predefined_classes),
                                     keep_difficult = True, bbox_remove = bbox_remove)
         if len(objects['boxes']) == 0:
             no_obs += 1
-            empty_images.append(os.path.join(img_path, id + '.jpg'))
+            empty_images.append(os.path.join(img_path, idx + '.jpg'))
             continue
         n_objects += len(objects['boxes'])
         subset_objects.append(objects)
-        subset_images.append(os.path.join(img_path, id + '.jpg'))
+        subset_images.append(os.path.join(img_path, idx + '.jpg'))
     assert len(subset_objects) == len(subset_images)
     
     # Save to file

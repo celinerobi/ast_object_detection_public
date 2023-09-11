@@ -23,7 +23,8 @@ import dataset
 def get_args_parser():
     parser = argparse.ArgumentParser(
         description='This script adds a subdirectory of xmls to correct possible inconsistent labels')
-    
+    parser.add_argument('--data_directory', type=str, default=None,
+                        help='path to parent directory, holding the images + annotation directory.')    
     parser.add_argument('--parent_directory', type=str, default=None,
                         help='path to parent directory, holding the images + annotation directory.')
     parser.add_argument('--img_directory', type=str, default=None,
@@ -36,7 +37,7 @@ def get_args_parser():
     parser.add_argument('--path_to_predefined_classes', type=str, default="predefined_classes.txt",
                         help='The text file containing a list of the predefined classes')
     
-    parser.add_argument('--train_val_percent', type=float, default=0.8,
+    parser.add_argument('--train_val_percent', type=float, default=0.9,
                         help='The percent of the data seperated into the train/val set')  
     parser.add_argument('--bbox_remove', type=int, default=20,
                         help='The pixel wideth/height to remove bboxes')   
@@ -45,15 +46,15 @@ def get_args_parser():
 
 def main(args):  
     if args.complete_img_ids == None:
-        dataset.make_list_of_image_ids(args.parent_directory, args.img_directory, args.annotation_directory)
+        dataset.make_list_of_image_ids(args.data_directory, args.parent_directory, args.img_directory, args.annotation_directory)
         dataset.split_train_val_test(args.parent_directory, "img_ids.txt", args.train_val_percent)
     else:
         dataset.split_train_val_test(args.parent_directory, args.complete_img_ids, args.train_val_percent)
-    n_test_images, n_test_objects, path = dataset.create_data_lists(args.parent_directory, args.img_directory, 
+    n_test_images, n_test_objects, path = dataset.create_data_lists(args.data_directory, args.parent_directory, args.img_directory, 
                                                                     args.annotation_directory, args.path_to_predefined_classes, 
                                                                     "test_img_id.txt", "test", args.bbox_remove)
         
-    n_train_val_images, n_train_val_objects, path = dataset.create_data_lists(args.parent_directory, args.img_directory, 
+    n_train_val_images, n_train_val_objects, path = dataset.create_data_lists(args.data_directory, args.parent_directory, args.img_directory, 
                                                                               args.annotation_directory, args.path_to_predefined_classes,
                                                                               "train_val_img_id.txt", "train", args.bbox_remove)
 

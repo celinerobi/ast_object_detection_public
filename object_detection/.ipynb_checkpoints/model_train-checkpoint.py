@@ -119,10 +119,6 @@ def main(args):
     num_classes=len(label_map)  # number of different types of objects
 
     # get number of input features for the classifier
-    #from torchvision.models.detection.backbone_utils import resnet_fpn_backbone
-    ##backbone = resnet_fpn_backbone(backbone_name = "resnet101", pretrained = True)
-    #fasterrcnn = FasterRCNN(backbone = backbone, num_classes = num_classes)
-
     model = detection.model.get_frcnn_model(num_classes, args.pretrained)
     model.to(device)
     
