@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/object_detection/model_train.py", line 149, in <module>
+    main(args)
+  File "/hpc/home/csr33/ast_object_detection/object_detection/model_train.py", line 137, in main
+    train_one_epoch(model, optimizer, lr_scheduler, train_data_loader, device, epoch, print_freq=args.print_freq[0])
+  File "/hpc/home/csr33/ast_object_detection/object_detection/detection/engine.py", line 18, in train_one_epoch
+    for images, targets in metric_logger.log_every(data_loader, print_freq, header):
+  File "/hpc/home/csr33/ast_object_detection/object_detection/detection/utils.py", line 180, in log_every
+    for obj in iterable:
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1203, in _next_data
+    return self._process_data(data)
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1229, in _process_data
+    data.reraise()
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/_utils.py", line 425, in reraise
+    raise self.exc_type(msg)
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/hpc/group/borsuklab/cred/frcnn/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/hpc/home/csr33/ast_object_detection/object_detection/dataset.py", line 268, in __getitem__
+    image = Image.open(self.data_dir,self.images[idx], mode='r')
+AttributeError: 'pascal_voc_dataset' object has no attribute 'data_dir'
+

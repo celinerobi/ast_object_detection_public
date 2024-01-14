@@ -265,7 +265,7 @@ class pascal_voc_dataset(torch.utils.data.Dataset):
         """
         # Load image
         #print("print image name from loader", self.images[idx])
-        image = Image.open(self.images[idx], mode='r')
+        image = Image.open(self.data_dir,self.images[idx], mode='r')
         image = image.convert('RGB')
         image_id = torch.tensor([idx])
         
