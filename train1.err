@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/tune.py", line 26, in <module>
+    train(args)
+  File "/hpc/home/csr33/ast_object_detection/tune.py", line 18, in train
+    model.tune(data=args.data, plots=False, save=False, val=False,
+    ^^^^^^^^^^
+AttributeError: 'YOLO' object has no attribute 'tune'
