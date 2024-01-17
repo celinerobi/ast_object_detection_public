@@ -14,27 +14,7 @@ def get_args_parse():
 # Initialize Your wandb Project: wandb will automatically detect the API key and proceed with the setup.
 wandb.init()
 
-# Define the Sweep: 
-#A Sweep combines a strategy for trying out a bunch of hyperparameter values with the code that evaluates them. You need to define your strategy in the form of a configuration.
-sweep_config = {
-    'method': 'bayes',  # grid, random
-     "name": "sweep",
-    'metric': {'name': 'loss', 'goal': 'minimize'}, #validation loss, accuracy, val_acc
-    'parameters': {'learning_rate': {'min': 0.0001, 'max': 0.1},
-                   'batch_size': {'values': [2, 4, 8, 16, 32, 64, 128]},
-                   "epochs": {"min": 1, 'max': 100},
-                   'optimizer': {'values': ['adam', 'sgd']},
-                   'fc_layer_size': {'values': [128, 256, 512]},
-                   'dropout': {'values': [0.3, 0.4, 0.5]},
-                   }
-}
 
-
-#Initialize the Sweep: Use wandb to initialize the sweep with your configuration.
-sweep_id = wandb.sweep(sweep=sweep_config, project="Optimizing Hyperparameters for Yolov8")
-
-
-#Define Your Training Procedure: This is where you define your model, loss function, optimizer, and other parameters. You'll also log your metrics with wandb.log().
 
 def train():
     # default hyperparameters
