@@ -1,2 +1,1821 @@
-Anaconda3 2021.05
 Namespace(data='/hpc/home/csr33/ast_object_detection/ast.yaml', model='yolov8n.pt')
+[34m[1mTuner: [0mInitialized Tuner instance with 'tune_dir=/hpc/group/borsuklab/cred/runs/detect/tune7'
+[34m[1mTuner: [0m💡 Learn about tuning at https://docs.ultralytics.com/guides/hyperparameter-tuning
+[34m[1mTuner: [0mStarting iteration 1/10 with hyperparameters: {'lr0': 0.01, 'lrf': 0.01, 'momentum': 0.937, 'weight_decay': 0.0005, 'warmup_epochs': 3.0, 'warmup_momentum': 0.8, 'box': 7.5, 'cls': 0.5, 'dfl': 1.5, 'hsv_h': 0.015, 'hsv_s': 0.7, 'hsv_v': 0.4, 'degrees': 0.0, 'translate': 0.1, 'scale': 0.5, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.5, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train51, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train51
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train51', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+WARNING ⚠️ NMS time limit 0.550s exceeded
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256       0.75      0.671      0.717      0.532
+
+30 epochs completed in 3.048 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train51/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train51/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train51/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.751      0.671      0.717      0.532
+    sedimentation_tank       4146        881      0.793       0.88      0.903      0.736
+           water_tower       4146        216      0.835      0.801      0.837       0.59
+        spherical_tank       4146        219        0.6      0.662      0.648      0.465
+      closed_roof_tank       4146      10728      0.878      0.871      0.938      0.746
+external_floating_roof_tank       4146       1622      0.862      0.891      0.938      0.816
+narrow_closed_roof_tank       4146       7455      0.765      0.573      0.711      0.335
+      undefined_object       4146        135      0.523     0.0148     0.0475      0.039
+Speed: 0.2ms preprocess, 1.2ms inference, 0.0ms loss, 2.2ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 1
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01', 'lrf=0.01', 'momentum=0.937', 'weight_decay=0.0005', 'warmup_epochs=3.0', 'warmup_momentum=0.8', 'warmup_bias_lr=0.1', 'box=7.5', 'cls=0.5', 'dfl=1.5', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.015', 'hsv_s=0.7', 'hsv_v=0.4', 'degrees=0.0', 'translate=0.1', 'scale=0.5', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.5', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m1/10 iterations complete ✅ (11207.51s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 2/10 with hyperparameters: {'lr0': 0.01, 'lrf': 0.01148, 'momentum': 0.91089, 'weight_decay': 0.00054, 'warmup_epochs': 3.14664, 'warmup_momentum': 0.60307, 'box': 8.61901, 'cls': 0.40047, 'dfl': 1.56144, 'hsv_h': 0.01262, 'hsv_s': 0.40403, 'hsv_v': 0.43117, 'degrees': 0.0, 'translate': 0.07405, 'scale': 0.38841, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.46241, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train52, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.01148, momentum=0.91089, weight_decay=0.00054, warmup_epochs=3.14664, warmup_momentum=0.60307, warmup_bias_lr=0.1, box=8.61901, cls=0.40047, dfl=1.56144, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01262, hsv_s=0.40403, hsv_v=0.43117, degrees=0.0, translate=0.07405, scale=0.38841, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.46241, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train52
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train52', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.91089' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00054), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.718      0.677      0.724      0.535
+
+30 epochs completed in 3.008 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train52/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train52/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train52/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.719      0.677      0.724      0.535
+    sedimentation_tank       4146        881      0.783      0.886      0.904      0.738
+           water_tower       4146        216      0.867      0.778      0.844      0.596
+        spherical_tank       4146        219      0.608      0.671      0.676       0.47
+      closed_roof_tank       4146      10728      0.869      0.882      0.938      0.747
+external_floating_roof_tank       4146       1622      0.848      0.893      0.938      0.818
+narrow_closed_roof_tank       4146       7455      0.756      0.598      0.718      0.339
+      undefined_object       4146        135      0.302     0.0296     0.0488     0.0394
+Speed: 0.2ms preprocess, 1.3ms inference, 0.0ms loss, 2.2ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 2
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01', 'lrf=0.01148', 'momentum=0.91089', 'weight_decay=0.00054', 'warmup_epochs=3.14664', 'warmup_momentum=0.60307', 'warmup_bias_lr=0.1', 'box=8.61901', 'cls=0.40047', 'dfl=1.56144', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01262', 'hsv_s=0.40403', 'hsv_v=0.43117', 'degrees=0.0', 'translate=0.07405', 'scale=0.38841', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.46241', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m2/10 iterations complete ✅ (22189.33s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 3/10 with hyperparameters: {'lr0': 0.01118, 'lrf': 0.00969, 'momentum': 0.90331, 'weight_decay': 0.00039, 'warmup_epochs': 2.9278, 'warmup_momentum': 0.8427, 'box': 8.32175, 'cls': 0.46643, 'dfl': 1.78863, 'hsv_h': 0.01678, 'hsv_s': 0.81784, 'hsv_v': 0.37119, 'degrees': 0.0, 'translate': 0.10466, 'scale': 0.5, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.45754, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train53, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01118, lrf=0.00969, momentum=0.90331, weight_decay=0.00039, warmup_epochs=2.9278, warmup_momentum=0.8427, warmup_bias_lr=0.1, box=8.32175, cls=0.46643, dfl=1.78863, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01678, hsv_s=0.81784, hsv_v=0.37119, degrees=0.0, translate=0.10466, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.45754, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train53
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train53', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+WARNING ⚠️ NMS time limit 0.550s exceeded
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01118' and 'momentum=0.90331' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00039), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.733      0.666      0.718      0.533
+
+30 epochs completed in 2.995 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train53/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train53/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train53/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.732      0.666      0.718      0.533
+    sedimentation_tank       4146        881      0.787      0.871      0.901      0.734
+           water_tower       4146        216      0.811      0.787      0.838      0.601
+        spherical_tank       4146        219      0.642      0.653       0.66      0.462
+      closed_roof_tank       4146      10728      0.871      0.874      0.938      0.746
+external_floating_roof_tank       4146       1622      0.857      0.895      0.941      0.821
+narrow_closed_roof_tank       4146       7455      0.769      0.563      0.706      0.333
+      undefined_object       4146        135      0.385     0.0222     0.0446      0.034
+Speed: 0.2ms preprocess, 1.2ms inference, 0.0ms loss, 2.5ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 3
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01118', 'lrf=0.00969', 'momentum=0.90331', 'weight_decay=0.00039', 'warmup_epochs=2.9278', 'warmup_momentum=0.8427', 'warmup_bias_lr=0.1', 'box=8.32175', 'cls=0.46643', 'dfl=1.78863', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01678', 'hsv_s=0.81784', 'hsv_v=0.37119', 'degrees=0.0', 'translate=0.10466', 'scale=0.5', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.45754', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m3/10 iterations complete ✅ (33134.16s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 4/10 with hyperparameters: {'lr0': 0.0088, 'lrf': 0.01148, 'momentum': 0.89142, 'weight_decay': 0.00054, 'warmup_epochs': 3.89014, 'warmup_momentum': 0.60051, 'box': 10.05938, 'cls': 0.39477, 'dfl': 1.6828, 'hsv_h': 0.01262, 'hsv_s': 0.35688, 'hsv_v': 0.45957, 'degrees': 0.0, 'translate': 0.07405, 'scale': 0.37435, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.46241, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train54, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.0088, lrf=0.01148, momentum=0.89142, weight_decay=0.00054, warmup_epochs=3.89014, warmup_momentum=0.60051, warmup_bias_lr=0.1, box=10.05938, cls=0.39477, dfl=1.6828, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01262, hsv_s=0.35688, hsv_v=0.45957, degrees=0.0, translate=0.07405, scale=0.37435, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.46241, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train54
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train54', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.0088' and 'momentum=0.89142' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00054), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.698      0.672      0.717      0.532
+
+30 epochs completed in 2.966 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train54/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train54/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train54/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.697      0.672      0.717      0.532
+    sedimentation_tank       4146        881      0.778      0.881      0.905      0.739
+           water_tower       4146        216      0.826      0.791      0.838      0.582
+        spherical_tank       4146        219      0.697      0.662      0.657      0.476
+      closed_roof_tank       4146      10728      0.865      0.882      0.939      0.748
+external_floating_roof_tank       4146       1622       0.86      0.892      0.936      0.819
+narrow_closed_roof_tank       4146       7455      0.762      0.585      0.714      0.336
+      undefined_object       4146        135     0.0919    0.00741     0.0325     0.0255
+Speed: 0.2ms preprocess, 1.3ms inference, 0.0ms loss, 2.3ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 4
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.0088', 'lrf=0.01148', 'momentum=0.89142', 'weight_decay=0.00054', 'warmup_epochs=3.89014', 'warmup_momentum=0.60051', 'warmup_bias_lr=0.1', 'box=10.05938', 'cls=0.39477', 'dfl=1.6828', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01262', 'hsv_s=0.35688', 'hsv_v=0.45957', 'degrees=0.0', 'translate=0.07405', 'scale=0.37435', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.46241', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m4/10 iterations complete ✅ (43957.58s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 5/10 with hyperparameters: {'lr0': 0.00954, 'lrf': 0.01148, 'momentum': 0.89409, 'weight_decay': 0.0004, 'warmup_epochs': 3.44853, 'warmup_momentum': 0.36423, 'box': 7.87527, 'cls': 0.40047, 'dfl': 1.8778, 'hsv_h': 0.01578, 'hsv_s': 0.35398, 'hsv_v': 0.48006, 'degrees': 0.0, 'translate': 0.07171, 'scale': 0.45969, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.25772, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train55, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.00954, lrf=0.01148, momentum=0.89409, weight_decay=0.0004, warmup_epochs=3.44853, warmup_momentum=0.36423, warmup_bias_lr=0.1, box=7.87527, cls=0.40047, dfl=1.8778, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01578, hsv_s=0.35398, hsv_v=0.48006, degrees=0.0, translate=0.07171, scale=0.45969, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.25772, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train55
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train55', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.00954' and 'momentum=0.89409' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0004), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.675      0.683      0.712      0.529
+
+30 epochs completed in 2.927 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train55/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train55/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train55/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.676      0.683      0.712      0.529
+    sedimentation_tank       4146        881      0.784      0.886        0.9      0.739
+           water_tower       4146        216       0.79      0.801      0.822      0.582
+        spherical_tank       4146        219      0.558      0.674      0.647      0.452
+      closed_roof_tank       4146      10728      0.856      0.888      0.938      0.749
+external_floating_roof_tank       4146       1622      0.845      0.906       0.94      0.821
+narrow_closed_roof_tank       4146       7455      0.729      0.609      0.704      0.332
+      undefined_object       4146        135      0.167     0.0164     0.0326     0.0253
+Speed: 0.2ms preprocess, 1.2ms inference, 0.0ms loss, 2.6ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 5
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.00954', 'lrf=0.01148', 'momentum=0.89409', 'weight_decay=0.0004', 'warmup_epochs=3.44853', 'warmup_momentum=0.36423', 'warmup_bias_lr=0.1', 'box=7.87527', 'cls=0.40047', 'dfl=1.8778', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01578', 'hsv_s=0.35398', 'hsv_v=0.48006', 'degrees=0.0', 'translate=0.07171', 'scale=0.45969', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.25772', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m5/10 iterations complete ✅ (54640.43s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 6/10 with hyperparameters: {'lr0': 0.00965, 'lrf': 0.01162, 'momentum': 0.89409, 'weight_decay': 0.00044, 'warmup_epochs': 3.74692, 'warmup_momentum': 0.41562, 'box': 8.59979, 'cls': 0.36256, 'dfl': 2.04676, 'hsv_h': 0.01775, 'hsv_s': 0.3019, 'hsv_v': 0.48006, 'degrees': 0.0, 'translate': 0.07473, 'scale': 0.43697, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.26714, 'mosaic': 0.89058, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train56, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.00965, lrf=0.01162, momentum=0.89409, weight_decay=0.00044, warmup_epochs=3.74692, warmup_momentum=0.41562, warmup_bias_lr=0.1, box=8.59979, cls=0.36256, dfl=2.04676, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01775, hsv_s=0.3019, hsv_v=0.48006, degrees=0.0, translate=0.07473, scale=0.43697, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.26714, mosaic=0.89058, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train56
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train56', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.00965' and 'momentum=0.89409' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00044), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.709      0.671      0.717      0.533
+
+30 epochs completed in 2.891 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train56/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train56/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train56/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.711       0.67      0.717      0.533
+    sedimentation_tank       4146        881      0.777       0.89      0.904      0.741
+           water_tower       4146        216      0.815      0.782      0.829      0.574
+        spherical_tank       4146        219      0.616      0.648      0.659      0.473
+      closed_roof_tank       4146      10728      0.872      0.877      0.939       0.75
+external_floating_roof_tank       4146       1622      0.854      0.888      0.939       0.82
+narrow_closed_roof_tank       4146       7455      0.758      0.582      0.708      0.338
+      undefined_object       4146        135      0.284     0.0236     0.0438     0.0341
+Speed: 0.2ms preprocess, 1.2ms inference, 0.0ms loss, 2.2ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 6
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.00965', 'lrf=0.01162', 'momentum=0.89409', 'weight_decay=0.00044', 'warmup_epochs=3.74692', 'warmup_momentum=0.41562', 'warmup_bias_lr=0.1', 'box=8.59979', 'cls=0.36256', 'dfl=2.04676', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01775', 'hsv_s=0.3019', 'hsv_v=0.48006', 'degrees=0.0', 'translate=0.07473', 'scale=0.43697', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.26714', 'mosaic=0.89058', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m6/10 iterations complete ✅ (65182.17s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 7/10 with hyperparameters: {'lr0': 0.01, 'lrf': 0.01148, 'momentum': 0.91089, 'weight_decay': 0.00057, 'warmup_epochs': 3.14664, 'warmup_momentum': 0.70018, 'box': 8.72292, 'cls': 0.40071, 'dfl': 1.64157, 'hsv_h': 0.01189, 'hsv_s': 0.40403, 'hsv_v': 0.45505, 'degrees': 0.0, 'translate': 0.10089, 'scale': 0.34552, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.45512, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train57, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.01148, momentum=0.91089, weight_decay=0.00057, warmup_epochs=3.14664, warmup_momentum=0.70018, warmup_bias_lr=0.1, box=8.72292, cls=0.40071, dfl=1.64157, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01189, hsv_s=0.40403, hsv_v=0.45505, degrees=0.0, translate=0.10089, scale=0.34552, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.45512, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train57
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train57', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.91089' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00057), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.716      0.679      0.719      0.532
+
+30 epochs completed in 2.942 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train57/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train57/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train57/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.716      0.679      0.719      0.532
+    sedimentation_tank       4146        881      0.774      0.882        0.9      0.736
+           water_tower       4146        216      0.832      0.787      0.829      0.581
+        spherical_tank       4146        219      0.626      0.653      0.663      0.469
+      closed_roof_tank       4146      10728       0.86       0.89      0.938      0.747
+external_floating_roof_tank       4146       1622      0.836      0.898      0.937      0.815
+narrow_closed_roof_tank       4146       7455      0.737      0.615      0.717      0.336
+      undefined_object       4146        135      0.349     0.0296     0.0496     0.0398
+Speed: 0.3ms preprocess, 1.2ms inference, 0.0ms loss, 2.3ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 7
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01', 'lrf=0.01148', 'momentum=0.91089', 'weight_decay=0.00057', 'warmup_epochs=3.14664', 'warmup_momentum=0.70018', 'warmup_bias_lr=0.1', 'box=8.72292', 'cls=0.40071', 'dfl=1.64157', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01189', 'hsv_s=0.40403', 'hsv_v=0.45505', 'degrees=0.0', 'translate=0.10089', 'scale=0.34552', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.45512', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m7/10 iterations complete ✅ (75909.08s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 8/10 with hyperparameters: {'lr0': 0.00831, 'lrf': 0.01148, 'momentum': 0.89142, 'weight_decay': 0.00055, 'warmup_epochs': 3.9125, 'warmup_momentum': 0.56725, 'box': 10.34737, 'cls': 0.41451, 'dfl': 1.51717, 'hsv_h': 0.01166, 'hsv_s': 0.34755, 'hsv_v': 0.47194, 'degrees': 0.0, 'translate': 0.07531, 'scale': 0.35951, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.46241, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train58, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.00831, lrf=0.01148, momentum=0.89142, weight_decay=0.00055, warmup_epochs=3.9125, warmup_momentum=0.56725, warmup_bias_lr=0.1, box=10.34737, cls=0.41451, dfl=1.51717, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01166, hsv_s=0.34755, hsv_v=0.47194, degrees=0.0, translate=0.07531, scale=0.35951, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.46241, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train58
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train58', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.00831' and 'momentum=0.89142' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00055), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.715      0.669      0.719      0.534
+
+30 epochs completed in 3.018 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train58/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train58/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train58/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.716      0.669       0.72      0.534
+    sedimentation_tank       4146        881       0.81      0.878      0.905       0.74
+           water_tower       4146        216      0.836      0.819      0.852      0.603
+        spherical_tank       4146        219      0.631      0.635      0.641      0.454
+      closed_roof_tank       4146      10728       0.88      0.872      0.938      0.748
+external_floating_roof_tank       4146       1622      0.863       0.88      0.937      0.819
+narrow_closed_roof_tank       4146       7455      0.775      0.576      0.718      0.339
+      undefined_object       4146        135      0.219     0.0222     0.0446     0.0357
+Speed: 0.3ms preprocess, 1.2ms inference, 0.0ms loss, 2.4ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 8
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.00831', 'lrf=0.01148', 'momentum=0.89142', 'weight_decay=0.00055', 'warmup_epochs=3.9125', 'warmup_momentum=0.56725', 'warmup_bias_lr=0.1', 'box=10.34737', 'cls=0.41451', 'dfl=1.51717', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01166', 'hsv_s=0.34755', 'hsv_v=0.47194', 'degrees=0.0', 'translate=0.07531', 'scale=0.35951', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.46241', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m8/10 iterations complete ✅ (86902.98s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 9/10 with hyperparameters: {'lr0': 0.01035, 'lrf': 0.01389, 'momentum': 0.86446, 'weight_decay': 0.00057, 'warmup_epochs': 3.44651, 'warmup_momentum': 0.71237, 'box': 8.08835, 'cls': 0.43823, 'dfl': 1.56144, 'hsv_h': 0.01335, 'hsv_s': 0.38585, 'hsv_v': 0.44767, 'degrees': 0.0, 'translate': 0.05946, 'scale': 0.37751, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.46241, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train59, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01035, lrf=0.01389, momentum=0.86446, weight_decay=0.00057, warmup_epochs=3.44651, warmup_momentum=0.71237, warmup_bias_lr=0.1, box=8.08835, cls=0.43823, dfl=1.56144, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01335, hsv_s=0.38585, hsv_v=0.44767, degrees=0.0, translate=0.05946, scale=0.37751, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.46241, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train59
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train59', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01035' and 'momentum=0.86446' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00057), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.721      0.681      0.719      0.532
+
+30 epochs completed in 2.985 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train59/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train59/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train59/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256       0.72       0.68      0.719      0.532
+    sedimentation_tank       4146        881      0.774      0.879      0.899      0.733
+           water_tower       4146        216      0.796      0.819      0.836      0.587
+        spherical_tank       4146        219      0.678      0.652      0.659      0.467
+      closed_roof_tank       4146      10728       0.87      0.886       0.94      0.748
+external_floating_roof_tank       4146       1622      0.853      0.892      0.938      0.817
+narrow_closed_roof_tank       4146       7455      0.756      0.601      0.719      0.339
+      undefined_object       4146        135      0.311     0.0302     0.0446     0.0334
+Speed: 0.3ms preprocess, 1.2ms inference, 0.0ms loss, 2.4ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 9
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01035', 'lrf=0.01389', 'momentum=0.86446', 'weight_decay=0.00057', 'warmup_epochs=3.44651', 'warmup_momentum=0.71237', 'warmup_bias_lr=0.1', 'box=8.08835', 'cls=0.43823', 'dfl=1.56144', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01335', 'hsv_s=0.38585', 'hsv_v=0.44767', 'degrees=0.0', 'translate=0.05946', 'scale=0.37751', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.46241', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m9/10 iterations complete ✅ (97782.40s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+[34m[1mTuner: [0mStarting iteration 10/10 with hyperparameters: {'lr0': 0.01192, 'lrf': 0.00962, 'momentum': 0.92216, 'weight_decay': 0.00069, 'warmup_epochs': 3.41381, 'warmup_momentum': 0.43935, 'box': 6.99042, 'cls': 0.27269, 'dfl': 1.75914, 'hsv_h': 0.01613, 'hsv_s': 0.3603, 'hsv_v': 0.38634, 'degrees': 0.0, 'translate': 0.08012, 'scale': 0.37934, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.4791, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0}
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=/hpc/home/csr33/ast_object_detection/ast.yaml, epochs=30, time=None, patience=50, batch=16, imgsz=640, save=False, save_period=-1, cache=False, device=None, workers=8, project=None, name=train60, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=False, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=False, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01192, lrf=0.00962, momentum=0.92216, weight_decay=0.00069, warmup_epochs=3.41381, warmup_momentum=0.43935, warmup_bias_lr=0.1, box=6.99042, cls=0.27269, dfl=1.75914, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.01613, hsv_s=0.3603, hsv_v=0.38634, degrees=0.0, translate=0.08012, scale=0.37934, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.4791, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train60
+Overriding model.yaml nc=80 with nc=7
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    752677  ultralytics.nn.modules.head.Detect           [7, [64, 128, 256]]           
+Model summary: 225 layers, 3012213 parameters, 3012197 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train60', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/train/m_3812263_se_10_060_20180723_15_18.jpg: 1 duplicate labels removed
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/ast_yolov5/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01192' and 'momentum=0.92216' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.00069), 63 bias(decay=0.0)
+30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all       4146      21256      0.686      0.687      0.716      0.531
+
+30 epochs completed in 2.993 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train60/weights/last.pt, 6.3MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train60/weights/best.pt, 6.3MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train60/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3007013 parameters, 0 gradients, 8.1 GFLOPs
+                   all       4146      21256      0.684      0.687      0.716      0.531
+    sedimentation_tank       4146        881      0.752       0.89      0.907      0.742
+           water_tower       4146        216      0.816      0.833      0.842      0.592
+        spherical_tank       4146        219      0.622      0.653      0.639      0.453
+      closed_roof_tank       4146      10728      0.856      0.891      0.939      0.748
+external_floating_roof_tank       4146       1622      0.846      0.898      0.936      0.817
+narrow_closed_roof_tank       4146       7455      0.727       0.62      0.712      0.337
+      undefined_object       4146        135      0.168     0.0222     0.0327     0.0252
+Speed: 0.2ms preprocess, 1.1ms inference, 0.0ms loss, 2.0ms postprocess per image
+WARNING ❌️ training failure for hyperparameter tuning iteration 10
+Command '['yolo', 'train', 'task=detect', 'mode=train', 'model=yolov8n.pt', 'data=/hpc/home/csr33/ast_object_detection/ast.yaml', 'epochs=30', 'time=None', 'patience=50', 'batch=16', 'imgsz=640', 'save=False', 'save_period=-1', 'cache=False', 'device=None', 'workers=8', 'project=None', 'name=None', 'exist_ok=False', 'pretrained=True', 'optimizer=auto', 'verbose=True', 'seed=0', 'deterministic=True', 'single_cls=False', 'rect=False', 'cos_lr=False', 'close_mosaic=10', 'resume=False', 'amp=True', 'fraction=1.0', 'profile=False', 'freeze=None', 'multi_scale=False', 'overlap_mask=True', 'mask_ratio=4', 'dropout=0.0', 'val=False', 'split=val', 'save_json=False', 'save_hybrid=False', 'conf=None', 'iou=0.7', 'max_det=300', 'half=False', 'dnn=False', 'plots=False', 'source=None', 'vid_stride=1', 'stream_buffer=False', 'visualize=False', 'augment=False', 'agnostic_nms=False', 'classes=None', 'retina_masks=False', 'embed=None', 'show=False', 'save_frames=False', 'save_txt=False', 'save_conf=False', 'save_crop=False', 'show_labels=True', 'show_conf=True', 'show_boxes=True', 'line_width=None', 'format=torchscript', 'keras=False', 'optimize=False', 'int8=False', 'dynamic=False', 'simplify=False', 'opset=None', 'workspace=4', 'nms=False', 'lr0=0.01192', 'lrf=0.00962', 'momentum=0.92216', 'weight_decay=0.00069', 'warmup_epochs=3.41381', 'warmup_momentum=0.43935', 'warmup_bias_lr=0.1', 'box=6.99042', 'cls=0.27269', 'dfl=1.75914', 'pose=12.0', 'kobj=1.0', 'label_smoothing=0.0', 'nbs=64', 'hsv_h=0.01613', 'hsv_s=0.3603', 'hsv_v=0.38634', 'degrees=0.0', 'translate=0.08012', 'scale=0.37934', 'shear=0.0', 'perspective=0.0', 'flipud=0.0', 'fliplr=0.4791', 'mosaic=1.0', 'mixup=0.0', 'copy_paste=0.0', 'auto_augment=randaugment', 'erasing=0.4', 'crop_fraction=1.0', 'cfg=None', 'tracker=botsort.yaml']' returned non-zero exit status 1.
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_scatter_plots.png
+Saved /hpc/group/borsuklab/cred/runs/detect/tune7/tune_fitness.png
+
+[34m[1mTuner: [0m10/10 iterations complete ✅ (108694.62s)
+[34m[1mTuner: [0mResults saved to [1m/hpc/group/borsuklab/cred/runs/detect/tune7[0m
+[34m[1mTuner: [0mBest fitness=0.0 observed at iteration 1
+[34m[1mTuner: [0mBest fitness metrics are {}
+[34m[1mTuner: [0mBest fitness model is /hpc/group/borsuklab/cred/runs/detect/train51
+[34m[1mTuner: [0mBest fitness hyperparameters are printed below.
+
+Printing '[1m[30m/hpc/group/borsuklab/cred/runs/detect/tune7/best_hyperparameters.yaml[0m'
+
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+box: 7.5
+cls: 0.5
+dfl: 1.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+scale: 0.5
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+New https://pypi.org/project/ultralytics/8.1.5 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolov8n.pt, data=coco8.yaml, epochs=100, time=None, patience=50, batch=16, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=8, project=None, name=train61, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/hpc/group/borsuklab/cred/runs/detect/train61
+
+Dataset 'coco8.yaml' images not found ⚠️, missing path '/hpc/group/borsuklab/datasets/coco8/images/val'
+Downloading https://ultralytics.com/assets/coco8.zip to '/hpc/group/borsuklab/datasets/coco8.zip'...
+Dataset download success ✅ (1.3s), saved to [1m/hpc/group/borsuklab/datasets[0m
+
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]             
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]             
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]                  
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]                 
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 22        [15, 18, 21]  1    897664  ultralytics.nn.modules.head.Detect           [80, [64, 128, 256]]          
+Model summary: 225 layers, 3157200 parameters, 3157184 gradients, 8.9 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+[34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /hpc/group/borsuklab/cred/runs/detect/train61', view at http://localhost:6006/
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mNew cache created: /hpc/group/borsuklab/datasets/coco8/labels/train.cache
+[34m[1mval: [0mNew cache created: /hpc/group/borsuklab/datasets/coco8/labels/val.cache
+Plotting labels to /hpc/group/borsuklab/cred/runs/detect/train61/labels.jpg... 
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000119, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+100 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.684      0.543      0.696      0.508
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.89      0.526      0.732       0.51
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.905      0.524      0.738      0.518
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.908      0.532      0.737      0.515
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.911      0.541       0.77      0.533
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.912      0.549      0.749      0.551
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.91       0.55      0.751      0.551
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.922       0.55      0.751      0.545
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.925       0.55      0.752       0.54
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.933      0.549      0.753      0.523
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.938       0.55      0.752      0.523
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.933       0.55      0.708      0.524
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.911       0.55      0.708      0.523
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17        0.9       0.55      0.658      0.517
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.876       0.55      0.662      0.509
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.865       0.55      0.636      0.482
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.848      0.556      0.614      0.466
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.848      0.556      0.614      0.466
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.826      0.564      0.601      0.459
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.826      0.564      0.601      0.459
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.785      0.583      0.593      0.442
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.785      0.583      0.593      0.442
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.757      0.583      0.589      0.439
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.757      0.583      0.589      0.439
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.79      0.583      0.588      0.438
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.79      0.583      0.588      0.438
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.944      0.383      0.579       0.42
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.944      0.383      0.579       0.42
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.953      0.383      0.578      0.453
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.953      0.383      0.578      0.453
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.951      0.383      0.575      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.951      0.383      0.575      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.95      0.383      0.575      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.95      0.383      0.575      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.95      0.383      0.579      0.436
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17       0.95      0.383      0.579      0.436
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.576      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.576      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.577      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.577      0.435
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.578      0.452
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.578      0.452
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.581      0.461
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.949      0.383      0.581      0.461
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.947      0.379      0.582       0.46
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.947      0.379      0.582       0.46
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.941      0.373      0.501      0.396
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.941      0.373      0.501      0.396
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.929      0.371      0.502      0.395
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.929      0.371      0.502      0.395
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.939      0.372      0.503      0.396
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.939      0.372      0.503      0.396
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.939      0.372      0.503      0.396
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.938      0.372      0.502      0.386
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.938      0.372      0.502      0.386
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.938      0.372      0.502      0.386
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+                   all          4         17      0.946      0.372       0.46      0.349
+Stopping training early as no improvement observed in last 50 epochs. Best results observed at epoch 7, best model saved as best.pt.
+To update EarlyStopping(patience=50) pass a new patience value, i.e. `patience=300` or use `patience=0` to disable EarlyStopping.
+
+57 epochs completed in 0.011 hours.
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train61/weights/last.pt, 6.5MB
+Optimizer stripped from /hpc/group/borsuklab/cred/runs/detect/train61/weights/best.pt, 6.5MB
+
+Validating /hpc/group/borsuklab/cred/runs/detect/train61/weights/best.pt...
+Ultralytics YOLOv8.1.1 🚀 Python-3.11.7 torch-2.1.2+cu121 CUDA:0 (NVIDIA RTX A5000, 24040MiB)
+Model summary (fused): 168 layers, 3151904 parameters, 0 gradients, 8.7 GFLOPs
+                   all          4         17      0.911       0.55      0.751      0.546
+                person          4         10       0.95        0.3      0.478      0.262
+                   dog          4          1          1          0      0.497      0.249
+                 horse          4          2      0.972          1      0.995      0.698
+              elephant          4          2          1          0      0.546      0.174
+              umbrella          4          1      0.758          1      0.995      0.995
+          potted plant          4          1      0.784          1      0.995      0.895
+Speed: 0.1ms preprocess, 2.2ms inference, 0.0ms loss, 1.1ms postprocess per image
+Results saved to [1m/hpc/group/borsuklab/cred/runs/detect/train61[0m
