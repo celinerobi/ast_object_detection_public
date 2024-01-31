@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/images_for_prediction/quad_tiles_in_slosh.py", line 61, in <module>
+    args = get_args_parse()
+           ^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/images_for_prediction/quad_tiles_in_slosh.py", line 29, in get_args_parse
+    parser = argparse.ArgumentParser(
+             ^^^^^^^^
+NameError: name 'argparse' is not defined
