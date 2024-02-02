@@ -1,11 +1,9 @@
 #!/bin/bash
 #SBATCH --partition=gpu-common
-# #SBATCH --partition=scavenger-gpu
 #SBATCH --mem=30GB # Memory per node. 5 GB
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:1 # Number of GPUs per node
-#SBATCH --cpus-per-task=12
-# #SBATCH --exclude=dcc-youlab-gpu-13,dcc-carlsonlab-gpu-19
+#SBATCH --cpus-per-task=10
 #SBATCH --output /hpc/home/csr33/ast_object_detection/tune.out
 #SBATCH --error /hpc/home/csr33/ast_object_detection/tune.err
 

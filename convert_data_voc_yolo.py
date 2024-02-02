@@ -166,35 +166,42 @@ def move_files_to_folder(list_of_files, destination_folder):
             print(f)
             assert False
             
-            
+
+def get_args_parse():
+    parser = argparse.ArgumentParser("Tune yolov8 using genetic algorithm")
+    parser.add_argument("--original_data_dir", default="/work/csr33/ast/complete-dataset", type=str)
+    parser.add_argument("--yolo_dir", default="/work/csr33/ast/datasets/yolo", type=str)
+
+    parser.add_argument("--original_data_labels_folder", default="chips_positive_corrected_xml", type=str)
+    parser.add_argument("--original_data_imgs_folder", default="chips_positive", type=str)
+    
+    parser.add_argument("--path_to_predefined_classes", default="/work/csr33/ast/predefined_classes.txt", type=str)
+    parser.add_argument("--save_dir", default="/work/csr33/ast", type=str)
+
+    
+    parser.add_argument("--train_ratio", default= 0.7, type=int)
+    parser.add_argument("--val_ratio", default=0.15, type=int)
+    parser.add_argument("--test_ratio", default=0.15, type=int)
+
+
+    args = parser.parse_args()
+    return args
+
 def main(args):
-    save_dir="/work/csr33/ast"
-    path_to_predefined_classes="/work/csr33/ast/predefined_classes.txt"
-    # Get the annotations
-    original_data_dir = "/work/csr33/ast/complete-dataset"
-    original_data_labels_folder = "chips_positive_corrected_xml"
-    original_data_imgs_folder = "chips_positive"
-
-    yolo_dir = "/work/csr33/ast/datasets/yolo"
-
-    # Set the split ratios (adjust as needed)
-    train_ratio = 0.7
-    val_ratio = 0.15
-    test_ratio = 0.15
-    
-    
+    # Get the annotations    
     #copy images from complete_dataset to yolov5 datadir
-    yolo_dir_temp = os.path.join(yolo_dir, "temp")
+    yolo_dir_temp = os.path.join(args.yolo_dir, "temp")
     os.makedirs(yolo_dir_temp, exists_ok=True)
-    shutil.copytree(os.path.join(original_data_dir, original_data_imgs_folder),
+    shutil.copytree(os.path.join(args.original_data_dir, args.original_data_imgs_folder),
                     os.path.join(yolo_dir_temp, "images"))
-    #!cp -r "/work/csr33/ast/complete-dataset/chips_positive/." "/work/csr33/ast/complete-dataset-yolov5/images"
+    
+    !cp -r "/work/csr33/ast/complete-dataset/chips_positive/." "/work/csr33/ast/complete-dataset-yolov5/images"
 
     # Dictionary that maps class names to IDs
-    class_name_to_id_mapping = get_label_map(save_dir, path_to_predefined_classes)
+    class_name_to_id_mapping = get_label_map(args.save_dir, args.path_to_predefined_classes)
 
     #get list of annotations in original dir
-    annotations = glob(os.path.join(original_data_dir, original_data_labels_folder) + "/*.xml")
+    annotations = glob(os.path.join(args.original_data_dir, args.original_data_labels_folder) + "/*.xml")
     annotations.sort()
 
     # Convert and save the annotations
@@ -211,24 +218,31 @@ def main(args):
     #Next we partition the dataset into train, validation, and test sets containing 80%, 10%, and 10% of the data, respectively. 
     #You can change the split values according to your convenience.
     # Split the dataset into train-valid-test splits 
-    train_images, val_images, train_annotations, val_annotations = train_test_split(images, annotations, test_size = (1 - train_ratio), random_state = 1)
-    val_images, test_images, val_annotations, test_annotations = train_test_split(val_images, val_annotations, test_size = (test_ratio / (1 - train_ratio)), random_state = 1)
+    train_images, val_images, train_annotations, val_annotations = train_test_split(images, annotations, test_size = (1 - args.train_ratio), random_state = 1)
+    val_images, test_images, val_annotations, test_annotations = train_test_split(val_images, val_annotations, test_size = (args.test_ratio / (1 - args.train_ratio)), random_state = 1)
 
     #Make split directories
     data_type = ["images", "labels"]
     split = ["train", "val", "test"]
     for d in data_type:
         for s in split:
-            directory_path =  os.path.join(yolo_dir, d, s)
+            directory_path =  os.path.join(args.yolo_dir, d, s)
             if not os.path.exists(directory_path):
                 os.makedirs(directory_path)
 
                 
     #Move the files to their respective folders.
     # Move the splits into their folders
-    move_files_to_folder(train_images, os.path.join(yolo_dir, "images", "train"))
-    move_files_to_folder(val_images, os.path.join(yolo_dir, "images", "val"))
-    move_files_to_folder(test_images, os.path.join(yolo_dir, "images", "test"))
-    move_files_to_folder(train_annotations, os.path.join(yolo_dir, "labels", "train"))
-    move_files_to_folder(val_annotations, os.path.join(yolo_dir, "labels", "val"))
-    move_files_to_folder(test_annotations, os.path.join(yolo_dir, "labels", "test"))
+    move_files_to_folder(train_images, os.path.join(args.yolo_dir, "images", "train"))
+    move_files_to_folder(val_images, os.path.join(args.yolo_dir, "images", "val"))
+    move_files_to_folder(test_images, os.path.join(args.yolo_dir, "images", "test"))
+    move_files_to_folder(train_annotations, os.path.join(args.yolo_dir, "labels", "train"))
+    move_files_to_folder(val_annotations, os.path.join(args.yolo_dir, "labels", "val"))
+    move_files_to_folder(test_annotations, os.path.join(args.yolo_dir, "labels", "test"))
+    
+    
+if __name__ == '__main__':
+    # Get the arguments
+    args = get_args_parse()
+    print(args)
+    train(args)
