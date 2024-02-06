@@ -35,17 +35,18 @@ def get_args_parse():
                         default="/work/csr33/images_for_predictions/naip_tile_in_slosh_modeled_area.parquet",
                         help='Path to store NAIP information path')
     parser.add_argument("--chunked_naip_data_dir", default="/work/csr33/images_for_predictions/chunked_naip_data", type=str)
-    parser.add_argument("--output_file_name", default="chunked_naip_data", type=str)
-    parser.add_argument("--rows_per_chunk", default=250, type=int)
+    parser.add_argument("--chunked_naip_data_filename", default="chunked_naip_data", type=str)
+    parser.add_argument("--num_chunks", default=100, type=int)
 
     args = parser.parse_args()
     return args
 
 def chunk_df(naip_df, args):
-    
-    df_chunks = [naip_df.iloc[i:i+args.rows_per_chunk] for i in range(0, len(naip_df), args.rows_per_chunk)]
+    # Calculate the number of rows per chunk
+    rows_per_chunk = len(naip_df) // args.num_chunks
+    df_chunks = [naip_df.iloc[i : i + rows_per_chunk] for i in range(0, len(naip_df), rows_per_chunk)]
     for i, chunk in enumerate(df_chunks):
-        file_path = f'{args.chunked_naip_data_dir}/{args.output_file_name}_{i}.csv'
+        file_path = f'{args.chunked_naip_data_dir}/{args.chunked_naip_data_filename}_{i}.parquet'
         # Write the chunk to a CSV file
         chunk.to_parquet(file_path, index=False)
 
@@ -76,6 +77,7 @@ def extract_naip_data(args):
     subset_naip_in_slosh = gpd.sjoin(naip_df, slosh_extent_in_conus, how='inner', predicate='intersects')
     subset_naip_in_slosh.to_parquet(args.naip_data_path)
     return subset_naip_in_slosh
+
 
 if __name__ == '__main__':
     ### Get the arguments 

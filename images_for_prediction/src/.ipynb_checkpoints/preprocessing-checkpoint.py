@@ -79,10 +79,14 @@ def data_processing_over_chunk(df_chunk, args):
         
 def get_args_parse():
     parser = argparse.ArgumentParser("")
-    parser.add_argument("--naip_tile_df", default="/work/csr33/images_for_predictions/naip_tile_in_slosh_modeled_area.parquet", type=str)
+    parser.add_argument("--chunked_naip_data_dir", default="/work/csr33/images_for_predictions/chunked_naip_data", type=str)
+    parser.add_argument("--chunked_naip_data_filename", default="chunked_naip_data", type=str)
+    parser.add_argument("--chunk_id",  type=int)
+    
     parser.add_argument("--processing_naip_dir", default="/work/csr33/images_for_predictions/processed_naip_data", type=str)
     parser.add_argument("--processing_naip_filename", default="processed_naip_data", type=str)
     parser.add_argument("--imgsz", default=640, type=int)
+
     args = parser.parse_args()
     return args
 
@@ -91,18 +95,14 @@ def get_args_parse():
 def main(args):
     #os.chdir("/work/csr33/object_detection")
     #make sure processing naip dir exist
-    os.makedirs(args.processing_naip_dir, exist_ok=True)
-    #determine chunk-number
-    file_name_wo_ext = os.path.splitext(os.path.basename(args.naip_tile_df))[0]
-    args.chunk_id = file_name_wo_ext.rsplit("_",1)[1]
 
-    naip_df = pd.read_parquet(args.naip_tile_df) 
+    os.makedirs(args.processing_naip_dir, exist_ok=True)
+    
+    naip_tile_df = f'{args.chunked_naip_data_dir}/{args.chunked_naip_data_filename}_{args.chunk_id}.parquet'
+    naip_df = pd.read_parquet(naip_tile_df) 
     naip_df["img_url"] = naip_df.assets.apply(lambda asset: asset["image"]["href"])#
     data_processing_over_chunk(naip_df, args)
     
-    #for df_chunk in chunk_dataframe(naip_df, chunksize=1000):
-    #    data_processing_over_chunk(df_chunk, args)
-    #    print(chunk)
 
 if __name__ == '__main__':
     # Get the arguments
