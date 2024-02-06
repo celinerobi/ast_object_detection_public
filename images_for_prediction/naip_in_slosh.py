@@ -6,6 +6,7 @@ import geopandas as gpd
 
 import pystac_client
 import planetary_computer
+import pyarrow as pa
 
 # https://planetarycomputer.microsoft.com/dataset/naip#Example-Notebook
 # https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/
@@ -33,11 +34,22 @@ def get_args_parse():
     parser.add_argument('--naip_data_path', type=str, 
                         default="/work/csr33/images_for_predictions/naip_tile_in_slosh_modeled_area.parquet",
                         help='Path to store NAIP information path')
+    parser.add_argument("--chunked_naip_data_dir", default="/work/csr33/images_for_predictions/chunked_naip_data", type=str)
+    parser.add_argument("--output_file_name", default="chunked_naip_data", type=str)
+    parser.add_argument("--rows_per_chunk", default=250, type=int)
+
     args = parser.parse_args()
     return args
 
+def chunk_df(naip_df, args):
+    
+    df_chunks = [naip_df.iloc[i:i+args.rows_per_chunk] for i in range(0, len(naip_df), args.rows_per_chunk)]
+    for i, chunk in enumerate(df_chunks):
+        file_path = f'{args.chunked_naip_data_dir}/{args.output_file_name}_{i}.csv'
+        # Write the chunk to a CSV file
+        chunk.to_parquet(file_path, index=False)
 
-def main(args):
+def extract_naip_data(args):
     
     # bulk request data from planetary computing
     #https://planetarycomputer.microsoft.com/docs/quickstarts/stac-geoparquet/
@@ -63,8 +75,13 @@ def main(args):
     #subset naip data by slosh data
     subset_naip_in_slosh = gpd.sjoin(naip_df, slosh_extent_in_conus, how='inner', predicate='intersects')
     subset_naip_in_slosh.to_parquet(args.naip_data_path)
+    return subset_naip_in_slosh
 
 if __name__ == '__main__':
     ### Get the arguments 
     args = get_args_parse()
-    main(args)
+    subset_naip_in_slosh = extract_naip_data(args)
+    os.makedirs(args.chunked_naip_data_dir, exist_ok=True)
+    chunk_df(subset_naip_in_slosh, args)
+    
+    

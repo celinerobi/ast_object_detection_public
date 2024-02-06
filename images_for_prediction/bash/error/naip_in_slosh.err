@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fsspec/registry.py", line 236, in get_filesystem_class
+    register_implementation(protocol, _import_class(bit["class"]))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fsspec/registry.py", line 271, in _import_class
+    mod = importlib.import_module(mod)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'adlfs'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/images_for_prediction/naip_in_slosh.py", line 83, in <module>
+    subset_naip_in_slosh = extract_naip_data(args)
+                           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/images_for_prediction/naip_in_slosh.py", line 59, in extract_naip_data
+    naip_df = gpd.read_parquet(asset.href, storage_options=asset.extra_fields["table:storage_options"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 598, in _read_parquet
+    filesystem, path = _get_filesystem_path(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 494, in _get_filesystem_path
+    filesystem, path = fsspec.core.url_to_fs(path, **(storage_options or {}))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fsspec/core.py", line 383, in url_to_fs
+    chain = _un_chain(url, kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fsspec/core.py", line 332, in _un_chain
+    cls = get_filesystem_class(protocol)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fsspec/registry.py", line 238, in get_filesystem_class
+    raise ImportError(bit["err"]) from e
+ImportError: Install adlfs to access Azure Datalake Gen2 and Azure Blob Storage
