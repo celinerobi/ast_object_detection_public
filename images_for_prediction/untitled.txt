@@ -1,3 +1,0 @@
-tracts_in_slosh.py
-naip_in_tracts
-unique_naip_in_tracts
