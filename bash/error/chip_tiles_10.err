@@ -22,3 +22,18 @@
 [ WARN:6@3418.690] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
 [ERROR:6@3418.690] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_3009149_nw_15_030_20211113.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
 
+[ WARN:7@4235.318] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
+[ERROR:7@4235.320] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_4406720_sw_19_060_20210907.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
+
+[ WARN:5@5068.772] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
+[ERROR:5@5068.773] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_3008831_ne_16_030_20211119.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
+
+[ WARN:3@5291.699] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
+[ERROR:3@5291.700] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_2909032_se_15_030_20211115.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
+
+[ WARN:8@5806.055] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
+[ERROR:8@5806.057] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_3009258_nw_15_030_20211221.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
+
+[ WARN:6@5813.630] global grfmt_tiff.cpp:840 readData OpenCV TIFF(line 840): failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer)
+[ERROR:6@5813.630] global loadsave.cpp:478 imread_ imread_('/work/csr33/images_for_predictions/naip_tiles/m_3009264_nw_15_030_20211212.tif'): can't read data: OpenCV(4.9.0) /io/opencv/modules/imgcodecs/src/grfmt_tiff.cpp:840: error: (-2:Unspecified error) OpenCV TIFF: failed TIFFReadRGBATile(tif, x, y, (uint32*)src_buffer) in function 'readData'
+
