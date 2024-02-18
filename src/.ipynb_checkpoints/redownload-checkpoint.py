@@ -100,67 +100,18 @@ def get_args_parse():
 
 def main(args):    
     # list of tiles with errors
-    tile_paths_error =   ['/work/csr33/images_for_predictions/naip_tiles/m_2708017_se_17_060_20191129_20200113.tif',
-                          '/work/csr33/images_for_predictions/naip_tiles/m_2908961_ne_16_030_20211130.tif',
-                          '/work/csr33/images_for_predictions/naip_tiles/m_3108846_se_16_030_20211123.tif',                                                    
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008214_sw_17_060_20191110_20200108.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008846_ne_16_030_20211113.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008835_nw_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4107221_nw_18_060_20210904.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008736_se_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4107223_nw_18_060_20210926.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008815_sw_16_030_20211112.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008829_se_16_030_20211119.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008837_se_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009255_sw_15_030_20211212.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008953_ne_16_030_20211114.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_2908901_ne_16_030_20211129.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008215_ne_17_060_20191110_20200108.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008814_sw_16_030_20211112.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3907756_nw_18_060_20210616.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009005_nw_15_030_20211120.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008737_sw_16_030_20211113.tif'
-
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3907441_se_18_060_20190726_20191209.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008838_se_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009037_ne_15_030_20211115.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008737_nw_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008815_nw_16_030_20211112.tif']
-    """
-
-                            ['/work/csr33/images_for_predictions/naip_tiles/m_2909410_nw_15_060_20201112.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4207155_nw_19_060_20210826.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3707511_nw_18_060_20211017.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4406908_ne_19_060_20211006.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008933_sw_16_030_20211115.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009257_ne_15_030_20211221.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3707744_sw_18_060_20210910.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009244_se_15_030_20211223.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009127_sw_15_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009260_se_15_030_20211223.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009131_sw_15_030_20211119.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009037_se_15_030_20211115.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4406804_ne_19_060_20210914.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009047_nw_15_030_20211116.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008830_nw_16_030_20211119.tif',
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008826_nw_16_030_20211119.tif',
+    tile_paths_error =    ['/work/csr33/images_for_predictions/naip_tiles/m_3008826_nw_16_030_20211119.tif',
                             '/work/csr33/images_for_predictions/naip_tiles/m_3008736_nw_16_030_20211113.tif',
-                            /work/csr33/images_for_predictions/naip_tiles/m_3009131_ne_15_030_20211114.tif',
+                            '/work/csr33/images_for_predictions/naip_tiles/m_3009131_ne_15_030_20211114.tif',
                             '/work/csr33/images_for_predictions/naip_tiles/m_3407852_sw_17_060_20200922.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_se_15_030_20211115.tif']
+                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_se_15_030_20211115.tif',
                             
-                             ['/work/csr33/images_for_predictions/naip_tiles/m_3009023_ne_15_030_20211116.tif',
+                             '/work/csr33/images_for_predictions/naip_tiles/m_3009023_ne_15_030_20211116.tif',
                              '/work/csr33/images_for_predictions/naip_tiles/m_4406907_se_19_060_20211006.tif',
-                             '/work/csr33/images_for_predictions/naip_tiles/m_3009047_ne_15_030_20211123.tif'
+                             '/work/csr33/images_for_predictions/naip_tiles/m_3009047_ne_15_030_20211123.tif',
                             '/work/csr33/images_for_predictions/naip_tiles/m_3008830_ne_16_030_20211119.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_sw_15_030_20211115.tif'
-                            
+                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_sw_15_030_20211115.tif']
+    """                            
                             '/work/csr33/images_for_predictions/naip_tiles/m_3008803_se_16_030_20211112.tif',
                             '/work/csr33/images_for_predictions/naip_tiles/m_3008847_ne_16_030_20211113.tif',
                             '/work/csr33/images_for_predictions/naip_tiles/m_3009220_se_15_030_20211223.tif',

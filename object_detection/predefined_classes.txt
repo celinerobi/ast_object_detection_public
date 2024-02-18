@@ -1,7 +1,0 @@
-sedimentation_tank
-water_tower
-spherical_tank
-closed_roof_tank
-external_floating_roof_tank
-narrow_closed_roof_tank
-undefined_object
