@@ -15,7 +15,31 @@ import ultralytics
 from ultralytics import YOLO
 #ultralytics.checks()
 
+import os
+import argparse
+import math
+import time
 
+import ast
+from copy import copy
+
+import pandas as pd
+import numpy as np
+from glob import glob
+from pyproj import Proj
+from shapely.ops import transform
+
+import pyproj
+import ultralytics
+from ultralytics import YOLO
+#ultralytics.checks()
+import rioxarray
+import concurrent
+import concurrent.futures
+from concurrent.futures.thread import ThreadPoolExecutor
+
+
+from shapely.geometry import Point
 def chunk_df(img_paths, num_chunks=10):
     # Calculate the number of rows per chunk
     rows_per_chunk = len(img_paths) // num_chunks
@@ -74,7 +98,7 @@ def process_results(results, tile_height, tile_width, item_dim):
                        "image_names": image_names_list, "bbox_pixel_coords": bbox_pixel_coords_list})#,  dtype=dtypes
 
 
-def predict_process(img_paths,tile_height, tile_width, args):
+def predict_process(img_paths, tile_height, tile_width, args):
     # obtain predictions over the dataframe
     results_df = pd.DataFrame({})
     for df_chunk in chunk_df(img_paths, num_chunks=10):
@@ -228,6 +252,14 @@ def merge_predicted_bboxes(results_df, dist_limit = 5):
                          "bbox_pixel_coords": bbox_pixel_coords})#,  dtype=dtypes
 
 
+def write(predictions, predictions_file_path):
+    # remove file if it exists 
+    if os.path.exists(predictions_file_path):
+        predictions.to_parquet(predictions_file_path, engine='fastparquet', append=True)
+    else:
+        predictions.to_parquet(predictions_file_path, engine='fastparquet')
+        
+        
 def get_args_parse():
     parser = argparse.ArgumentParser("")    
     parser.add_argument("--processing_naip_dir", default="/work/csr33/images_for_predictions/processed_naip_data", type=str)
@@ -244,33 +276,67 @@ def get_args_parse():
     args = parser.parse_args()
     return args
 
-def write(predictions, predictions_file_path):
-    # remove file if it exists 
-    if os.path.exists(predictions_file_path):
-        predictions.to_parquet(predictions_file_path, engine='fastparquet', append=True)
-    else:
-        predictions.to_parquet(predictions_file_path, engine='fastparquet')
-        
-        
+
 def predict(args):
     processed_naip_file_path = os.path.join(args.processing_naip_dir, f"{args.processing_naip_filename}_{args.chunk_id}.parquet")
     processed_naip_df = pd.read_parquet(processed_naip_file_path) 
+
+    #tile_names = os.listdir(args.tile_dir)
+    #tile_names = [os.path.splitext(tile_name)[0] for tile_name in tile_names]
     #os.chdir("/work/csr33/object_detection")
     #make sure processing naip dir exist
-    #determine chunk-number    
+    #determine chunk-number   
     os.makedirs(args.prediction_dir, exist_ok=True)
-    predictions_file_path = os.path.join(args.prediction_dir, f"{args.prediction_filename}_{args.chunk_id}.parquet")
-
     model = YOLO(args.model_path)  # custom trained model 
+    
+    # load a subset of the tile paths to predict on
+    tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)]
+    tile_names = [os.path.splitext(os.path.basename(tile_path))[0] for tile_path in tile_paths]
+    
+    #predictions_file_path = os.path.join(args.prediction_dir, f"{args.prediction_filename}_{args.chunk_id}.parquet")
+    #intialize dataframes
+    predict_df = pd.DataFrame({})
+    merged_df = pd.DataFrame({})
     # obtain predictions over the dataframe
-    for df_chunk in chunk_dataframe(processed_naip_df, chunksize=10):
+    #for df_chunk in chunk_dataframe(processed_naip_df, chunksize=10):
+    for tile_name in tile_names:
         start_time = time.time()
-        df_chunk = reformat_data_chunk(copy(df_chunk), args)
-        write(run_prediction(model, df_chunk), predictions_file_path)
-        del df_chunk
+        img_paths = glob(os.path.join(args.img_dir,"*"+tile_name+"*")) #identify the imgs correspondig to a given tile
+        tile_path = os.path.join(args.tile_dir, tile_name +".tif") # specify the tile path
+        #obtain tile information
+        utmx, utmy, utm_proj, tile_band, tile_height, tile_width = tile_dimensions_and_utm_coords(tile_path) #used
+        #predict on images
+        predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, args)
+        #merge neighboring images
+        merged_df_by_tank = merge_predicted_bboxes(predict_df_by_tank, dist_limit = 5)
+        # calculate utm and lat lon coords
+        merged_df_by_tank[["utm_coords","latlon_coords"]] = merged_df_by_tank["bbox_pixel_coords"].apply(\
+                                                            lambda box: get_crs_coords(box, utmx, utmy, utm_proj))
+        #specify the projection used 
+        merged_df_by_tank["utm_proj"] = [utm_proj] * len(merged_df_by_tank)
+      #update dataframes
+        predict_df = pd.concat([predict_df, predict_df_by_tank], ignore_index=True)
+        merged_df = pd.concat([merged_df, merged_df_by_tank], ignore_index=True)
+        #delete temp dataframe to conserve memory
+        del predict_df_by_tank, merged_df_by_tank
         end_time = time.time()
         execution_time = end_time - start_time
-        print("Execution time:", execution_time, "seconds")
+        print("Execution time:", execution_time, "seconds")        
+        
+    predict_df.to_file(os.path.join(args.prediction_dir, f"predictions_{args.chunk_id}.geojson"), 
+                       driver='GeoJSON')
+    merged_df.to_file(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.geojson"),
+                      driver='GeoJSON')
+
+    
+        #df_chunk = reformat_data_chunk(copy(df_chunk), args)
+        #write(run_prediction(model, df_chunk), predictions_file_path)
+        #del df_chunk
+        
+    
+        
+        
+
 
 
 if __name__ == '__main__':

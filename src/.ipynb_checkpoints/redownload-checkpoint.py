@@ -100,39 +100,9 @@ def get_args_parse():
 
 def main(args):    
     # list of tiles with errors
-    tile_paths_error =    ['/work/csr33/images_for_predictions/naip_tiles/m_3008826_nw_16_030_20211119.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008736_nw_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009131_ne_15_030_20211114.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3407852_sw_17_060_20200922.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_se_15_030_20211115.tif',
-                            
-                             '/work/csr33/images_for_predictions/naip_tiles/m_3009023_ne_15_030_20211116.tif',
-                             '/work/csr33/images_for_predictions/naip_tiles/m_4406907_se_19_060_20211006.tif',
-                             '/work/csr33/images_for_predictions/naip_tiles/m_3009047_ne_15_030_20211123.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008830_ne_16_030_20211119.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_sw_15_030_20211115.tif']
-    """                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008803_se_16_030_20211112.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008847_ne_16_030_20211113.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009220_se_15_030_20211223.tif',
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3108853_ne_16_030_20211123.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3907449_nw_18_060_20190726_20191209.tif'
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_2808051_sw_17_060_20191130_20200113.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008742_nw_16_030_20211113.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009023_ne_15_030_20211116.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_4406907_se_19_060_20211006.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009047_ne_15_030_20211123.tif'
-                            
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008830_ne_16_030_20211119.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009045_sw_15_030_20211115.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008803_se_16_030_20211112.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3008847_ne_16_030_20211113.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009220_se_15_030_20211223.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3108853_ne_16_030_20211123.tif'
-                            '/work/csr33/images_for_predictions/naip_tiles/m_3009121_nw_15_030_20211114.tif']
-    """
-
+    tile_paths_error =  ['/work/csr33/images_for_predictions/naip_tiles/m_3008831_sw_16_030_20211113.tif',
+                        '/work/csr33/images_for_predictions/naip_tiles/m_3009131_nw_15_030_20211119.tif',
+                        '/work/csr33/images_for_predictions/naip_tiles/m_3009126_sw_15_030_20211113.tif']  
     #remove error tiles
     for tile_path in tile_paths_error:
         if os.path.exists(tile_path):
