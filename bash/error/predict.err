@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 343, in <module>
+    predict(args)
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 316, in predict
+    predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 106, in predict_process
+    results = model.predict(df_chunk.tolist(), save=False, imgsz=args.imgsz)#, conf=0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/model.py", line 406, in predict
+    return self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 204, in __call__
+    return list(self.stream_inference(source, model, *args, **kwargs))  # merge list of Result into one
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 35, in generator_context
+    response = gen.send(None)
+               ^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 254, in stream_inference
+    self.setup_source(source if source is not None else self.args.source)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 228, in setup_source
+    self.dataset = load_inference_source(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/data/build.py", line 165, in load_inference_source
+    source, webcam, screenshot, from_img, in_memory, tensor = check_source(source)
+                                                              ^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/data/build.py", line 141, in check_source
+    source = autocast_list(source)  # convert all list elements to PIL or np arrays
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/data/loaders.py", line 489, in autocast_list
+    files.append(Image.open(requests.get(im, stream=True).raw if str(im).startswith("http") else im))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/PIL/Image.py", line 3280, in open
+    raise UnidentifiedImageError(msg)
+PIL.UnidentifiedImageError: cannot identify image file '/work/csr33/images_for_predictions/naip_imgs/m_3008325_se_17_060_20191113_20200114_19_10.jpg'

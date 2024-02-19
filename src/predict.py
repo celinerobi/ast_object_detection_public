@@ -98,11 +98,11 @@ def process_results(results, tile_height, tile_width, item_dim):
                        "image_names": image_names_list, "bbox_pixel_coords": bbox_pixel_coords_list})#,  dtype=dtypes
 
 
-def predict_process(img_paths, tile_height, tile_width, args):
+def predict_process(img_paths, tile_height, tile_width, model, args):
     # obtain predictions over the dataframe
     results_df = pd.DataFrame({})
-    for df_chunk in chunk_df(img_paths, num_chunks=10):
-        start_time = time.time()
+    num_chunks = len(img_paths)//50
+    for df_chunk in chunk_df(img_paths, num_chunks=num_chunks):
         results = model.predict(df_chunk.tolist(), save=False, imgsz=args.imgsz)#, conf=0.5)
         #process_results(results, utmx, utmy, utm_proj, tile_height, tile_width, item_dim=args.imgsz)
         results_df = pd.concat([results_df, process_results(results, tile_height, tile_width, item_dim=args.imgsz)])
@@ -303,15 +303,17 @@ def predict(args):
     #intialize dataframes
     predict_df = pd.DataFrame({})
     merged_df = pd.DataFrame({})
+    
     # obtain predictions over the dataframe
     for tile_name in tile_names:
+        print(tile_name)
         start_time = time.time()
         img_paths = glob(os.path.join(args.img_dir,"*"+tile_name+"*")) #identify the imgs correspondig to a given tile
         tile_path = os.path.join(args.tile_dir, tile_name +".tif") # specify the tile path
         #obtain tile information
         utmx, utmy, utm_proj, tile_band, tile_height, tile_width = tile_dimensions_and_utm_coords(tile_path) #used
         #predict on images
-        predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, args)
+        predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
         #merge neighboring images
         merged_df_by_tank = merge_predicted_bboxes(predict_df_by_tank, dist_limit = 5)
         # calculate utm and lat lon coords

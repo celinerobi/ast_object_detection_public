@@ -7,11 +7,11 @@ from ultralytics import settings
 
 
 def get_args_parse():
-    parser = argparse.ArgumentParser("Yolv78 model train with option for hyperparameter setting")
+    parser = argparse.ArgumentParser("Yolv8 model train with option for hyperparameter setting")
     parser.add_argument("--model", default='yolov8x.pt', type=str)
     parser.add_argument("--imgsz", default=640, type=int)
     parser.add_argument("--epochs", default=300, type=int)
-    parser.add_argument("--workers", default=20, type=int)
+    parser.add_argument("--workers", default=8, type=int)
 
     parser.add_argument("--name", type=str)
     parser.add_argument("--project_name", default="/work/csr33/object_detection", type=str)
@@ -44,6 +44,8 @@ def train(args):
     # Training.
     results = model.train(data = args.data_yaml, name = args.name, imgsz=args.imgsz, 
                           cfg=args.tune_yaml, workers=args.workers)
+    
+    
 if __name__ == '__main__':
     # Get the arguments
     args = get_args_parse()
