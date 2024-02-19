@@ -259,18 +259,31 @@ def write(predictions, predictions_file_path):
     else:
         predictions.to_parquet(predictions_file_path, engine='fastparquet')
         
+
+def calculate_diameter(bbox, resolution = 0.6): #used
+    """ Calculate the diameter of a given bounding bbox (in Pascal Voc Format) for imagery of a given resolution
+    Arg:
+    bbox(list): a list of the (xmin, ymin, xmax, ymax) coordinates for box. Utm coordinates are provided as [nw_x_utm, se_y_utm, se_x_utm, nw_y_utm] to conform with Pascal Voc Format.
+    resolution(float): the (gsd) resolution of the imagery
+    Returns:
+    (diameter): the diameter of the bbox of interest
+    
+                [#minx, #maxy, #maxx, #minx]
+    """
+    obj_xmin, obj_ymin, obj_xmax, obj_ymax = bbox
+    obj_width = obj_xmax - obj_xmin
+    obj_height = obj_ymax - obj_ymin
+    diameter = min(obj_width, obj_height) * resolution #meter
+    return diameter
+
         
 def get_args_parse():
-    parser = argparse.ArgumentParser("")    
-    parser.add_argument("--processing_naip_dir", default="/work/csr33/images_for_predictions/processed_naip_data", type=str)
-    parser.add_argument("--processing_naip_filename", default="processed_naip_data", type=str)
+    parser = argparse.ArgumentParser("Predict on images")    
     parser.add_argument("--chunk_id",  type=int)
     parser.add_argument("--tile_dir", default="/work/csr33/images_for_predictions/naip_tiles", type=str)
     parser.add_argument("--tilename_chunks_path", default='/hpc/home/csr33/ast_object_detection/images_for_prediction/tilename_chunks.npz', type=str)
-
     parser.add_argument("--model_path", default="/work/csr33/object_detection/runs/detect/baseline_train/weights/best.pt", type=str)
     parser.add_argument("--prediction_dir", default="/work/csr33/images_for_predictions/predictions", type=str)
-    parser.add_argument("--prediction_filename", default="predictions", type=str)
     parser.add_argument("--imgsz", default=640, type=int)
     parser.add_argument('--img_dir', type=str, default="/work/csr33/images_for_predictions/naip_imgs")
     args = parser.parse_args()
@@ -278,13 +291,7 @@ def get_args_parse():
 
 
 def predict(args):
-    processed_naip_file_path = os.path.join(args.processing_naip_dir, f"{args.processing_naip_filename}_{args.chunk_id}.parquet")
-    processed_naip_df = pd.read_parquet(processed_naip_file_path) 
-
-    #tile_names = os.listdir(args.tile_dir)
-    #tile_names = [os.path.splitext(tile_name)[0] for tile_name in tile_names]
-    #os.chdir("/work/csr33/object_detection")
-    #make sure processing naip dir exist
+    os.chdir("/work/csr33/object_detection")
     #determine chunk-number   
     os.makedirs(args.prediction_dir, exist_ok=True)
     model = YOLO(args.model_path)  # custom trained model 
@@ -293,12 +300,10 @@ def predict(args):
     tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)]
     tile_names = [os.path.splitext(os.path.basename(tile_path))[0] for tile_path in tile_paths]
     
-    #predictions_file_path = os.path.join(args.prediction_dir, f"{args.prediction_filename}_{args.chunk_id}.parquet")
     #intialize dataframes
     predict_df = pd.DataFrame({})
     merged_df = pd.DataFrame({})
     # obtain predictions over the dataframe
-    #for df_chunk in chunk_dataframe(processed_naip_df, chunksize=10):
     for tile_name in tile_names:
         start_time = time.time()
         img_paths = glob(os.path.join(args.img_dir,"*"+tile_name+"*")) #identify the imgs correspondig to a given tile
@@ -312,6 +317,7 @@ def predict(args):
         # calculate utm and lat lon coords
         merged_df_by_tank[["utm_coords","latlon_coords"]] = merged_df_by_tank["bbox_pixel_coords"].apply(\
                                                             lambda box: get_crs_coords(box, utmx, utmy, utm_proj))
+        merged_df_by_tank["diameter"] = merged_df_by_tank["utm_coords"].apply(lambda utm_coord: calculate_diameter(utm_coord, resolution = 1))
         #specify the projection used 
         merged_df_by_tank["utm_proj"] = [utm_proj] * len(merged_df_by_tank)
       #update dataframes
@@ -327,16 +333,6 @@ def predict(args):
                        driver='GeoJSON')
     merged_df.to_file(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.geojson"),
                       driver='GeoJSON')
-
-    
-        #df_chunk = reformat_data_chunk(copy(df_chunk), args)
-        #write(run_prediction(model, df_chunk), predictions_file_path)
-        #del df_chunk
-        
-    
-        
-        
-
 
 
 if __name__ == '__main__':

@@ -19,8 +19,6 @@ def get_args_parse():
     parser.add_argument("--num_chunks", default=750, type=int)
     parser.add_argument("--tile_dir", default="/work/csr33/images_for_predictions/naip_tiles", type=str)
     parser.add_argument("--tilename_chunks_path", default="/hpc/home/csr33/ast_object_detection/images_for_prediction/tilename_chunks.npz", type=str)
-
-
     args = parser.parse_args()
     return args
 
