@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008707_ne_16_030_20211109.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607614_ne_18_060_20210913.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807753_nw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107413_ne_18_060_20211106.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311730_ne_11_060_20200423.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3211708_sw_11_060_20200428.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708126_ne_17_060_20211202.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108862_ne_16_030_20211123.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311719_ne_11_060_20200424.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907435_ne_18_060_20190730_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009453_nw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909419_ne_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907410_nw_18_060_20190830_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311706_nw_11_060_20200423.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507707_sw_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007462_sw_18_060_20190920_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809604_ne_14_060_20200501.tif
+m_4107413_ne_18_060_20211106 320
+/work/csr33/images_for_predictions/naip_tiles/m_2708207_se_17_060_20211201.tif
+m_3907410_nw_18_060_20190830_20191209 320
+m_4007462_sw_18_060_20190920_20191209 320
+m_3907435_ne_18_060_20190730_20191209 320
+m_3607614_ne_18_060_20210913 340
+m_3311706_nw_11_060_20200423 340
+m_3311730_ne_11_060_20200423 340
+m_3311719_ne_11_060_20200424 340
+m_3009453_nw_15_060_20201112 340
+m_3807753_nw_18_060_20210903 340
+m_3211708_sw_11_060_20200428 340
+m_3507707_sw_18_060_20200922 357
+m_2909419_ne_15_060_20201112 360
+m_2708126_ne_17_060_20211202 360
+m_2809604_ne_14_060_20200501 360
+m_2708207_se_17_060_20211201 360
+m_3008707_ne_16_030_20211109 1365
+m_3108862_ne_16_030_20211123 1400
+584.1047940254211

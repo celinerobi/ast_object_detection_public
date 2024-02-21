@@ -1,16 +1,14 @@
 import wandb
 import argparse
 import os
+import numpy as np
 
 from ultralytics import YOLO
 from ultralytics import settings
-import numpy as np
-#https://docs.ultralytics.com/reference/utils/tuner/
-#https://docs.ultralytics.com/reference/utils/tuner/#ultralytics.utils.tuner.run_ray_tune
-def get_args_parse():
-    parser = argparse.ArgumentParser("Tune yolov8 using genetic algorithm")
-    parser.add_argument("--model_path", type=str, help "path to training weights for trained model")
 
+def get_args_parse():
+    parser = argparse.ArgumentParser("Valdate the model")
+    parser.add_argument("--model_path", type=str, help="path to training weights for trained model")
     args = parser.parse_args()
     return args
 
@@ -23,8 +21,7 @@ def val(args):
 
     # Load a model
     model = YOLO(args.model_path)  # load a pretrained model (recommended for training)    
-    
-    
+     
     print("val")
     # Validate the model
     metrics = model.val(split="val")  # no arguments needed, dataset and settings remembered
@@ -32,8 +29,7 @@ def val(args):
     print("val map50-95 overall", metrics.box.map)
     print("val f1 score", metrics.box.f1)
     accuracy = np.trace(metrics.confusion_matrix.matrix) / np.sum(metrics.confusion_matrix.matrix)
-    print("val accuracy", accuracy)
-    
+    print("val accuracy", accuracy)  
     
     print("test")
     # Validate the model
@@ -44,12 +40,9 @@ def val(args):
     accuracy = np.trace(metrics.confusion_matrix.matrix) / np.sum(metrics.confusion_matrix.matrix)
     print("test accuracy", accuracy)
     
-    #metrics.confusion_matrix.nc
-    #metrics.confusion_matrix.conf
-    #metrics.confusion_matrix.iou_thres  
 
 if __name__ == '__main__':
     # Get the arguments
     args = get_args_parse()
     print(args)
-    tune(args)
+    val(args)

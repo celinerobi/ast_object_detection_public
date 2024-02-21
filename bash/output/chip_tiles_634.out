@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_4406935_se_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907650_se_18_060_20210617.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208140_sw_17_060_20210507.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807705_se_18_060_20210910.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708214_se_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107333_se_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207431_se_18_060_20210920.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4307033_se_19_060_20211007.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008336_sw_17_060_20191113_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907422_se_18_060_20190730_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311662_sw_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609709_ne_14_060_20200503.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008716_se_16_060_20191103_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009212_se_15_030_20211223.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107325_nw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207153_se_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909523_se_15_060_20201130.tif
+m_4406935_se_19_060_20210904 300
+/work/csr33/images_for_predictions/naip_tiles/m_2808239_se_17_060_20211130.tif
+m_4107325_nw_18_060_20211105 320
+m_3907650_se_18_060_20210617 320
+m_4107333_se_18_060_20211105 320
+m_4207431_se_18_060_20210920 320
+m_3907422_se_18_060_20190730_20191209 320
+m_4307033_se_19_060_20211007 336
+m_4207153_se_19_060_20210826 336
+m_3208140_sw_17_060_20210507 340
+m_3008716_se_16_060_20191103_20200114 340
+m_3311662_sw_11_060_20200415 340
+m_3008336_sw_17_060_20191113_20200114 360
+m_3807705_se_18_060_20210910 357
+m_2708214_se_17_060_20211130 360
+m_2609709_ne_14_060_20200503 360
+m_2909523_se_15_060_20201130 360
+m_2808239_se_17_060_20211130 360
+m_3009212_se_15_030_20211223 1326
+326.2415716648102

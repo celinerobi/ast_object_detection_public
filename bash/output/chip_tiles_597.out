@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3009436_nw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009256_nw_15_030_20211212.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007205_nw_18_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807756_nw_18_060_20210910.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207159_sw_19_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807722_nw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009443_sw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207160_sw_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609753_sw_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406928_nw_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411862_nw_11_060_20200505.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607644_sw_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609743_se_14_060_20201216.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707653_sw_18_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607602_sw_18_060_20210827.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607636_ne_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307818_ne_17_060_20210508.tif
+m_4406928_nw_19_060_20210904 300
+/work/csr33/images_for_predictions/naip_tiles/m_4207137_nw_19_060_20211024.tif
+m_4007205_nw_18_060_20210904 320
+m_4207159_sw_19_060_20210926 336
+m_4207160_sw_19_060_20210826 336
+m_3807756_nw_18_060_20210910 340
+m_3607636_ne_18_060_20200516 340
+m_3411862_nw_11_060_20200505 340
+m_3009443_sw_15_060_20201112 340
+m_3807722_nw_18_060_20210903 340
+m_3707653_sw_18_060_20210926 340
+m_3009436_nw_15_060_20201112 340
+m_3607644_sw_18_060_20200922 357
+m_3607602_sw_18_060_20210827 357
+m_2609743_se_14_060_20201216 360
+m_2609753_sw_14_060_20201029 360
+m_3307818_ne_17_060_20210508 340
+m_4207137_nw_19_060_20211024 320
+m_3009256_nw_15_030_20211212 1326
+695.2771441936493

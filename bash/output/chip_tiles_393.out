@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_4506817_se_19_060_20210816.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4307033_ne_19_060_20211007.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507752_se_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107341_nw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607642_se_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107260_se_18_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407862_sw_17_060_20200603.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3412013_nw_10_060_20200607.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909305_ne_15_060_20190706_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407960_ne_17_060_20210508.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307921_ne_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008809_se_16_030_20211112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909315_sw_15_060_20190726_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208009_ne_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4306902_sw_19_060_20211006.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908135_ne_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707740_sw_18_060_20210912.tif
+m_4306902_sw_19_060_20211006 300
+/work/csr33/images_for_predictions/naip_tiles/m_4307034_ne_19_060_20211007.tif
+m_4506817_se_19_060_20210816 300
+m_4107341_nw_18_060_20211105 320
+m_4307033_ne_19_060_20211007 320
+m_3412013_nw_10_060_20200607 340
+m_4107260_se_18_060_20210904 336
+m_2908135_ne_17_060_20211129 360
+m_3407960_ne_17_060_20210508 340
+m_3307921_ne_17_060_20210501 340
+m_3208009_ne_17_060_20210426 340
+m_2909305_ne_15_060_20190706_20191001 360
+m_3507752_se_18_060_20200930 357
+m_3607642_se_18_060_20200922 357
+m_2909315_sw_15_060_20190726_20191001 360
+m_3407862_sw_17_060_20200603 378
+m_4307034_ne_19_060_20211007 320
+m_3707740_sw_18_060_20210912 357
+m_3008809_se_16_030_20211112 1435
+295.8280339241028

@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3707755_sw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607726_se_18_060_20210912.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909433_sw_15_060_20201116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707503_sw_18_060_20211017.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907401_se_18_060_20190730_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311662_ne_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607550_se_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507640_se_18_060_20201001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507518_ne_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207309_se_18_060_20210920.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307935_nw_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708218_ne_17_060_20211201.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407839_se_17_060_20200904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2608145_sw_17_060_20191128_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311633_nw_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411934_nw_11_060_20200521.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009104_se_15_030_20211114.tif
+m_3707503_sw_18_060_20211017 340
+/work/csr33/images_for_predictions/naip_tiles/m_2708151_se_17_060_20191129_20200113.tif
+m_3907401_se_18_060_20190730_20191209 300
+m_4207309_se_18_060_20210920 320
+m_3607550_se_18_060_20200516 340
+m_3507640_se_18_060_20201001 340
+m_3311633_nw_11_060_20200415 340
+m_3311662_ne_11_060_20200415 340
+m_3507518_ne_18_060_20200516 340
+m_3307935_nw_17_060_20210501 340
+m_3411934_nw_11_060_20200521 340
+m_2708218_ne_17_060_20211201 360
+m_2608145_sw_17_060_20191128_20200113 360
+m_3407839_se_17_060_20200904 357
+m_3707755_sw_18_060_20210903 357
+m_3607726_se_18_060_20210912 357
+m_2909433_sw_15_060_20201116 360
+m_2708151_se_17_060_20191129_20200113 360
+m_3009104_se_15_030_20211114 1326
+284.61645317077637

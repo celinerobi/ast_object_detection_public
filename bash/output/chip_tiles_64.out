@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_4207318_sw_18_060_20210920.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2808264_ne_17_060_20211202.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007421_se_18_060_20190830_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009359_sw_15_060_20201031.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908522_nw_16_060_20191118_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708149_sw_17_060_20211204.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607755_ne_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009463_sw_15_060_20201104.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506729_ne_19_060_20210831.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009145_sw_15_030_20211114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207106_ne_19_060_20211024.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009424_sw_15_060_20201102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008443_sw_16_060_20191128_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407857_nw_17_060_20210513.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709731_sw_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107002_se_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607642_sw_18_060_20200922.tif
+m_4207318_sw_18_060_20210920 320
+/work/csr33/images_for_predictions/naip_tiles/m_4406704_nw_19_060_20210907.tif
+m_4007421_se_18_060_20190830_20191209 300
+m_4506729_ne_19_060_20210831 300
+m_3009463_sw_15_060_20201104 340
+m_4207106_ne_19_060_20211024 320
+m_4107002_se_19_060_20210826 336
+m_3009424_sw_15_060_20201102 340
+m_3407857_nw_17_060_20210513 340
+m_3607755_ne_18_060_20200922 340
+m_3009359_sw_15_060_20201031 340
+m_2808264_ne_17_060_20211202 360
+m_2908522_nw_16_060_20191118_20200114 360
+m_2709731_sw_14_060_20200430 360
+m_3008443_sw_16_060_20191128_20200114 360
+m_2708149_sw_17_060_20211204 360
+m_4406704_nw_19_060_20210907 300
+m_3607642_sw_18_060_20200922 357
+m_3009145_sw_15_030_20211114 1326
+563.6482193470001

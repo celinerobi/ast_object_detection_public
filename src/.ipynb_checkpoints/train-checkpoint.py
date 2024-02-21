@@ -21,6 +21,7 @@ def get_args_parse():
     args = parser.parse_args()
     return args
 
+
 def train(args):
     os.chdir("/work/csr33/object_detection")
     # Update settings
@@ -42,14 +43,11 @@ def train(args):
     # Load a model
     model = YOLO(args.model)  # load a pretrained model (recommended for training)
     # Training.
-    results = model.train(data = args.data_yaml, name = args.name, imgsz=args.imgsz, 
-                          cfg=args.tune_yaml, workers=args.workers)
-    
-    
+    results = model.train(data = args.data_yaml, name = args.name, imgsz=args.imgsz, epochs= args.epochs,
+                          optimizer = "SGD", cfg=args.tune_yaml, workers=args.workers)
+
+
 if __name__ == '__main__':
-    # Get the arguments
+
     args = get_args_parse()
-    print(args)
     train(args)
-
-

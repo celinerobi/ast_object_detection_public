@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3009120_sw_15_030_20211114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909016_nw_15_030_20211123.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507753_ne_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108752_nw_16_030_20211115.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307920_ne_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708212_sw_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009209_se_15_030_20211221.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908921_sw_16_030_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507650_ne_18_060_20201031.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909314_ne_15_060_20190706_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009038_nw_15_030_20211115.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008341_nw_17_060_20191117_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3211612_se_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208036_nw_17_060_20210507.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107325_sw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909543_se_15_060_20201117.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406922_sw_19_060_20210904.tif
+m_4107325_sw_18_060_20211105 320
+/work/csr33/images_for_predictions/naip_tiles/m_3807747_ne_18_060_20210617.tif
+m_3208036_nw_17_060_20210507 340
+m_3307920_ne_17_060_20210501 340
+m_3211612_se_11_060_20200415 340
+m_3507753_ne_18_060_20200930 340
+m_3507650_ne_18_060_20201031 340
+m_2909314_ne_15_060_20190706_20191001 360
+m_2708212_sw_17_060_20211130 360
+m_2909543_se_15_060_20201117 360
+m_3008341_nw_17_060_20191117_20200114 360
+m_4406922_sw_19_060_20210904 300
+m_3807747_ne_18_060_20210617 320
+m_3009209_se_15_030_20211221 1326
+m_3009120_sw_15_030_20211114 1326
+m_2908921_sw_16_030_20211130 1365
+m_2909016_nw_15_030_20211123 1365
+m_3009038_nw_15_030_20211115 1365
+m_3108752_nw_16_030_20211115 1400
+733.2180650234222

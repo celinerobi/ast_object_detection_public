@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3009220_ne_15_030_20211223.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008118_ne_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807708_ne_18_060_20210617.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2608029_sw_17_060_20191207_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107437_ne_18_060_20190917_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908937_sw_16_030_20211202.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407721_ne_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909109_se_15_060_20190706_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107001_ne_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009034_ne_15_030_20211120.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107105_nw_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407831_nw_17_060_20201102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607643_se_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909015_nw_15_030_20211123.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2808222_se_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807645_nw_18_060_20211020.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311613_ne_11_060_20200416.tif
+m_4107437_ne_18_060_20190917_20191209 300
+/work/csr33/images_for_predictions/naip_tiles/m_2909416_sw_15_060_20201102.tif
+m_3807645_nw_18_060_20211020 320
+m_3807708_ne_18_060_20210617 320
+m_4107105_nw_19_060_20210826 320
+m_4107001_ne_19_060_20210826 320
+m_3407721_ne_18_060_20200930 340
+m_2909109_se_15_060_20190706_20191001 360
+m_3607643_se_18_060_20200516 357
+m_2808222_se_17_060_20211130 360
+m_2608029_sw_17_060_20191207_20200113 360
+m_3008118_ne_17_060_20211129 360
+m_3407831_nw_17_060_20201102 360
+m_3311613_ne_11_060_20200416 340
+m_2909416_sw_15_060_20201102 340
+m_3009220_ne_15_030_20211223 1326
+m_2908937_sw_16_030_20211202 1365
+m_3009034_ne_15_030_20211120 1365
+m_2909015_nw_15_030_20211123 1365
+3155.161987543106

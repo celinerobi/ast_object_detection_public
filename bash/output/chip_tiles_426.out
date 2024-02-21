@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008102_se_17_060_20191110_20200108.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007424_ne_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008927_sw_16_030_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307801_nw_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2508043_nw_17_060_20211203.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2608045_nw_17_060_20191203_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407719_nw_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107339_sw_18_060_20211103.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207335_sw_18_060_20211107.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108701_se_16_030_20211115.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307935_ne_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709761_sw_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3109360_nw_15_030_20211122.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908201_se_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009039_se_15_030_20211123.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008528_nw_16_060_20191118_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107261_se_18_060_20210926.tif
+m_4007424_ne_18_060_20211105 320
+/work/csr33/images_for_predictions/naip_tiles/m_4407051_sw_19_060_20211007.tif
+m_4207335_sw_18_060_20211107 320
+m_3008102_se_17_060_20191110_20200108 340
+m_4107339_sw_18_060_20211103 336
+m_3307935_ne_17_060_20210501 340
+m_3008528_nw_16_060_20191118_20200114 340
+m_3307801_nw_17_060_20210501 340
+m_2709761_sw_14_060_20200430 360
+m_3407719_nw_18_060_20200930 360
+m_2608045_nw_17_060_20191203_20200113 360
+m_2908201_se_17_060_20211129 378
+m_2508043_nw_17_060_20211203 380
+m_4107261_se_18_060_20210926 336
+m_4407051_sw_19_060_20211007 336
+m_3109360_nw_15_030_20211122 1326
+m_3008927_sw_16_030_20211116 1365
+m_3009039_se_15_030_20211123 1365
+m_3108701_se_16_030_20211115 1360
+716.7457029819489

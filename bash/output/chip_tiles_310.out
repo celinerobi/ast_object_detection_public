@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008215_sw_17_060_20191110_20200108.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107002_ne_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008812_ne_16_030_20211112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008456_sw_16_060_20191129_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909306_nw_15_060_20190706_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307942_nw_17_060_20210508.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707724_ne_18_060_20210827.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407855_se_17_060_20200603.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307932_sw_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107107_se_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4307004_se_19_060_20211007.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607635_se_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009318_ne_15_060_20201031.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008804_ne_16_030_20211123.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207311_sw_18_060_20211107.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208019_ne_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507612_sw_18_060_20201001.tif
+m_4107002_ne_19_060_20210904 320
+/work/csr33/images_for_predictions/naip_tiles/m_3407731_nw_18_060_20201031.tif
+m_4207311_sw_18_060_20211107 320
+m_4307004_se_19_060_20211007 315
+m_3008215_sw_17_060_20191110_20200108 340
+m_4107107_se_19_060_20210826 336
+m_3707724_ne_18_060_20210827 340
+m_3208019_ne_17_060_20210426 340
+m_3307932_sw_17_060_20210501 340
+m_3009318_ne_15_060_20201031 340
+m_3307942_nw_17_060_20210508 340
+m_3407855_se_17_060_20200603 357
+m_2909306_nw_15_060_20190706_20191001 360
+m_3008456_sw_16_060_20191129_20200114 360
+m_3607635_se_18_060_20200516 357
+m_3507612_sw_18_060_20201001 357
+m_3407731_nw_18_060_20201031 360
+m_3008804_ne_16_030_20211123 1400
+m_3008812_ne_16_030_20211112 1400
+459.0860667228699

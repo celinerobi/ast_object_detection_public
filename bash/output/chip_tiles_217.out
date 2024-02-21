@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008144_sw_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607745_nw_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4106909_ne_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406801_sw_19_060_20211006.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411841_se_11_060_20200521.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008540_sw_16_060_20191128_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908139_sw_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3211716_sw_11_060_20200520.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3308058_sw_17_060_20210421.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507743_sw_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3109060_sw_15_030_20211120.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007416_nw_18_060_20190830_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311727_se_11_060_20200424.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809509_ne_15_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3412029_ne_10_060_20200607.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009447_se_15_060_20201102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507602_nw_18_060_20200922.tif
+m_4007416_nw_18_060_20190830_20191209 300
+/work/csr33/images_for_predictions/naip_tiles/m_3407848_se_17_060_20200904.tif
+m_4406801_sw_19_060_20211006 300
+m_4106909_ne_19_060_20210826 320
+m_3008540_sw_16_060_20191128_20200114 340
+m_3607745_nw_18_060_20200922 340
+m_3411841_se_11_060_20200521 340
+m_3211716_sw_11_060_20200520 340
+m_3412029_ne_10_060_20200607 340
+m_3009447_se_15_060_20201102 340
+m_3311727_se_11_060_20200424 340
+m_3308058_sw_17_060_20210421 340
+m_3008144_sw_17_060_20211129 360
+m_2908139_sw_17_060_20211130 360
+m_3507743_sw_18_060_20200930 357
+m_2809509_ne_15_060_20201029 360
+m_3507602_nw_18_060_20200922 340
+m_3407848_se_17_060_20200904 357
+m_3109060_sw_15_030_20211120 1476
+1803.8201804161072

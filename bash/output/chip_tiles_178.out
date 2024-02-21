@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008926_sw_16_030_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307954_se_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907534_se_18_060_20210629.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709727_se_14_060_20200501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107246_nw_18_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707628_se_18_060_20210914.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507605_sw_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709736_ne_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008615_ne_16_060_20191109_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607603_nw_18_060_20210912.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507726_se_18_060_20200904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708210_se_17_060_20211201.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809623_nw_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909411_sw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607651_ne_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707625_ne_18_060_20210827.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008538_se_16_060_20191118_20200114.tif
+m_4107246_nw_18_060_20210926 320
+/work/csr33/images_for_predictions/naip_tiles/m_3507646_nw_18_060_20201018.tif
+m_3907534_se_18_060_20210629 320
+m_3307954_se_17_060_20210501 340
+m_3607603_nw_18_060_20210912 340
+m_3707628_se_18_060_20210914 340
+m_3008615_ne_16_060_20191109_20200114 340
+m_3607651_ne_18_060_20200516 340
+m_3707625_ne_18_060_20210827 340
+m_3507605_sw_18_060_20200922 340
+m_2709727_se_14_060_20200501 360
+m_2909411_sw_15_060_20201112 360
+m_2809623_nw_14_060_20201029 360
+m_2709736_ne_14_060_20200430 360
+m_2708210_se_17_060_20211201 360
+m_3507726_se_18_060_20200904 357
+m_3008538_se_16_060_20191118_20200114 340
+m_3507646_nw_18_060_20201018 340
+m_3008926_sw_16_030_20211116 1365
+405.1318280696869

@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_4207459_ne_18_060_20190826_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407835_sw_17_060_20200603.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807737_nw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107021_sw_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406826_sw_19_060_20210913.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507615_se_18_060_20201001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307938_ne_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908103_ne_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609717_se_14_060_20200503.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909318_ne_15_060_20190726_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107123_nw_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909048_sw_15_030_20211115.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707637_ne_18_060_20210914.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311717_se_11_060_20200424.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208021_se_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407827_sw_17_060_20200903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207455_sw_18_060_20211107.tif
+m_4207459_ne_18_060_20190826_20191209 300
+/work/csr33/images_for_predictions/naip_tiles/m_3108161_nw_17_060_20211203.tif
+m_4406826_sw_19_060_20210913 300
+m_3707637_ne_18_060_20210914 340
+m_4107123_nw_19_060_20210826 320
+m_3311717_se_11_060_20200424 340
+m_3807737_nw_18_060_20210903 340
+m_3208021_se_17_060_20210426 340
+m_4107021_sw_19_060_20210904 336
+m_3507615_se_18_060_20201001 340
+m_3307938_ne_17_060_20210501 340
+m_2909318_ne_15_060_20190726_20191001 360
+m_2908103_ne_17_060_20211129 360
+m_2609717_se_14_060_20200503 360
+m_3407835_sw_17_060_20200603 378
+m_3407827_sw_17_060_20200903 378
+m_4207455_sw_18_060_20211107 320
+m_3108161_nw_17_060_20211203 340
+m_2909048_sw_15_030_20211115 1365
+761.0530371665955

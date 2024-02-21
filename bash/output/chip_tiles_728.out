@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_2608144_sw_17_060_20211223.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506838_ne_19_060_20210921.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807624_nw_18_060_20210623.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007318_sw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407945_se_17_060_20210508.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406945_se_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411947_sw_11_060_20200521.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909508_se_15_060_20201118.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507622_ne_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406725_sw_19_060_20210815.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708011_se_17_060_20191215_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107135_sw_19_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009335_ne_15_060_20190901_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407729_se_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2508054_sw_17_060_20191126_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909004_se_15_030_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907512_sw_18_060_20211019.tif
+m_4406945_se_19_060_20210904 300
+/work/csr33/images_for_predictions/naip_tiles/m_3807729_sw_18_060_20210903.tif
+m_4406725_sw_19_060_20210815 300
+m_4506838_ne_19_060_20210921 300
+m_4007318_sw_18_060_20211105 320
+m_3807624_nw_18_060_20210623 320
+m_4107135_sw_19_060_20210926 336
+m_3407945_se_17_060_20210508 340
+m_3411947_sw_11_060_20200521 340
+m_3507622_ne_18_060_20200922 340
+m_3407729_se_18_060_20200930 357
+m_3009335_ne_15_060_20190901_20191001 360
+m_2909508_se_15_060_20201118 360
+m_2508054_sw_17_060_20191126_20200113 360
+m_2708011_se_17_060_20191215_20200113 360
+m_2608144_sw_17_060_20211223 380
+m_3907512_sw_18_060_20211019 320
+m_3807729_sw_18_060_20210903 357
+m_2909004_se_15_030_20211130 1365
+644.8207058906555

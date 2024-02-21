@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3208025_nw_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607604_sw_18_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506745_ne_19_060_20210723.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909433_nw_15_060_20201116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807721_ne_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407860_sw_17_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908210_se_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107105_se_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507637_nw_18_060_20201018.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108151_ne_17_060_20191110_20200102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008544_nw_16_060_20191118_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311659_ne_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008710_sw_16_030_20211119.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009333_sw_15_060_20201102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809745_se_14_060_20200501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008930_ne_16_030_20211119.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311621_se_11_060_20200416.tif
+m_4506745_ne_19_060_20210723 300
+/work/csr33/images_for_predictions/naip_tiles/m_3907404_sw_18_060_20190730_20191209.tif
+m_3009333_sw_15_060_20201102 340
+m_3108151_ne_17_060_20191110_20200102 340
+m_3807721_ne_18_060_20210903 340
+m_3208025_nw_17_060_20210426 340
+m_3311659_ne_11_060_20200415 340
+m_3008544_nw_16_060_20191118_20200114 340
+m_3507637_nw_18_060_20201018 340
+m_2909433_nw_15_060_20201116 360
+m_3607604_sw_18_060_20210926 357
+m_4107105_se_19_060_20210826 336
+m_2809745_se_14_060_20200501 360
+m_2908210_se_17_060_20211129 360
+m_3407860_sw_17_060_20200922 378
+m_3311621_se_11_060_20200416 340
+m_3907404_sw_18_060_20190730_20191209 320
+m_3008710_sw_16_030_20211119 1400
+m_3008930_ne_16_030_20211119 1400
+208.13708305358887

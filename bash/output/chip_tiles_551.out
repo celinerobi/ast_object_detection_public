@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_2808028_sw_17_060_20191130_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107020_se_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909650_sw_14_060_20201031.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406920_sw_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407838_sw_17_060_20201102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807706_nw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908121_se_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207440_ne_18_060_20210920.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907558_nw_18_060_20210606.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2808027_sw_17_060_20191130_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007210_sw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708152_ne_17_060_20191129_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506829_sw_19_060_20210929.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311745_ne_11_060_20200520.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107246_sw_18_060_20210926.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807761_sw_18_060_20210910.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809613_ne_14_060_20200501.tif
+m_4506829_sw_19_060_20210929 300
+/work/csr33/images_for_predictions/naip_tiles/m_4107319_nw_18_060_20211105.tif
+m_4406920_sw_19_060_20210904 300
+m_4207440_ne_18_060_20210920 320
+m_3907558_nw_18_060_20210606 320
+m_4007210_sw_18_060_20211105 336
+m_4107246_sw_18_060_20210926 336
+m_4107020_se_19_060_20210904 336
+m_3807706_nw_18_060_20210903 340
+m_3311745_ne_11_060_20200520 340
+m_3807761_sw_18_060_20210910 357
+m_2808028_sw_17_060_20191130_20200113 360
+m_2908121_se_17_060_20211130 360
+m_2708152_ne_17_060_20191129_20200113 360
+m_2909650_sw_14_060_20201031 360
+m_2808027_sw_17_060_20191130_20200113 360
+m_3407838_sw_17_060_20201102 378
+m_4107319_nw_18_060_20211105 320
+m_2809613_ne_14_060_20200501 360
+535.5556380748749

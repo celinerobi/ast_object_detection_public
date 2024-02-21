@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008537_sw_16_060_20191118_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3109358_nw_15_060_20200822.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407704_ne_18_060_20200930.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809607_nw_14_060_20201107.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807527_ne_18_060_20211019.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311708_se_11_060_20200422.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008919_ne_16_030_20211119.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3211606_se_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208132_nw_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007547_ne_18_060_20191015_20191203.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411929_se_11_060_20200521.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3807720_nw_18_060_20210903.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2509706_sw_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3109350_se_15_060_20201006.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208152_sw_17_060_20191109_20200102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4407039_se_19_060_20210919.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208049_sw_17_060_20210507.tif
+m_4407039_se_19_060_20210919 300
+/work/csr33/images_for_predictions/naip_tiles/m_3807723_ne_18_060_20210630.tif
+m_3807527_ne_18_060_20211019 320
+m_4007547_ne_18_060_20191015_20191203 320
+m_3208152_sw_17_060_20191109_20200102 340
+m_3208132_nw_17_060_20210426 340
+m_3211606_se_11_060_20200415 340
+m_3311708_se_11_060_20200422 340
+m_3109358_nw_15_060_20200822 340
+m_3407704_ne_18_060_20200930 340
+m_3807720_nw_18_060_20210903 340
+m_3411929_se_11_060_20200521 340
+m_3008537_sw_16_060_20191118_20200114 340
+m_3109350_se_15_060_20201006 340
+m_2809607_nw_14_060_20201107 360
+m_2509706_sw_14_060_20200430 360
+m_3208049_sw_17_060_20210507 340
+m_3807723_ne_18_060_20210630 340
+m_3008919_ne_16_030_20211119 1400
+249.6882610321045

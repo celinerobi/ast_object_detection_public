@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3211601_ne_11_060_20200425.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607658_ne_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3411929_nw_11_060_20200521.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909502_se_15_060_20201030.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208013_se_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909556_nw_15_060_20201116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207124_ne_19_060_20211024.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506743_ne_19_060_20210723.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909409_nw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907652_nw_18_060_20210617.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3211602_nw_11_060_20200415.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609713_sw_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909419_sw_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609747_sw_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506857_ne_19_060_20210816.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707753_sw_18_060_20210910.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3407712_nw_18_060_20200930.tif
+m_4506743_ne_19_060_20210723 300
+/work/csr33/images_for_predictions/naip_tiles/m_4406833_sw_19_060_20210913.tif
+m_4506857_ne_19_060_20210816 300
+m_3907652_nw_18_060_20210617 320
+m_4207124_ne_19_060_20211024 320
+m_3411929_nw_11_060_20200521 340
+m_3607658_ne_18_060_20200922 340
+m_3211601_ne_11_060_20200425 340
+m_3211602_nw_11_060_20200415 340
+m_3208013_se_17_060_20210426 340
+m_3707753_sw_18_060_20210910 357
+m_2909419_sw_15_060_20201112 360
+m_2609747_sw_14_060_20201029 360
+m_2909502_se_15_060_20201030 360
+m_2909409_nw_15_060_20201112 360
+m_2909556_nw_15_060_20201116 360
+m_2609713_sw_14_060_20201029 360
+m_4406833_sw_19_060_20210913 300
+m_3407712_nw_18_060_20200930 360
+285.2674558162689

@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_4107447_nw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809611_se_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2509705_ne_14_060_20201029.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709711_nw_14_060_20200501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709745_nw_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207114_ne_19_060_20211024.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908347_nw_17_060_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107018_se_19_060_20210904.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008442_se_16_060_20191128_20200114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3308057_nw_17_060_20210421.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909449_nw_15_060_20201116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909561_se_15_060_20201117.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4007414_se_18_060_20190830_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208028_nw_17_060_20210507.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908057_ne_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108248_ne_17_060_20191110_20200102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108711_nw_16_030_20211115.tif
+m_4007414_se_18_060_20190830_20191209 300
+/work/csr33/images_for_predictions/naip_tiles/m_3607738_nw_18_060_20200922.tif
+m_2809611_se_14_060_20201029 360
+m_4107447_nw_18_060_20211105 320
+m_4207114_ne_19_060_20211024 320
+m_4107018_se_19_060_20210904 336
+m_3208028_nw_17_060_20210507 340
+m_3308057_nw_17_060_20210421 340
+m_3108248_ne_17_060_20191110_20200102 340
+m_2709711_nw_14_060_20200501 360
+m_2709745_nw_14_060_20200430 360
+m_2908347_nw_17_060_20211116 360
+m_2509705_ne_14_060_20201029 360
+m_2908057_ne_17_060_20211130 360
+m_3008442_se_16_060_20191128_20200114 360
+m_2909449_nw_15_060_20201116 360
+m_2909561_se_15_060_20201117 360
+m_3607738_nw_18_060_20200922 340
+m_3108711_nw_16_030_20211115 1400
+282.1600408554077

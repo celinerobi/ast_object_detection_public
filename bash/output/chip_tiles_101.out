@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3807553_sw_18_060_20210605.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2609727_sw_14_060_20201216.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908250_ne_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3412040_nw_10_060_20200522.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008250_ne_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107354_nw_18_060_20211103.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907621_sw_18_060_20210606.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907556_nw_18_060_20190726_20191209.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908307_sw_17_060_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2809504_ne_15_060_20201117.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3907552_nw_18_060_20210630.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009221_sw_15_030_20211222.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3308045_se_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908316_se_17_060_20211130.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506856_ne_19_060_20210831.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708019_ne_17_060_20191215_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2708160_sw_17_060_20191129_20200113.tif
+m_3807553_sw_18_060_20210605 320
+/work/csr33/images_for_predictions/naip_tiles/m_2709730_ne_14_060_20200430.tif
+m_2609727_sw_14_060_20201216 360
+m_4506856_ne_19_060_20210831 300
+m_3907621_sw_18_060_20210606 320
+m_3907552_nw_18_060_20210630 320
+m_3907556_nw_18_060_20190726_20191209 320
+m_4107354_nw_18_060_20211103 320
+m_3308045_se_17_060_20210501 340
+m_3412040_nw_10_060_20200522 340
+m_3008250_ne_17_060_20211129 360
+m_2809504_ne_15_060_20201117 360
+m_2708019_ne_17_060_20191215_20200113 360
+m_2908250_ne_17_060_20211129 360
+m_2908307_sw_17_060_20211116 378
+m_2908316_se_17_060_20211130 378
+m_2708160_sw_17_060_20191129_20200113 360
+m_2709730_ne_14_060_20200430 360
+m_3009221_sw_15_030_20211222 1326
+199.28440141677856

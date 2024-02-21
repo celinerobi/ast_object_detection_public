@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_3008364_ne_17_060_20211117.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4107242_sw_18_060_20211105.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4307014_sw_19_060_20210722.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909417_se_15_060_20201112.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909510_ne_15_060_20201030.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108109_ne_17_060_20191110_20200102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2608036_se_17_060_20191203_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2909034_se_15_060_20190831_20191001.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009019_se_15_030_20211120.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607640_ne_18_060_20200516.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4506754_sw_19_060_20210828.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008346_se_17_060_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307923_se_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208122_sw_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008119_nw_17_060_20211129.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3008701_ne_16_030_20211115.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3507762_se_18_060_20201031.tif
+m_4307014_sw_19_060_20210722 320
+/work/csr33/images_for_predictions/naip_tiles/m_3407610_se_18_060_20201031.tif
+m_4506754_sw_19_060_20210828 315
+m_3108109_ne_17_060_20191110_20200102 340
+m_4107242_sw_18_060_20211105 336
+m_3208122_sw_17_060_20210426 340
+m_3607640_ne_18_060_20200516 340
+m_3307923_se_17_060_20210501 340
+m_3008119_nw_17_060_20211129 360
+m_3008364_ne_17_060_20211117 360
+m_2608036_se_17_060_20191203_20200113 360
+m_2909417_se_15_060_20201112 360
+m_2909510_ne_15_060_20201030 360
+m_2909034_se_15_060_20190831_20191001 378
+m_3008346_se_17_060_20211116 378
+m_3507762_se_18_060_20201031 357
+m_3407610_se_18_060_20201031 357
+m_3009019_se_15_030_20211120 1365
+m_3008701_ne_16_030_20211115 1400
+336.0404496192932

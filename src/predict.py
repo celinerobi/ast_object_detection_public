@@ -2,41 +2,19 @@ import os
 import argparse
 import math
 import time
-
 import ast
 from copy import copy
-
-import pandas as pd
-import numpy as np
-
-from pyproj import Proj
-
-import ultralytics
-from ultralytics import YOLO
-#ultralytics.checks()
-
-import os
-import argparse
-import math
-import time
-
-import ast
-from copy import copy
-
-import pandas as pd
-import numpy as np
 from glob import glob
+
+import pandas as pd
+import numpy as np
+
 from pyproj import Proj
 from shapely.ops import transform
+import rioxarray
 
-import pyproj
 import ultralytics
 from ultralytics import YOLO
-#ultralytics.checks()
-import rioxarray
-import concurrent
-import concurrent.futures
-from concurrent.futures.thread import ThreadPoolExecutor
 
 
 from shapely.geometry import Point
@@ -64,7 +42,7 @@ def tile_dimensions_and_utm_coords(tile_path): #used
     tile_band, tile_height, tile_width = da.shape[0], da.shape[1], da.shape[2]
     utmx = np.array(da['x'])
     utmy = np.array(da['y'])
-    crs =  rioxarray.open_rasterio(tile_path).rio.crs
+    crs =  str(rioxarray.open_rasterio(tile_path).rio.crs)
     return(utmx, utmy, crs, tile_band, tile_height, tile_width)
     del da
 
@@ -120,9 +98,10 @@ def calculate_tile_level_bbox(image_name, xyxy, item_dim, tile_width, tile_heigh
 
     #add the bounding boxes
     obj_xmin = image_minx + obj_xmin
-    obj_xmax = image_minx + obj_xmin
     obj_ymin = image_miny + obj_ymin
-    obj_ymax = image_miny + obj_ymin
+    obj_xmax = image_minx + obj_xmax
+    obj_ymax = image_miny + obj_ymax
+    
     # correct bboxes that extend past the bounds of the tile width/height
     if int(obj_xmin) >= tile_width:
         obj_xmin = tile_width - 1
@@ -267,12 +246,10 @@ def calculate_diameter(bbox, resolution = 0.6): #used
     resolution(float): the (gsd) resolution of the imagery
     Returns:
     (diameter): the diameter of the bbox of interest
-    
-                [#minx, #maxy, #maxx, #minx]
     """
     obj_xmin, obj_ymin, obj_xmax, obj_ymax = bbox
     obj_width = obj_xmax - obj_xmin
-    obj_height = obj_ymax - obj_ymin
+    obj_height = obj_ymin - obj_ymax 
     diameter = min(obj_width, obj_height) * resolution #meter
     return diameter
 
@@ -286,9 +263,10 @@ def get_args_parse():
     parser.add_argument("--prediction_dir", default="/work/csr33/images_for_predictions/predictions", type=str)
     parser.add_argument("--imgsz", default=640, type=int)
     parser.add_argument('--img_dir', type=str, default="/work/csr33/images_for_predictions/naip_imgs")
+    parser.add_argument('--classification_threshold', type=float, default=0.5)
+
     args = parser.parse_args()
     return args
-
 
 def predict(args):
     os.chdir("/work/csr33/object_detection")
@@ -297,7 +275,7 @@ def predict(args):
     model = YOLO(args.model_path)  # custom trained model 
     
     # load a subset of the tile paths to predict on
-    tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)]
+    tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)][:2]
     tile_names = [os.path.splitext(os.path.basename(tile_path))[0] for tile_path in tile_paths]
     
     #intialize dataframes
@@ -314,6 +292,7 @@ def predict(args):
         utmx, utmy, utm_proj, tile_band, tile_height, tile_width = tile_dimensions_and_utm_coords(tile_path) #used
         #predict on images
         predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
+        predict_df_by_tank = predict_df_by_tank[predict_df_by_tank.confidence > args.classification_threshold]
         #merge neighboring images
         merged_df_by_tank = merge_predicted_bboxes(predict_df_by_tank, dist_limit = 5)
         # calculate utm and lat lon coords
@@ -331,10 +310,8 @@ def predict(args):
         execution_time = end_time - start_time
         print("Execution time:", execution_time, "seconds")        
         
-    predict_df.to_file(os.path.join(args.prediction_dir, f"predictions_{args.chunk_id}.geojson"), 
-                       driver='GeoJSON')
-    merged_df.to_file(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.geojson"),
-                      driver='GeoJSON')
+    predict_df.to_csv(os.path.join(args.prediction_dir, f"predictions_{args.chunk_id}.csv"))
+    merged_df.to_csv(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.csv"))
 
 
 if __name__ == '__main__':

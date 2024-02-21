@@ -1,0 +1,39 @@
+load envirionment
+
+/work/csr33/images_for_predictions/naip_tiles/m_2608119_sw_17_060_20211223.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208043_sw_17_060_20210507.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3607654_se_18_060_20200922.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3307946_sw_17_060_20210501.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908240_ne_17_060_20211202.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3108111_nw_17_060_20191110_20200102.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2709721_sw_14_060_20200430.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4406924_ne_19_060_20211006.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3208015_nw_17_060_20210426.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009144_ne_15_030_20211114.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3512060_se_10_060_20200607.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3707549_ne_18_060_20210913.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2608036_ne_17_060_20191203_20200113.tif
+/work/csr33/images_for_predictions/naip_tiles/m_4207155_sw_19_060_20210826.tif
+/work/csr33/images_for_predictions/naip_tiles/m_2908347_ne_17_060_20211116.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3009020_sw_15_030_20211120.tif
+/work/csr33/images_for_predictions/naip_tiles/m_3311628_sw_11_060_20200415.tif
+m_4406924_ne_19_060_20211006 300
+/work/csr33/images_for_predictions/naip_tiles/m_4007420_se_18_060_20190830_20191209.tif
+m_4207155_sw_19_060_20210826 336
+m_3707549_ne_18_060_20210913 340
+m_3307946_sw_17_060_20210501 340
+m_3208043_sw_17_060_20210507 340
+m_3512060_se_10_060_20200607 340
+m_3208015_nw_17_060_20210426 340
+m_3607654_se_18_060_20200922 340
+m_3108111_nw_17_060_20191110_20200102 340
+m_2908347_ne_17_060_20211116 360
+m_2608036_ne_17_060_20191203_20200113 360
+m_2608119_sw_17_060_20211223 360
+m_2908240_ne_17_060_20211202 360
+m_2709721_sw_14_060_20200430 360
+m_3311628_sw_11_060_20200415 340
+m_4007420_se_18_060_20190830_20191209 300
+m_3009144_ne_15_030_20211114 1326
+m_3009020_sw_15_030_20211120 1365
+464.02868700027466
