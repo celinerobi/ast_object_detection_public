@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --partition gpu-common
+#SBATCH --partition scavenger-gpu
 #SBATCH --mem=25GB
 #SBATCH --gres=gpu:1  
 #SBATCH --ntasks=1
