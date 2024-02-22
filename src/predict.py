@@ -291,7 +291,7 @@ def predict(args):
     
     # obtain predictions over the dataframe
     for tile_name in tile_names:
-        print(tile_name)
+        print("tile_name", tile_name)
         start_time = time.time()
         img_paths = glob(os.path.join(args.img_dir,"*"+tile_name+"*")) #identify the imgs correspondig to a given tile
         tile_path = os.path.join(args.tile_dir, tile_name +".tif") # specify the tile path
