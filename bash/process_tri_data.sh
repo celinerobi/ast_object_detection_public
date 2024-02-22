@@ -10,7 +10,7 @@ CONDA_BASE=/hpc/home/csr33/miniconda3
 source $CONDA_BASE/etc/profile.d/conda.sh
 conda activate /hpc/group/borsuklab/cred/.conda/envs/yolov8
 echo
-tri_with_sg_path="/hpc/home/csr33/ast_object_detection/tri_with_specific_gravity.csv"
+tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.csv"
 detected_tanks_path="/work/csr33/images_for_predictions/predictions/merged_predictions_0.csv"
 naics_industry_codes_path="/hpc/home/csr33/spatial-match-ast-chemicals/naics_industry_keys.csv"
 tri_2022_us_path="/hpc/group/borsuklab/csr33/chemical_data/tri/2022_us.csv"

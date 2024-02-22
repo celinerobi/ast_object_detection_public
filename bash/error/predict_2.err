@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 320, in <module>
+    predict(args)
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 299, in predict
+    merged_df_by_tank[["utm_coords","latlon_coords"]] = merged_df_by_tank["bbox_pixel_coords"].apply(\
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pandas/core/frame.py", line 4287, in __setitem__
+    self._setitem_array(key, value)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pandas/core/frame.py", line 4346, in _setitem_array
+    self._iset_not_inplace(key, value)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pandas/core/frame.py", line 4365, in _iset_not_inplace
+    raise ValueError("Columns must be same length as key")
+ValueError: Columns must be same length as key

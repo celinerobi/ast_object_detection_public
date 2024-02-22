@@ -11,7 +11,6 @@ from sklearn.neighbors import BallTree
 # https://planetarycomputer.microsoft.com/dataset/naip#Example-Notebook
 # https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/
 def average_str(s):
-    #s = s.split(" (")[0]#.split("-")
     s = ''.join([c for c in s[:12] if c.isdigit() or c in '.' or c in "-"])
     s = s.split("-")
 
@@ -50,7 +49,7 @@ def get_args_parse():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("--tri_2022_us_path", default="/hpc/group/borsuklab/csr33/chemical_data/tri/2022_us.csv", type=str)
     parser.add_argument("--naics_industry_codes_path", default="/hpc/home/csr33/spatial-match-ast-chemicals/naics_industry_keys.csv", type=str)
-     parser.add_argument('--tri_with_sg_path', type=str, 
+    parser.add_argument('--tri_with_sg_path', type=str, 
                         default="/hpc/home/csr33/ast_object_detection/tri_with_specific_gravity.csv")
     args = parser.parse_args()
     return args

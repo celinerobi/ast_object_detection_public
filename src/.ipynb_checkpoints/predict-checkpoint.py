@@ -8,16 +8,16 @@ from glob import glob
 
 import pandas as pd
 import numpy as np
-
+import pyproj 
 from pyproj import Proj
 from shapely.ops import transform
+from shapely.geometry import Point
 import rioxarray
 
 import ultralytics
 from ultralytics import YOLO
 
 
-from shapely.geometry import Point
 def chunk_df(img_paths, num_chunks=10):
     # Calculate the number of rows per chunk
     rows_per_chunk = len(img_paths) // num_chunks
@@ -53,10 +53,12 @@ def process_results(results, tile_height, tile_width, item_dim):
     conf_list = [] #probability
     class_name_list = [] #class name
     image_names_list = []
+    tile_names_list = []
     lat_lons = []
     for result in results:
         boxes = result.boxes
         image_name = os.path.splitext(os.path.basename(result.path))[0]
+        tile_name = image_name.rsplit("_",2)[0]
         if len(boxes) > 0: 
             #get valeus for all bounding boxes
             #class name
@@ -66,14 +68,15 @@ def process_results(results, tile_height, tile_width, item_dim):
 
             xyxy = boxes.xyxy.cpu().detach().numpy() - 1 #read xmin,ymin,xmax,ymax coordinates to memory as a numpy array
             xyxy = np.round(xyxy).astype(np.int32).tolist()  # round so that it can be used for utm to lonlat conversion, check if zero indexed
-            
             image_names_list.extend([image_name]*len(xyxy)) # The index is a six-digit number like '000023'.
+            tile_names_list.extend([tile_name]*len(xyxy)) # The index is a six-digit number like '000023'.
             #calculate the tile level pixel coordinates
             bbox_pixel_coords_list.extend([calculate_tile_level_bbox(image_name, box, item_dim,
                                                                      tile_width, tile_height) for box in xyxy])
         del boxes
     return pd.DataFrame({"confidence":conf_list, "class_name": class_name_list,
-                       "image_names": image_names_list, "bbox_pixel_coords": bbox_pixel_coords_list})#,  dtype=dtypes
+                       "image_names": image_names_list, "tile_names": tile_names_list, 
+                         "bbox_pixel_coords": bbox_pixel_coords_list})#,  dtype=dtypes
 
 
 def predict_process(img_paths, tile_height, tile_width, model, args):
@@ -137,13 +140,17 @@ def transform_point_utm_to_wgs84(utm_proj, utm_xcoord, utm_ycoord): #used
     return wgs84_pt.x, wgs84_pt.y
     
     
-def get_crs_coords(pixel_coords, utmx, utmy, utm_proj):
+def get_utm_coords(pixel_coords, utmx, utmy):
     minx, miny, maxx, maxy = pixel_coords
+    return [utmx[minx], utmy[miny], utmx[maxx], utmy[maxy]]  
+    
+    
+def get_lat_lon_coords(utm_coords, utm_proj):
+    minx, miny, maxx, maxy = utm_coords
     #determine the lat/lon
-    nw_lon, nw_lat = transform_point_utm_to_wgs84(utm_proj, utmx[minx], utmy[miny])
-    se_lon, se_lat = transform_point_utm_to_wgs84(utm_proj, utmx[maxx], utmy[maxy]) 
-    return pd.Series({'utm_coords': [utmx[minx], utmy[miny], utmx[maxx], utmy[maxy]],
-                      'latlon_coords': [nw_lon, nw_lat, se_lon, se_lat]})
+    nw_lon, nw_lat = transform_point_utm_to_wgs84(utm_proj, minx, miny)
+    se_lon, se_lat = transform_point_utm_to_wgs84(utm_proj, maxx, maxy) 
+    return [nw_lon, nw_lat, se_lon, se_lat]
 
         
 def merge_boxes(bbox1, bbox2): #used
@@ -204,10 +211,10 @@ def merge_predicted_bboxes(results_df, dist_limit = 5):
     class_names = results_df.class_name.to_list()
     bbox_pixel_coords = results_df.bbox_pixel_coords.to_list()
     confidences = results_df.confidence.to_list()
-   
+    tile_names = results_df.tile_names.to_list()
     merge_bools = [False] * len(class_names)
-    for i, (conf1, class_name1, bbox1) in enumerate(zip(confidences, class_names, bbox_pixel_coords)):
-        for j, (conf2, class_name2, bbox2) in enumerate(zip(confidences, class_names, bbox_pixel_coords)):
+    for i, (conf1, class_name1, bbox1, tile_name1) in enumerate(zip(confidences, class_names, bbox_pixel_coords, tile_names)):
+        for j, (conf2, class_name2, bbox2, tile_name2) in enumerate(zip(confidences, class_names, bbox_pixel_coords, tile_names)):
             if j <= i: #only consider the remaining bboxes
                 continue
             # Create a new box if a distances is less than distance limit defined 
@@ -226,9 +233,9 @@ def merge_predicted_bboxes(results_df, dist_limit = 5):
 
                 conf
                 #delete previous text 
-                del class_names[j],  confidences[i]
+                del class_names[j],  confidences[j], tile_names[j]
     return pd.DataFrame({"confidence":confidences, "class_name": class_names,
-                         "bbox_pixel_coords": bbox_pixel_coords})#,  dtype=dtypes
+                         "bbox_pixel_coords": bbox_pixel_coords, "tile_names": tile_names})#,  dtype=dtypes
 
 
 def write(predictions, predictions_file_path):
@@ -275,7 +282,7 @@ def predict(args):
     model = YOLO(args.model_path)  # custom trained model 
     
     # load a subset of the tile paths to predict on
-    tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)][:2]
+    tile_paths = np.load(args.tilename_chunks_path)[str(args.chunk_id)]
     tile_names = [os.path.splitext(os.path.basename(tile_path))[0] for tile_path in tile_paths]
     
     #intialize dataframes
@@ -292,12 +299,15 @@ def predict(args):
         utmx, utmy, utm_proj, tile_band, tile_height, tile_width = tile_dimensions_and_utm_coords(tile_path) #used
         #predict on images
         predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
-        predict_df_by_tank = predict_df_by_tank[predict_df_by_tank.confidence > args.classification_threshold]
+        predict_df_by_tank = copy(predict_df_by_tank[predict_df_by_tank.confidence > args.classification_threshold])
         #merge neighboring images
         merged_df_by_tank = merge_predicted_bboxes(predict_df_by_tank, dist_limit = 5)
         # calculate utm and lat lon coords
-        merged_df_by_tank[["utm_coords","latlon_coords"]] = merged_df_by_tank["bbox_pixel_coords"].apply(\
-                                                            lambda box: get_crs_coords(box, utmx, utmy, utm_proj))
+        
+        merged_df_by_tank["utm_coords"] = merged_df_by_tank["bbox_pixel_coords"].apply(\
+                                             lambda pixel_coords: get_utm_coords(pixel_coords, utmx, utmy))
+        merged_df_by_tank["latlon_coords"] = merged_df_by_tank["utm_coords"].apply(\
+                                             lambda utm_coords: get_lat_lon_coords(utm_coords, utm_proj))
         merged_df_by_tank["diameter"] = merged_df_by_tank["utm_coords"].apply(lambda utm_coord: calculate_diameter(utm_coord, resolution = 1))
         #specify the projection used 
         merged_df_by_tank["utm_proj"] = [utm_proj] * len(merged_df_by_tank)

@@ -1,11 +1,8 @@
 #!/bin/bash
-#SBATCH --partition scavenger-gpu
+#SBATCH --partition gpu-common
 #SBATCH --mem=25GB
 #SBATCH --gres=gpu:1  
-#SBATCH --cpus-per-task=4
 #SBATCH --ntasks=1
-#SBATCH --output /hpc/home/csr33/ast_object_detection/bash/output/predict.out
-#SBATCH --error /hpc/home/csr33/ast_object_detection/bash/error/predict.err
 echo "load envirionment"
 module unload Anaconda3/2021.05
 CONDA_BASE=/hpc/home/csr33/miniconda3
