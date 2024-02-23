@@ -1,3 +1,0 @@
-  File "/hpc/home/csr33/ast_object_detection/src/process_tri_data.py", line 53
-    parser.add_argument('--tri_with_sg_path', type=str, 
-IndentationError: unexpected indent

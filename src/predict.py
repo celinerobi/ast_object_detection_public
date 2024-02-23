@@ -10,6 +10,8 @@ import pandas as pd
 import numpy as np
 import pyproj 
 from pyproj import Proj
+import shapely
+import geopandas as gpd
 from shapely.ops import transform
 from shapely.geometry import Point
 import rioxarray
@@ -318,10 +320,23 @@ def predict(args):
         del predict_df_by_tank, merged_df_by_tank
         end_time = time.time()
         execution_time = end_time - start_time
-        print("Execution time:", execution_time, "seconds")        
+        print("Execution time:", execution_time, "seconds")   
         
-    predict_df.to_csv(os.path.join(args.prediction_dir, f"predictions_{args.chunk_id}.csv"))
-    merged_df.to_csv(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.csv"))
+    predict_df.to_parquet(os.path.join(args.prediction_dir, f"predictions_{args.chunk_id}.parquet"))
+
+    #reformat lat lon to geometry
+    merged_df["geometry"] = merged_df["latlon_coords"].apply(lambda latlon_coord: 
+                                                             shapely.geometry.box(*latlon_coord))
+    
+    merged_df.drop(columns='latlon_coords', inplace=True)
+    merged_df['utm_coords'] = merged_df['utm_coords'].apply(lambda x: str(x))
+    merged_df['class_name'] = merged_df['class_name'].apply(lambda x: str(x))
+    merged_df['bbox_pixel_coords'] = merged_df['bbox_pixel_coords'].apply(lambda x: str(x))
+    merged_df['confidence'] = merged_df['confidence'].apply(lambda x: str(x))
+
+
+    merged_df = gpd.GeoDataFrame(merged_df)
+    merged_df.to_parquet(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.parquet"))
 
 
 if __name__ == '__main__':
