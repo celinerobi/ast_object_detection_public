@@ -12,6 +12,7 @@ def get_args_parse():
     parser.add_argument("--imgsz", default=640, type=int)
     parser.add_argument("--epochs", default=300, type=int)
     parser.add_argument("--workers", default=8, type=int)
+    parser.add_argument("--optimizer", default="AdamW", type=str)
 
     parser.add_argument("--name", type=str)
     parser.add_argument("--project_name", default="/work/csr33/object_detection", type=str)
@@ -44,7 +45,7 @@ def train(args):
     model = YOLO(args.model)  # load a pretrained model (recommended for training)
     # Training.
     results = model.train(data = args.data_yaml, name = args.name, imgsz=args.imgsz, epochs= args.epochs,
-                          optimizer = "SGD", cfg=args.tune_yaml, workers=args.workers)
+                          optimizer = args.optimizer, cfg=args.tune_yaml, workers=args.workers)
 
 
 if __name__ == '__main__':

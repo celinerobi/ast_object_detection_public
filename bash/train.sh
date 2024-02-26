@@ -11,6 +11,6 @@ module unload Anaconda3/2021.05
 source /hpc/home/csr33/miniconda3/etc/profile.d/conda.sh
 conda activate /hpc/group/borsuklab/cred/.conda/envs/yolov8
                  
-python /hpc/home/csr33/ast_object_detection/src/train.py --model "yolov8x.pt" --epochs 300 --workers 5 --name "train_w_tune12_hyperparameters" --imgsz 640 --tune_yaml "/work/csr33/object_detection/runs/detect/tune12/best_hyperparameters.yaml" --data "/hpc/home/csr33/ast_object_detection/ast.yaml"
+python /hpc/home/csr33/ast_object_detection/src/train.py --model "yolov8x.pt" --epochs 300 --workers  --optimizer "AdamW" --name "train_w_tune12_hyperparameters" --imgsz 640 --tune_yaml "/work/csr33/object_detection/runs/detect/tune12/best_hyperparameters.yaml" --data "/hpc/home/csr33/ast_object_detection/ast.yaml"
 
     

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition scavenger-gpu
-#SBATCH --mem=20GB
+#SBATCH --mem=25GB
 #SBATCH --gres=gpu:1  
 #SBATCH --ntasks=1
 #SBATCH --exclude=dcc-youlab-gpu-13,dcc-carlsonlab-gpu-19

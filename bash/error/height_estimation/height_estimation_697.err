@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 127, in <module>
+    detected_tanks = gpd.read_parquet(os.path.join(args.prediction_dir, f"merged_predictions_{args.chunk_id}.parquet"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 604, in _read_parquet
+    table = parquet.read_table(path, columns=columns, filesystem=filesystem, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/parquet/core.py", line 1776, in read_table
+    dataset = ParquetDataset(
+              ^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/parquet/core.py", line 1354, in __init__
+    self._dataset = ds.dataset(path_or_paths, filesystem=filesystem,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/dataset.py", line 782, in dataset
+    return _filesystem_dataset(source, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/dataset.py", line 465, in _filesystem_dataset
+    fs, paths_or_selector = _ensure_single_source(source, filesystem)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/dataset.py", line 441, in _ensure_single_source
+    raise FileNotFoundError(path)
+FileNotFoundError: /hpc/group/borsuklab/csr33/object_detection/predictions/merged_predictions_697.parquet
