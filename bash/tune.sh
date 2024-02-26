@@ -4,8 +4,8 @@
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:1 # Number of GPUs per node
 #SBATCH --cpus-per-task=16
-#SBATCH --output /work/csr33/bash_outputs/output/tune_300_iter_25_epochs_16_cpu_AdamW_optimizer_l_model.out
-#SBATCH --error /work/csr33/bash_outputs/error/tune_300_iter_25_epochs_16_cpu_AdamW_optimizer_l_model.err
+#SBATCH --output /work/csr33/bash_outputs/output/tune_300_iter_25_epochs_16_cpu_AdamW_optimizer_n_model.out
+#SBATCH --error /work/csr33/bash_outputs/error/tune_300_iter_25_epochs_16_cpu_AdamW_optimizer_n_model.err
 
 module unload Anaconda3/2021.05
 source /hpc/home/csr33/miniconda3/etc/profile.d/conda.sh

@@ -44,7 +44,7 @@ def tune(args):
     # Log the best hyperparameters to WandB
     wandb.config.update(best_params)
     # Log the model to WandB
-    wandb.save(f"yolov8_e{args.epochs}_i{args.iterations}.pth")
+    wandb.save(f"yolov8_e{args.epochs}_i{args.iterations}_optimizer{args.optimizer}.pth")
     
     
 if __name__ == '__main__':
