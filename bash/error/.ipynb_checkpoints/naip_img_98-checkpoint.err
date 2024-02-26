@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/move_imgs.py", line 30, in <module>
+    val(args)
+    ^^^
+NameError: name 'val' is not defined. Did you mean: 'eval'?

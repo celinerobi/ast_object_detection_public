@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 128, in <module>
+    detected_tanks["height"] = height_estimation(detected_tanks, args.collection)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 105, in height_estimation
+    height_list[i] = height_estimation_retry(row, args)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 82, in height_estimation_retry
+    for attempt in range(args.max_retries):
+                         ^^^^^^^
+NameError: name 'retries' is not defined

@@ -70,8 +70,9 @@ def process_chemical_data(args):
     tri_2022_us =tri_2022_us[tri_2022_us["19. INDUSTRY SECTOR CODE"].isin(naics_industry_codes["2022 NAICS US Code"].tolist())]
 
     # Group by 'geometry' and aggregate 'name' and 'value' into lists
-    tri_2022_us_chemical = tri_2022_us.groupby('geometry').agg({"34. CHEMICAL": list, "37. CAS#": list}).reset_index()
-    
+    tri_2022_us_chemical = tri_2022_us.groupby('geometry').agg({"34. CHEMICAL": list, "37. CAS#": list,
+                                                                "4. FACILITY NAME":list}).reset_index()
+    tri_2022_us_chemical["4. FACILITY NAME"] = tri_2022_us_chemical["4. FACILITY NAME"].apply(np.unique)
     # read in and format chemical data
     chemical_data = pd.read_csv("/hpc/group/borsuklab/csr33/chemical_data/niosh_pocket_guide/NIOSH Pocket Guide.csv")
     # remove rows where specific gravity is none

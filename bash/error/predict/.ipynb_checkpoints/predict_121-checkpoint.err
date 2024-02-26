@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 347, in <module>
+    predict(args)
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 305, in predict
+    predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 91, in predict_process
+    results = model.predict(df_chunk.tolist(), save=False, imgsz=args.imgsz)#, conf=0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/model.py", line 399, in predict
+    self.predictor.setup_model(model=self.model, verbose=is_cli)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 341, in setup_model
+    self.model = AutoBackend(
+                 ^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/autobackend.py", line 141, in __init__
+    model = model.fuse(verbose=verbose) if fuse else model
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 175, in fuse
+    m.conv = fuse_conv_and_bn(m.conv, m.bn)  # update conv
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/utils/torch_utils.py", line 184, in fuse_conv_and_bn
+    .to(conv.weight.device)
+     ^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1160, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 833, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1158, in convert
+    return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

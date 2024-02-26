@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 347, in <module>
+    predict(args)
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 286, in predict
+    model = YOLO(args.model_path, device='gpu')  # custom trained model 
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Model.__init__() got an unexpected keyword argument 'device'

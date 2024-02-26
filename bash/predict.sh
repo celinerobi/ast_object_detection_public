@@ -1,8 +1,10 @@
 #!/bin/bash
 #SBATCH --partition scavenger-gpu
-#SBATCH --mem=25GB
+#SBATCH --mem=20GB
 #SBATCH --gres=gpu:1  
 #SBATCH --ntasks=1
+#SBATCH --exclude=dcc-youlab-gpu-13,dcc-carlsonlab-gpu-19
+
 echo "load envirionment"
 module unload Anaconda3/2021.05
 CONDA_BASE=/hpc/home/csr33/miniconda3

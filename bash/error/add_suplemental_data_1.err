@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 98, in <module>
+    detected_tanks["height"] = height_estimation(detected_tanks, args.collection)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 66, in height_estimation
+    intersects=row.geometry.buffer(0.001)).item_collection()
+                                           ^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 765, in item_collection
+    feature_collection = self.item_collection_as_dict.__wrapped__(self)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 786, in item_collection_as_dict
+    for page in self.pages_as_dicts():
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 736, in pages_as_dicts
+    for page in self._stac_io.get_pages(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 294, in get_pages
+    page = self.read_json(url, method=method, parameters=parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac/stac_io.py", line 205, in read_json
+    txt = self.read_text(source, *args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 168, in read_text
+    return self.request(href, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 217, in request
+    raise APIError.from_response(resp)
+pystac_client.exceptions.APIError: The request exceeded the maximum allowed time, please try again. If the issue persists, please contact planetarycomputer@microsoft.com.
+
+Debug information for support: 0Jf3YZQAAAADJDtDTtSl0RrNgXADbyM0wTU5aMjIxMDYwNjExMDIzADkyN2FiZmE2LTE5ZjYtNGFmMS1hMDlkLWM5NTlkOWExZTY0NA==

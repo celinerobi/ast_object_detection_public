@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 344, in <module>
+    predict(args)
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 302, in predict
+    predict_df_by_tank = predict_process(img_paths, tile_height, tile_width, model, args)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/predict.py", line 89, in predict_process
+    results = model.predict(df_chunk.tolist(), save=False, imgsz=args.imgsz)#, conf=0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/model.py", line 406, in predict
+    return self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 204, in __call__
+    return list(self.stream_inference(source, model, *args, **kwargs))  # merge list of Result into one
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 35, in generator_context
+    response = gen.send(None)
+               ^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/predictor.py", line 262, in stream_inference
+    self.model.warmup(imgsz=(1 if self.model.pt or self.model.triton else self.dataset.bs, 3, *self.imgsz))
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/autobackend.py", line 516, in warmup
+    self.forward(im)  # warmup
+    ^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/autobackend.py", line 384, in forward
+    y = self.model(im, augment=augment, visualize=visualize, embed=embed)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 80, in forward
+    return self.predict(x, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 98, in predict
+    return self._predict_once(x, profile, visualize, embed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 119, in _predict_once
+    x = m(x)  # run
+        ^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/modules/conv.py", line 54, in forward_fuse
+    return self.act(self.conv(x))
+                    ^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/conv.py", line 460, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/conv.py", line 456, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

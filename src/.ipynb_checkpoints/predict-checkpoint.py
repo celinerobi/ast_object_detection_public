@@ -16,13 +16,23 @@ from shapely.ops import transform
 from shapely.geometry import Point
 import rioxarray
 
+import torch
+
 import ultralytics
 from ultralytics import YOLO
 
-
-def chunk_df(img_paths, num_chunks=10):
+ 
+def chunk_df(img_paths, num_chunks=None, rows_per_chunk=None):
     # Calculate the number of rows per chunk
-    rows_per_chunk = len(img_paths) // num_chunks
+    if num_chunks is None and rows_per_chunk is None:
+        print("no chunkable value is given")
+    
+    if num_chunks is not None and rows_per_chunk is not None:
+        print("to many chunkable value is given")
+    
+    if num_chunks is not None:
+        rows_per_chunk = len(img_paths) // num_chunks
+    
     df_chunks = [np.array(img_paths[i : i + rows_per_chunk]) for i in range(0, len(img_paths), rows_per_chunk)]
     return df_chunks
 
@@ -84,8 +94,7 @@ def process_results(results, tile_height, tile_width, item_dim):
 def predict_process(img_paths, tile_height, tile_width, model, args):
     # obtain predictions over the dataframe
     results_df = pd.DataFrame({})
-    num_chunks = len(img_paths)//50
-    for df_chunk in chunk_df(img_paths, num_chunks=num_chunks):
+    for df_chunk in chunk_df(img_paths, rows_per_chunk=50):
         results = model.predict(df_chunk.tolist(), save=False, imgsz=args.imgsz)#, conf=0.5)
         #process_results(results, utmx, utmy, utm_proj, tile_height, tile_width, item_dim=args.imgsz)
         results_df = pd.concat([results_df, process_results(results, tile_height, tile_width, item_dim=args.imgsz)])
@@ -227,11 +236,15 @@ def merge_predicted_bboxes(results_df, dist_limit = 5):
                 bbox_pixel_coords[i] = new_box
                 #delete previous text boxes
                 del bbox_pixel_coords[j]
-                class_name_merge = np.unique([class_name1, class_name2])
+                class_name_merge = [class_name1, class_name2]
                 conf = [conf1, conf2]
+                #determine the class with the highest conf
+                max_conf_idx = np.argmax(conf)
+                max_conf_class = class_name_merge[max_conf_idx]
 
-                class_names[i] = class_name_merge
-                confidences[i] = conf
+
+                class_names[i] = max_conf_class
+                confidences[i] = np.mean(conf)
 
                 conf
                 #delete previous text 
@@ -278,7 +291,7 @@ def get_args_parse():
     return args
 
 def predict(args):
-    os.chdir("/work/csr33/object_detection")
+    torch.cuda.set_device(0) # Set to your desired GPU number
     #determine chunk-number   
     os.makedirs(args.prediction_dir, exist_ok=True)
     model = YOLO(args.model_path)  # custom trained model 

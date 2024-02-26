@@ -1,0 +1,157 @@
+wandb: Currently logged in as: csr33 (turn). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.16.3 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.2
+wandb: Run data is saved locally in /work/csr33/object_detection/wandb/run-20240223_205258-32qufq6t
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_w_tune12_hyperparameters
+wandb: ⭐️ View project at https://wandb.ai/turn/YOLOv8
+wandb: 🚀 View run at https://wandb.ai/turn/YOLOv8/runs/32qufq6t
+[34m[1mtrain: [0mScanning /work/csr33/ast/datasets/yolo/labels/train.cache... 19347 images, 1538 backgrounds, 0 corrupt: 100%|██████████| 19347/19347 [00:00<?, ?it/s][0m[34m[1mtrain: [0mScanning /work/csr33/ast/datasets/yolo/labels/train.cache... 19347 images, 1538 backgrounds, 0 corrupt: 100%|██████████| 19347/19347 [00:00<?, ?it/s][0m
+[34m[1mval: [0mScanning /work/csr33/ast/datasets/yolo/labels/val.cache... 4146 images, 330 backgrounds, 0 corrupt: 100%|██████████| 4146/4146 [00:00<?, ?it/s][0m[34m[1mval: [0mScanning /work/csr33/ast/datasets/yolo/labels/val.cache... 4146 images, 330 backgrounds, 0 corrupt: 100%|██████████| 4146/4146 [00:00<?, ?it/s][0m
+  0%|          | 0/1210 [00:00<?, ?it/s]  0%|          | 0/1210 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/train.py", line 53, in <module>
+    train(args)
+  File "/hpc/home/csr33/ast_object_detection/src/train.py", line 46, in train
+    results = model.train(data = args.data_yaml, name = args.name, imgsz=args.imgsz, epochs= args.epochs,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/model.py", line 601, in train
+    self.trainer.train()
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 208, in train
+    self._do_train(world_size)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 376, in _do_train
+    self.loss, self.loss_items = self.model(batch)
+                                 ^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 79, in forward
+    return self.loss(x, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 257, in loss
+    preds = self.forward(batch["img"]) if preds is None else preds
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 80, in forward
+    return self.predict(x, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 98, in predict
+    return self._predict_once(x, profile, visualize, embed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/tasks.py", line 119, in _predict_once
+    x = m(x)  # run
+        ^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/modules/head.py", line 46, in forward
+    x[i] = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
+                                         ^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/container.py", line 215, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/ultralytics/nn/modules/conv.py", line 50, in forward
+    return self.act(self.bn(self.conv(x)))
+                            ^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/conv.py", line 460, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/torch/nn/modules/conv.py", line 456, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacty of 10.58 GiB of which 13.12 MiB is free. Including non-PyTorch memory, this process has 10.56 GiB memory in use. Of the allocated memory 10.24 GiB is allocated by PyTorch, and 71.60 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+wandb: - 0.004 MB of 0.004 MB uploadedwandb: \ 0.004 MB of 0.028 MB uploadedwandb: | 0.028 MB of 0.028 MB uploadedwandb: 🚀 View run train_w_tune12_hyperparameters at: https://wandb.ai/turn/YOLOv8/runs/32qufq6t
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240223_205258-32qufq6t/logs
+Exception in thread NetStatThr:
+Traceback (most recent call last):
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+Exception in thread IntMsgThr:
+Traceback (most recent call last):
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/threading.py", line 982, in run
+    self.run()
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 268, in check_network_status
+    self._target(*self._args, **self._kwargs)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 300, in check_internal_messages
+    self._loop_check_status(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 224, in _loop_check_status
+    self._loop_check_status(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 224, in _loop_check_status
+    local_handle = request()
+                   ^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface.py", line 792, in deliver_network_status
+    local_handle = request()
+                   ^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface.py", line 800, in deliver_internal_messages
+    return self._deliver_network_status(status)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 500, in _deliver_network_status
+    return self._deliver_internal_messages(internal_message)
+           ^^^^^^^^    ^return self._deliver_record(record)^
+^^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 506, in _deliver_internal_messages
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 449, in _deliver_record
+    return self._deliver_record(record)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    handle = mailbox._deliver_record(record, interface=self)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 449, in _deliver_record
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+             ^^^^^^^^    ^interface._publish(record)^
+^^^  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    self._sock_client.send_record_publish(record)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    interface._publish(record)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self.send_server_request(server_req)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._send_message(msg)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    self._sendall_with_error_handle(header + data)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+    sent = self._sock.send(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe

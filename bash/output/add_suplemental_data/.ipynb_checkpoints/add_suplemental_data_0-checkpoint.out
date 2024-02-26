@@ -1,0 +1,3 @@
+<class 'geopandas.geodataframe.GeoDataFrame'>
+Namespace(prediction_dir='/work/csr33/images_for_predictions/predictions', collection='3dep-lidar-hag', chunk_id=0)
+11.233999252319336

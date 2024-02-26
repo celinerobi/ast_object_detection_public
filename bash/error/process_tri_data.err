@@ -1,0 +1,2 @@
+/hpc/home/csr33/ast_object_detection/src/process_tri_data.py:59: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  tri_2022_us = pd.read_csv(args.tri_2022_us_path)

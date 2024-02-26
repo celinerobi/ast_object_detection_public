@@ -1,0 +1,2 @@
+usage: Predict on images [-h] [--chunk_id CHUNK_ID] [--tile_chunks_path TILE_CHUNKS_PATH]
+Predict on images: error: unrecognized arguments: --tilename_chunks_path /hpc/home/csr33/ast_object_detection/move_imgs.npz

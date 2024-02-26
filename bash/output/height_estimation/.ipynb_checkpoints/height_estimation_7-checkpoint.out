@@ -1,0 +1,1 @@
+Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', collection='3dep-lidar-hag', chunk_id=7, backoff_factor=10, max_retries=10)

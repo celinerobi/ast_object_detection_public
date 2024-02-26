@@ -19,4 +19,4 @@ conda activate /hpc/group/borsuklab/cred/.conda/envs/yolov8
 # Update a setting
 #yolo settings runs_dir="/work/csr33/object_detection/runs" weights_dir="/work/csr33/object_detection/weights"
 #yolo detect val data="/hpc/home/csr33/ast_object_detection/ast.yaml" model="/work/csr33/object_detection/runs/detect/train_w_tuned_hyperparameters3/weights/best.pt" save_json=True split="train"
-python /hpc/home/csr33/ast_object_detection/src/val.py --model "/work/csr33/object_detection/runs/detect/train_w_tuned_hyperparameters3/weights/best.pt"
+python /hpc/home/csr33/ast_object_detection/src/val.py --model "/work/csr33/object_detection/runs/detect/train_w_tune12_hyperparameters3/weights/best.pt"

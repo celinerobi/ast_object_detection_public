@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 89, in <module>
+    sg(args)
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 83, in sg
+    gpd.GeoDataFrame(detected_tanks).to_parquet(os.path.join(args.prediction_dir, 
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/geodataframe.py", line 1093, in to_parquet
+    _to_parquet(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 340, in _to_parquet
+    table = _geopandas_to_arrow(df, index=index, schema_version=schema_version)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 281, in _geopandas_to_arrow
+    table = Table.from_pandas(df, preserve_index=index)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/table.pxi", line 3874, in pyarrow.lib.Table.from_pandas
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 611, in dataframe_to_arrays
+    arrays = [convert_column(c, f)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 611, in <listcomp>
+    arrays = [convert_column(c, f)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 598, in convert_column
+    raise e
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 592, in convert_column
+    result = pa.array(col, type=type_, from_pandas=True, safe=safe)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/array.pxi", line 340, in pyarrow.lib.array
+  File "pyarrow/array.pxi", line 86, in pyarrow.lib._ndarray_to_array
+  File "pyarrow/error.pxi", line 91, in pyarrow.lib.check_status
+pyarrow.lib.ArrowInvalid: ('Could not convert <POINT (-74.247 40.242)> with type Point: did not recognize Python value type when inferring an Arrow data type', 'Conversion failed for column closest_point with type object')

@@ -1,0 +1,27 @@
+Anaconda3 2021.05
+Namespace(model_path='/work/csr33/object_detection/runs/detect/train_w_tune12_hyperparameters3/weights/best.pt')
+val
+Ultralytics YOLOv8.1.9 🚀 Python-3.11.6 torch-2.1.2 CUDA:0 (NVIDIA TITAN Xp, 12190MiB)
+Model summary (fused): 268 layers, 68126457 parameters, 0 gradients, 257.4 GFLOPs
+[34m[1mval: [0mWARNING ⚠️ /work/csr33/ast/datasets/yolo/images/val/m_3809031_sw_15_060_20181121_04_01.jpg: 1 duplicate labels removed
+                   all       4146      20410      0.884       0.88      0.921      0.728
+      closed_roof_tank       4146      18506      0.911      0.876      0.944      0.672
+external_floating_roof_tank       4146       1652      0.875      0.882      0.936      0.836
+        spherical_tank       4146        252      0.865      0.881      0.882      0.678
+Speed: 0.2ms preprocess, 24.6ms inference, 0.0ms loss, 0.9ms postprocess per image
+Results saved to [1m/work/csr33/object_detection/runs/detect/val[0m
+val map50-95 overall 0.7284698580612103
+val f1 score [     0.8934     0.87839     0.87299]
+val accuracy 0.8034826927160756
+test
+Ultralytics YOLOv8.1.9 🚀 Python-3.11.6 torch-2.1.2 CUDA:0 (NVIDIA TITAN Xp, 12190MiB)
+[34m[1mval: [0mNew cache created: /work/csr33/ast/datasets/yolo/labels/test.cache
+                   all       4146      21376      0.888      0.823        0.9      0.711
+      closed_roof_tank       4146      19603      0.931      0.859      0.949      0.679
+external_floating_roof_tank       4146       1542      0.862      0.853       0.92      0.815
+        spherical_tank       4146        231       0.87      0.758      0.831      0.639
+Speed: 0.2ms preprocess, 24.2ms inference, 0.0ms loss, 0.8ms postprocess per image
+Results saved to [1m/work/csr33/object_detection/runs/detect/val2[0m
+test map50-95 overall 0.7109169033170206
+test f1 score [    0.89363     0.85743     0.81003]
+test accuracy 0.811770528312781

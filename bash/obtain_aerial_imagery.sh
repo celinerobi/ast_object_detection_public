@@ -32,4 +32,4 @@ done
 
 chip_jobname="chip_tiles"
 chip_script="/hpc/home/csr33/ast_object_detection/bash/chip_tiles.sh"
-predict_job_id=$(sbatch  --array=12-$n_arrays --job-name $chip_jobname --output $output_dir/$chip_jobname"_%a.out" --error $error_dir/$chip_jobname"_%a.err" --export=imgsz=$imgsz,tile_dir=$tile_dir,img_dir=$img_dir,tilename_chunks_path=$tilename_chunks_path $chip_script | awk '{print $4}')
+predict_job_id=$(sbatch  --array=0-$n_arrays --job-name $chip_jobname --output $output_dir/$chip_jobname/$chip_jobname"_%a.out" --error $error_dir/$chip_jobname/$chip_jobname"_%a.err" --export=imgsz=$imgsz,tile_dir=$tile_dir,img_dir=$img_dir,tilename_chunks_path=$tilename_chunks_path $chip_script | awk '{print $4}')

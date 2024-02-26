@@ -171,7 +171,7 @@ def move_files_to_folder(list_of_files, destination_folder):
 
 def get_args_parse():
     parser = argparse.ArgumentParser("Tune yolov8 using genetic algorithm")
-    parser.add_argument("--original_data_dir", default="/work/csr33/ast/complete-dataset", type=str)
+    parser.add_argument("--original_data_dir", default="/hpc/group/borsuklab/ast/complete-dataset", type=str)
     parser.add_argument("--yolo_dir", default="/work/csr33/ast/datasets/yolo", type=str)
 
     parser.add_argument("--original_data_labels_folder", default="chips_positive_corrected_xml", type=str)

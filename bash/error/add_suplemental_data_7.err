@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 89, in <module>
+    sg(args)
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 83, in sg
+    gpd.GeoDataFrame(detected_tanks).to_parquet(os.path.join(args.prediction_dir, 
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/geodataframe.py", line 1093, in to_parquet
+    _to_parquet(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 340, in _to_parquet
+    table = _geopandas_to_arrow(df, index=index, schema_version=schema_version)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 281, in _geopandas_to_arrow
+    table = Table.from_pandas(df, preserve_index=index)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/table.pxi", line 3874, in pyarrow.lib.Table.from_pandas
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 611, in dataframe_to_arrays
+    arrays = [convert_column(c, f)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 611, in <listcomp>
+    arrays = [convert_column(c, f)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 598, in convert_column
+    raise e
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/pandas_compat.py", line 592, in convert_column
+    result = pa.array(col, type=type_, from_pandas=True, safe=safe)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/array.pxi", line 340, in pyarrow.lib.array
+  File "pyarrow/array.pxi", line 86, in pyarrow.lib._ndarray_to_array
+  File "pyarrow/error.pxi", line 91, in pyarrow.lib.check_status
+pyarrow.lib.ArrowInvalid: ('Could not convert <POINT (-73.424 41.41)> with type Point: did not recognize Python value type when inferring an Arrow data type', 'Conversion failed for column closest_point with type object')
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 99, in <module>
+    detected_tanks["height"] = height_estimation(detected_tanks, args.collection)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/csr33/ast_object_detection/src/height_estimation.py", line 66, in height_estimation
+    intersects=row.geometry.buffer(0.001)).item_collection()
+                                           ^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 765, in item_collection
+    feature_collection = self.item_collection_as_dict.__wrapped__(self)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 786, in item_collection_as_dict
+    for page in self.pages_as_dicts():
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/item_search.py", line 736, in pages_as_dicts
+    for page in self._stac_io.get_pages(
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 294, in get_pages
+    page = self.read_json(url, method=method, parameters=parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac/stac_io.py", line 205, in read_json
+    txt = self.read_text(source, *args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 168, in read_text
+    return self.request(href, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pystac_client/stac_api_io.py", line 217, in request
+    raise APIError.from_response(resp)
+pystac_client.exceptions.APIError: <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml'><head><meta content='text/html; charset=utf-8' http-equiv='content-type'/><style type='text/css'>body {font-family:Arial; margin-left:40px; }img  { border:0 none; }#content { margin-left: auto; margin-right: auto }#message h2 { font-size: 20px; font-weight: normal; color: #000000; margin: 34px 0px 0px 0px }#message p  { font-size: 13px; color: #000000; margin: 7px 0px 0px0px}#errorref { font-size: 11px; color: #737373; margin-top: 41px }</style><title>Service unavailable</title></head><body><div id='content'><div id='message'><h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p></div><div id='errorref'><span>09drYZQAAAABOaIUcRJyiSKzU7kTQc6DxTU5aMjIxMDYwNjEzMDM1ADkyN2FiZmE2LTE5ZjYtNGFmMS1hMDlkLWM5NTlkOWExZTY0NA==</span></div></div></body></html>

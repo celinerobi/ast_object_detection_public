@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/move_imgs.py", line 28, in <module>
+    move(args)
+  File "/hpc/home/csr33/ast_object_detection/src/move_imgs.py", line 20, in move
+    shutil.move(naip_img, new_path)    
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/shutil.py", line 823, in move
+    raise Error("Destination path '%s' already exists" % real_dst)
+shutil.Error: Destination path '/hpc/group/borsuklab/csr33/object_detection/naip_imgs/m_2908911_se_16_030_20211129_03_04.jpg' already exists

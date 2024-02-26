@@ -1,0 +1,31 @@
+load envirionment
+
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_4207305_nw_18_060_20211107.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_2908339_ne_17_060_20211116.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_2608160_nw_17_060_20191123_20200113.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_2608029_nw_17_060_20191207_20200113.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3208137_nw_17_060_20191109_20200102.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3009558_ne_15_060_20201030.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_2808058_ne_17_060_20191202_20200113.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_2608224_se_17_060_20211217.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3607630_sw_18_060_20210913.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3008749_ne_16_030_20211113.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3907442_nw_18_060_20190830_20191209.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_4307029_ne_19_060_20210722.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3207910_sw_17_060_20210426.tif
+/hpc/group/borsuklab/csr33/object_detection/naip_tiles/m_3607628_ne_18_060_20210913.tif
+m_4207305_nw_18_060_20211107 320
+m_3607630_sw_18_060_20210913 340
+m_3607628_ne_18_060_20210913 340
+m_2608224_se_17_060_20211217 360
+m_4307029_ne_19_060_20210722 300
+m_3207910_sw_17_060_20210426 340
+m_2608029_nw_17_060_20191207_20200113 360
+m_3907442_nw_18_060_20190830_20191209 320
+m_3208137_nw_17_060_20191109_20200102 340
+m_2908339_ne_17_060_20211116 360
+m_3009558_ne_15_060_20201030 360
+m_2808058_ne_17_060_20191202_20200113 360
+m_2608160_nw_17_060_20191123_20200113 360
+m_3008749_ne_16_030_20211113 1400
+128.63347959518433
