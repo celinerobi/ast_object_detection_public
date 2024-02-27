@@ -44,21 +44,18 @@ def chunk_df(naip_df, args):
 def get_args_parse():
     parser = argparse.ArgumentParser(
         description='Identify quad indexs within slosh modeled area')
-    parser.add_argument("--height_estimation_dir", type=str, help="path to the directory storing height estimation on predictions")
-    parser.add_argument("--complete_predicted_data_dir", type=str, help="path to the directory storing predictions with all data")
     parser.add_argument("--tri_with_sg_path", type=str)
-    parser.add_argument("--chunk_id",  type=int)
+    parser.add_argument("--compile_data_path",  type=str)
     args = parser.parse_args()
     return args
 
         
 def sg(args):
     # read in data for detected tanks
-    detected_tanks = gpd.read_parquet(os.path.join(args.height_estimation_dir, 
-                                f"merged_predictions_height_{args.chunk_id}.parquet"))
+    detected_tanks = gpd.read_file(args.compile_data_path)
 
     # Read in tri data #/work/csr33/spatial_matching/tri/
-    tri_sg = gpd.read_parquet(args.tri_with_sg_path)
+    tri_sg = gpd.read_file(args.tri_with_sg_path)
 
     # Create a BallTree for quick nearest neighbor lookup
     btree = BallTree(tri_sg.geometry.apply(lambda x: (x.x, x.y)).tolist()) 
@@ -80,10 +77,11 @@ def sg(args):
 
     #add chemical data to tile level annotations
     merged_df = pd.merge(detected_tanks, tri_sg, left_on='closest_point', right_on='geometry', how='left')
-    detected_tanks[["chemical_name", "cas_number", "facility_name"]] = merged_df[["34. CHEMICAL", "37. CAS#", "4. FACILITY NAME"]]
+    detected_tanks[["chemical_name", "cas_number", "facility_name","specific_gravity"]] = merged_df[["34. CHEMICAL", "37. CAS#", 
+                                                                                  "4. FACILITY NAME","specific_gravity"]]
     print(type(detected_tanks))
     detected_tanks.drop(columns=["closest_point"], inplace=True)
-    detected_tanks.to_parquet(os.path.join(args.complete_predicted_data_dir, f"complete_predictions_{args.chunk_id}.parquet"))
+    detected_tanks.to_file(args.compile_data_path) 
     
 if __name__ == '__main__':
     ### Get the arguments 

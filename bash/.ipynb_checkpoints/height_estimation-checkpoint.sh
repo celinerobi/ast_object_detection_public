@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=scavenger
-#SBATCH --mem=25GB
+#SBATCH --mem=35GB
 #SBATCH --cpus-per-task=4
 #SBATCH --ntasks=1
 module unload Anaconda3/2021.05

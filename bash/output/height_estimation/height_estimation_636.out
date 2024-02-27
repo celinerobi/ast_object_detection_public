@@ -105,4 +105,4 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=636, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=636, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=636, backoff_factor=10.0, max_retries=10)
-28.59418272972107
+30.01464295387268

@@ -125,7 +125,16 @@ def calculate_tile_level_bbox(image_name, xyxy, item_dim, tile_width, tile_heigh
         obj_ymin = tile_height - 1
     if int(obj_ymax) >= tile_height:
         obj_ymax = tile_height - 1
-    
+   
+    if int(obj_xmin) < 0:
+        obj_xmin = 0
+    if int(obj_xmax) < 0:
+        obj_xmax = 0
+    if int(obj_ymin) < 0:
+        obj_ymin = 0
+    if int(obj_ymax) < 0:
+        obj_ymax = 0
+        
     return [obj_xmin, obj_ymin, obj_xmax, obj_ymax]
 
 
@@ -242,11 +251,9 @@ def merge_predicted_bboxes(results_df, dist_limit = 5):
                 max_conf_idx = np.argmax(conf)
                 max_conf_class = class_name_merge[max_conf_idx]
 
-
                 class_names[i] = max_conf_class
                 confidences[i] = np.mean(conf)
 
-                conf
                 #delete previous text 
                 del class_names[j],  confidences[j], tile_names[j]
     return pd.DataFrame({"confidence":confidences, "class_name": class_names,

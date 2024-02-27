@@ -34,11 +34,11 @@ python /hpc/home/csr33/ast_object_detection/src/tilename_chunk.py --num_chunks $
 #rm -rf $prediction_dir/*
 predict_jobname="predict"
 predict_script="/hpc/home/csr33/ast_object_detection/bash/predict.sh"
-predict_job_id=$(sbatch  --array=39-$n_arrays --job-name $predict_jobname --output $output_dir/$predict_jobname/$predict_jobname"_%a.out" --error $error_dir/$predict_jobname/$predict_jobname"_%a.err" --export=imgsz=$imgsz,model_path=$model_path,prediction_dir=$prediction_dir,tile_dir=$tile_dir,tilename_chunks_path=$tilename_chunks_path,img_dir=$img_dir $predict_script | awk '{print $4}')
+predict_job_id=$(sbatch  --array=556,402,905,697,301 --job-name $predict_jobname --output $output_dir/$predict_jobname/$predict_jobname"_%a.out" --error $error_dir/$predict_jobname/$predict_jobname"_%a.err" --export=imgsz=$imgsz,model_path=$model_path,prediction_dir=$prediction_dir,tile_dir=$tile_dir,tilename_chunks_path=$tilename_chunks_path,img_dir=$img_dir $predict_script | awk '{print $4}')
 
 height_estimation_jobname="height_estimation"
 height_estimation_script="/hpc/home/csr33/ast_object_detection/bash/height_estimation.sh"
-height_estimation_job_id=$(sbatch --array=0-444 --job-name $height_estimation_jobname --output $output_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.out" --error $error_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.err" --export=prediction_dir=$prediction_dir,height_estimation_dir=$height_estimation_dir,collection=$collection,backoff_factor=$backoff_factor,max_retries=$max_retries $height_estimation_script | awk '{print $4}')
+height_estimation_job_id=$(sbatch --array=556,402,905,697,301 --job-name $height_estimation_jobname --output $output_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.out" --error $error_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.err" --export=prediction_dir=$prediction_dir,height_estimation_dir=$height_estimation_dir,collection=$collection,backoff_factor=$backoff_factor,max_retries=$max_retries $height_estimation_script | awk '{print $4}')
 #--dependency=aftercorr:$predict_job_id 
 
 
@@ -46,4 +46,4 @@ height_estimation_job_id=$(sbatch --array=0-444 --job-name $height_estimation_jo
 complete_predicted_data_dir="/hpc/group/borsuklab/csr33/object_detection/complete_predicted_data"
 chemical_data_jobname="add_chemical_data"
 chemical_data_script="/hpc/home/csr33/ast_object_detection/bash/add_chemical_data.sh" 
-chemical_data_job_id=$(sbatch --array=0-$n_arrays --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.err" --export=height_estimation_dir=$height_estimation_dir,complete_predicted_data_dir=$complete_predicted_data_dir,tri_with_sg_path=$tri_with_sg_path $chemical_data_script | awk '{print $4}')
+chemical_data_job_id=$(sbatch --array=0-10 --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.err" --export=height_estimation_dir=$height_estimation_dir,complete_predicted_data_dir=$complete_predicted_data_dir,tri_with_sg_path=$tri_with_sg_path $chemical_data_script | awk '{print $4}')

@@ -286,6 +286,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -319,24 +320,43 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -346,6 +366,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -355,6 +376,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -371,6 +393,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -618,6 +641,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -670,6 +694,7 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
+<class 'pystac_client.exceptions.APIError'>
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
@@ -705,4 +730,4 @@ Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/prediction
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
 Namespace(prediction_dir='/hpc/group/borsuklab/csr33/object_detection/predictions', height_estimation_dir='/hpc/group/borsuklab/csr33/object_detection/height_estimation', collection='3dep-lidar-hag', chunk_id=115, backoff_factor=10.0, max_retries=10)
-120.87706017494202
+1829.84552693367

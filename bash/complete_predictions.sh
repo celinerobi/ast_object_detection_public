@@ -34,16 +34,16 @@ python /hpc/home/csr33/ast_object_detection/src/tilename_chunk.py --num_chunks $
 #rm -rf $prediction_dir/*
 predict_jobname="predict"
 predict_script="/hpc/home/csr33/ast_object_detection/bash/predict.sh"
-predict_job_id=$(sbatch  --array=723,715,850,816,681,639,704,806,672,750,857,697,745,845,686,710,663,811,693,798,732,739 --job-name $predict_jobname --output $output_dir/$predict_jobname/$predict_jobname"_%a.out" --error $error_dir/$predict_jobname/$predict_jobname"_%a.err" --export=imgsz=$imgsz,model_path=$model_path,prediction_dir=$prediction_dir,tile_dir=$tile_dir,tilename_chunks_path=$tilename_chunks_path,img_dir=$img_dir $predict_script | awk '{print $4}')
+predict_job_id=$(sbatch  --array=0-$n_arrays --job-name $predict_jobname --output $output_dir/$predict_jobname/$predict_jobname"_%a.out" --error $error_dir/$predict_jobname/$predict_jobname"_%a.err" --export=imgsz=$imgsz,model_path=$model_path,prediction_dir=$prediction_dir,tile_dir=$tile_dir,tilename_chunks_path=$tilename_chunks_path,img_dir=$img_dir $predict_script | awk '{print $4}')
 
 height_estimation_jobname="height_estimation"
 height_estimation_script="/hpc/home/csr33/ast_object_detection/bash/height_estimation.sh"
-height_estimation_job_id=$(sbatch --array=443-$n_arrays --job-name $height_estimation_jobname --output $output_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.out" --error $error_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.err" --export=prediction_dir=$prediction_dir,height_estimation_dir=$height_estimation_dir,collection=$collection,backoff_factor=$backoff_factor,max_retries=$max_retries $height_estimation_script | awk '{print $4}')
+height_estimation_job_id=$(sbatch --array=270,930,877,628 --job-name $height_estimation_jobname --output $output_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.out" --error $error_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.err" --export=prediction_dir=$prediction_dir,height_estimation_dir=$height_estimation_dir,collection=$collection,backoff_factor=$backoff_factor,max_retries=$max_retries $height_estimation_script | awk '{print $4}')
 #--dependency=aftercorr:$predict_job_id 
 
+python /hpc/home/csr33/ast_object_detection/src/compile_predictions.py --detect_tank_dir "/hpc/group/borsuklab/csr33/object_detection/height_estimation"
 
-
-complete_predicted_data_dir="/hpc/group/borsuklab/csr33/object_detection/complete_predicted_data"
+tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
 chemical_data_jobname="add_chemical_data"
 chemical_data_script="/hpc/home/csr33/ast_object_detection/bash/add_chemical_data.sh" 
-chemical_data_job_id=$(sbatch --array=0-10 --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.err" --export=height_estimation_dir=$height_estimation_dir,complete_predicted_data_dir=$complete_predicted_data_dir,tri_with_sg_path=$tri_with_sg_path $chemical_data_script | awk '{print $4}')
+sbatch --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.err" --export=compile_data_path="/hpc/group/borsuklab/csr33/object_detection/compiled_predicted_tank.geojson",tri_with_sg_path=$tri_with_sg_path $chemical_data_script
