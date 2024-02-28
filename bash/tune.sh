@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=gpu-common
-#SBATCH --mem=100GB # Memory per node. 5 GB
+#SBATCH --mem=80GB # Memory per node. 5 GB
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:1 # Number of GPUs per node
 #SBATCH --cpus-per-task=10
@@ -12,4 +12,4 @@ source /hpc/home/csr33/miniconda3/etc/profile.d/conda.sh
 conda activate /hpc/group/borsuklab/cred/.conda/envs/yolov8
 
 #export COMET_API_KEY=CwpWEkJDRJc0rY57WYgoDuJvp
-python /hpc/home/csr33/ast_object_detection/src/tune.py --data "/hpc/home/csr33/ast_object_detection/ast.yaml" --model "yolov8n.pt" --workers 8 --iterations 100 --epochs 20 --optimizer "AdamW"
+python /hpc/home/csr33/ast_object_detection/src/tune.py --data "/hpc/home/csr33/ast_object_detection/ast.yaml" --model "yolov8n.pt" --workers 5 --iterations 100 --epochs 30 --optimizer "auto"

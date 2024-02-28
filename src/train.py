@@ -12,7 +12,7 @@ def get_args_parse():
     parser.add_argument("--imgsz", default=640, type=int)
     parser.add_argument("--epochs", default=300, type=int)
     parser.add_argument("--workers", default=8, type=int)
-    parser.add_argument("--optimizer", default="AdamW", type=str)
+    parser.add_argument("--optimizer", default="auto", type=str)
 
     parser.add_argument("--name", type=str)
     parser.add_argument("--project_name", default="/work/csr33/object_detection", type=str)

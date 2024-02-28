@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 89, in <module>
+    sg(args)
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 55, in sg
+    detected_tanks = gpd.read_parquet(args.compile_data_path)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/arrow.py", line 604, in _read_parquet
+    table = parquet.read_table(path, columns=columns, filesystem=filesystem, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/parquet/core.py", line 1776, in read_table
+    dataset = ParquetDataset(
+              ^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/pyarrow/parquet/core.py", line 1343, in __init__
+    [fragment], schema=schema or fragment.physical_schema,
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/_dataset.pyx", line 1367, in pyarrow._dataset.Fragment.physical_schema.__get__
+  File "pyarrow/error.pxi", line 154, in pyarrow.lib.pyarrow_internal_check_status
+  File "pyarrow/error.pxi", line 91, in pyarrow.lib.check_status
+pyarrow.lib.ArrowInvalid: Could not open Parquet input source '/hpc/group/borsuklab/csr33/object_detection/compiled_predicted_tank.geojson': Parquet magic bytes not found in footer. Either the file is corrupted or this is not a parquet file.

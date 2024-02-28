@@ -55,7 +55,7 @@ def sg(args):
     detected_tanks = gpd.read_file(args.compile_data_path)
 
     # Read in tri data #/work/csr33/spatial_matching/tri/
-    tri_sg = gpd.read_file(args.tri_with_sg_path)
+    tri_sg = gpd.read_parquet(args.tri_with_sg_path)
 
     # Create a BallTree for quick nearest neighbor lookup
     btree = BallTree(tri_sg.geometry.apply(lambda x: (x.x, x.y)).tolist()) 

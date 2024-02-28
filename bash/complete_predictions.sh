@@ -28,6 +28,11 @@ tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
 backoff_factor=10
 max_retries=10
 
+compiled_data_path="/hpc/group/borsuklab/csr33/object_detection/compiled_predicted_tank.geojson"
+tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
+
+
+
 python /hpc/home/csr33/ast_object_detection/src/tilename_chunk.py --num_chunks $num_chunks --tile_dir $tile_dir --tilename_chunks_path $tilename_chunks_path
 #sleep 5
 
@@ -41,9 +46,12 @@ height_estimation_script="/hpc/home/csr33/ast_object_detection/bash/height_estim
 height_estimation_job_id=$(sbatch --array=270,930,877,628 --job-name $height_estimation_jobname --output $output_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.out" --error $error_dir/$height_estimation_jobname/$height_estimation_jobname"_%a.err" --export=prediction_dir=$prediction_dir,height_estimation_dir=$height_estimation_dir,collection=$collection,backoff_factor=$backoff_factor,max_retries=$max_retries $height_estimation_script | awk '{print $4}')
 #--dependency=aftercorr:$predict_job_id 
 
-python /hpc/home/csr33/ast_object_detection/src/compile_predictions.py --detect_tank_dir "/hpc/group/borsuklab/csr33/object_detection/height_estimation"
 
-tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
-chemical_data_jobname="add_chemical_data"
-chemical_data_script="/hpc/home/csr33/ast_object_detection/bash/add_chemical_data.sh" 
-sbatch --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname/$chemical_data_jobname"_%a.err" --export=compile_data_path="/hpc/group/borsuklab/csr33/object_detection/compiled_predicted_tank.geojson",tri_with_sg_path=$tri_with_sg_path $chemical_data_script
+compile_script="/hpc/home/csr33/ast_object_detection/bash/compile.sh"
+compile_jobname="compile"
+compile_job_id=$(sbatch --job-name $compile_jobname --output $output_dir/$compile_jobname"_%a.out" --error $error_dir/$compile_jobname"_%a.err" --export=compiled_data_path=$compiled_data_path,detect_tank_dir=$height_estimation_dir $compile_script | awk '{print $4}')
+
+
+#chemical_data_jobname="add_chemical_data"
+#chemical_data_script="/hpc/home/csr33/ast_object_detection/bash/add_chemical_data.sh" 
+#sbatch --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname"_%a.err" --export=compiled_data_path=$compiled_data_path,tri_with_sg_path=$tri_with_sg_path $chemical_data_script

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 89, in <module>
+    sg(args)
+  File "/hpc/home/csr33/ast_object_detection/src/add_chemical_data.py", line 84, in sg
+    detected_tanks.to_file(args.compile_data_path) 
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/geodataframe.py", line 1246, in to_file
+    _to_file(self, filename, driver, schema, index, **kwargs)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/file.py", line 633, in _to_file
+    _to_file_fiona(df, filename, driver, schema, crs, mode, **kwargs)
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/geopandas/io/file.py", line 664, in _to_file_fiona
+    colxn.writerecords(df.iterfeatures())
+  File "/hpc/group/borsuklab/cred/.conda/envs/yolov8/lib/python3.11/site-packages/fiona/collection.py", line 558, in writerecords
+    self.session.writerecs(records, self)
+  File "fiona/ogrext.pyx", line 1409, in fiona.ogrext.WritingSession.writerecs
+  File "fiona/ogrext.pyx", line 514, in fiona.ogrext.OGRFeatureBuilder.build
+ValueError: Invalid field type <class 'numpy.ndarray'>
