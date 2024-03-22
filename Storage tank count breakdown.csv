@@ -1,0 +1,8 @@
+﻿Number of Aboveground Storage Tank Annotations,Dataset,Storage tank class
+655,NWPU VHR-10 ,Combined class
+4654,"Bernier et. al, 2017","open, fixed, and floating roof tanks"
+5820,Oil and Gas (Kaggle),External floating roof tank
+8000,DOTA 1.5,Combined class
+9500,ISAID,Combined class
+13592,Airbus Oil Storage Detection,Combined class
+132504,"Robinson et. al, 2024","Closed roof tank, external floating roof tank, and spherical tank"
