@@ -10,12 +10,12 @@ source /hpc/home/csr33/miniconda3/etc/profile.d/conda.sh
 conda activate /hpc/group/borsuklab/cred/.conda/envs/yolov8
 
 
-#chunked_naip_data_dir="/work/csr33/images_for_predictions/chunked_naip_data"
-#chunked_naip_data_filename="chunked_naip_data"
-#rm -rf $chunked_naip_data_dir/*
-#identify_naip_script="/hpc/home/csr33/ast_object_detection/bash/naip_in_slosh.sh"
-#identify_naip_jobname="identify_naip"
-#identify_naip_job_id=$(sbatch --job-name $identify_naip_jobname --output $output_dir/$identify_naip_jobname".out" --error  $error_dir/$identify_naip_jobname".err" --export=num_chunks=$num_chunks,chunked_naip_data_dir=$chunked_naip_data_dir,chunked_naip_data_filename=$chunked_naip_data_filename $identify_naip_script | awk '{print $4}')
+chunked_naip_data_dir="/work/csr33/images_for_predictions/chunked_naip_data"
+chunked_naip_data_filename="chunked_naip_data"
+rm -rf $chunked_naip_data_dir/*
+identify_naip_script="/hpc/home/csr33/ast_object_detection/bash/naip_in_slosh.sh"
+identify_naip_jobname="identify_naip"
+identify_naip_job_id=$(sbatch --job-name $identify_naip_jobname --output $output_dir/$identify_naip_jobname".out" --error  $error_dir/$identify_naip_jobname".err" --export=num_chunks=$num_chunks,chunked_naip_data_dir=$chunked_naip_data_dir,chunked_naip_data_filename=$chunked_naip_data_filename $identify_naip_script | awk '{print $4}')
 
 
 ntasks=1
