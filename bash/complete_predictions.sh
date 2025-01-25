@@ -23,13 +23,11 @@ img_dir="/hpc/group/borsuklab/csr33/object_detection/imgs"
 tile_dir="/hpc/group/borsuklab/csr33/object_detection/naip_tiles"
 tilename_chunks_path="/hpc/home/csr33/ast_object_detection/tilename_chunks.npz"
 collection="3dep-lidar-hag"
-tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
 
 backoff_factor=10
 max_retries=10
 
 compiled_data_path="/hpc/group/borsuklab/csr33/object_detection/compiled_predicted_tank.geojson"
-tri_with_sg_path="/hpc/home/csr33/tri_with_specific_gravity.parquet"
 
 
 
@@ -50,8 +48,3 @@ height_estimation_job_id=$(sbatch --array=270,930,877,628 --job-name $height_est
 compile_script="/hpc/home/csr33/ast_object_detection/bash/compile.sh"
 compile_jobname="compile"
 compile_job_id=$(sbatch --job-name $compile_jobname --output $output_dir/$compile_jobname"_%a.out" --error $error_dir/$compile_jobname"_%a.err" --export=compiled_data_path=$compiled_data_path,detect_tank_dir=$height_estimation_dir $compile_script | awk '{print $4}')
-
-
-#chemical_data_jobname="add_chemical_data"
-#chemical_data_script="/hpc/home/csr33/ast_object_detection/bash/add_chemical_data.sh" 
-#sbatch --job-name $chemical_data_jobname --output $output_dir/$chemical_data_jobname"_%a.out" --error $error_dir/$chemical_data_jobname"_%a.err" --export=compiled_data_path=$compiled_data_path,tri_with_sg_path=$tri_with_sg_path $chemical_data_script
