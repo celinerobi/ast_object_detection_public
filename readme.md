@@ -6,11 +6,10 @@ The model is applied to detect ASTs in areas prone to storm surge.
 3. The `train.sh` script trains the yolov8 model.
 4. The `val.sh` script validates the model. 
 5. The `obtain_aerial_imagery.sh` script is used to download and process aerial imagery in the case study area for prediction.  
-- **Extracting Data in the Study Area (`naip_in_slosh.sh`)**: Extracts imagery data relevant to the defined study area to narrow the focus for prediction.  
-- **Downloading Data for Prediction (`download.sh`)**: Downloads aerial imagery data from Microsoft Planetary Computer.
-- **Chipping Tiles into Smaller Images for Prediction (`chip_tiles.sh`)**: Divides large imagery tiles into smaller, manageable images that meet the input requirements for the prediction model.  
-6. Prediction Pipeline
-Run predictions for AST detection in the study area using the complete_prediction.sh script. This script orchestrates the full prediction workflow, including:
-- **Running Predictions (`predict.sh`)**: Performing object detection on batched images.
-- **Estimating Tank Heights (`height_estimation.sh`)**: Calculates the height of detected objects using LiDAR.
-- **Compiling Predictions (`compile_predictions.sh`)**: Cleaning and merging prediction results into a complete dataset.
+    - *Extracting Data in the Study Area (`naip_in_slosh.sh`)*: Extracts imagery data relevant to the defined study area to narrow the focus for prediction.  
+    - *Downloading Data for Prediction (`download.sh`)*: Downloads aerial imagery data from Microsoft Planetary Computer.
+    - *Chipping Tiles into Smaller Images for Prediction (`chip_tiles.sh`)*: Divides large imagery tiles into smaller, manageable images that meet the input requirements for the prediction model.  
+6. The complete_prediction.sh script runs predictions for AST detection in the study area.
+    - *Running Predictions (`predict.sh`)*: Performing object detection on batched images.
+    - *Estimating Tank Heights (`height_estimation.sh`)*: Calculates the height of detected objects using LiDAR.
+    - *Compiling Predictions (`compile_predictions.sh`)*: Cleaning and merging prediction results into a complete dataset.
